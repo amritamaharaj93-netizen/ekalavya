@@ -10,9 +10,9 @@ if ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['SERVER_ADDR'] == '127.0.0.
 } else {
     // Hostinger Live Settings
     define("DB_HOST", "localhost");
-    define("DB_USER", "u769307048_eklavya");
+    define("DB_USER", "u769307048_ek");
     define("DB_PASS", "KunalGW@1411");
-    define("DB_NAME", "u769307048_eklavya");
+    define("DB_NAME", "u769307048_ek");
 }
 
 try {
