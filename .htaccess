@@ -1,0 +1,20 @@
+RewriteEngine On
+RewriteBase /ek/
+
+# Exclude admin directory and physical files/directories from rewriting
+RewriteRule ^admin(/|$) - [L]
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Remove .php from URL
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.php [NC]
+RewriteRule ^ %1 [R=301,L]
+
+# Redirect /index to /
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s(.*/)index [NC]
+RewriteRule ^ %1 [R=301,L]
+
+# Internal mapping to .php files
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [NC,L]
