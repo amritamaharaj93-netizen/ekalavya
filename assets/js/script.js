@@ -3,39 +3,55 @@
     console.log('Eklavya Academy JS Initializing...');
 
     function initScripts() {
-        // Initialize Hero Carousel
-        var heroCarouselEl = document.getElementById('heroCarousel');
-        if (heroCarouselEl && typeof bootstrap !== 'undefined') {
+
+        // Initialize Premium Hero Slider (Index Page)
+        if (document.querySelector('.mainHeroSwiper') && typeof Swiper !== 'undefined') {
             try {
-                // Ensure we don't double-initialize
-                var existingCarousel = bootstrap.Carousel.getInstance(heroCarouselEl);
-                if (!existingCarousel) {
-                    var heroCarousel = new bootstrap.Carousel(heroCarouselEl, {
-                        interval: 5000,
-                        ride: 'carousel',
-                        pause: false
+                if (!document.querySelector('.mainHeroSwiper').swiper) {
+                    new Swiper('.mainHeroSwiper', {
+                        loop: true,
+                        speed: 1200,
+                        effect: 'fade',
+                        fadeEffect: { crossFade: true },
+                        autoplay: {
+                            delay: 5000,
+                            disableOnInteraction: false,
+                        },
+                        pagination: {
+                            el: '.mainHeroSwiper .swiper-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: '.mainHeroSwiper .swiper-button-next',
+                            prevEl: '.mainHeroSwiper .swiper-button-prev',
+                        },
                     });
-
-                    // Reactivate CSS animations on slide transition
-                    heroCarouselEl.addEventListener('slide.bs.carousel', function (e) {
-                        var nextSlide = e.relatedTarget;
-                        if (!nextSlide) return;
-                        var animatedElements = nextSlide.querySelectorAll('.rev-anim-left');
-                        
-                        animatedElements.forEach(function(el) {
-                            var originalAnimation = window.getComputedStyle(el).animation;
-                            el.style.animation = 'none';
-                            void el.offsetWidth; // Trigger reflow
-                            el.style.animation = null;
-                        });
-                    });
-
-                    heroCarousel.cycle();
                 }
-            } catch(e) {
-                console.error("Hero Carousel Init Error: ", e);
-            }
+            } catch(e) { console.error("Hero Swiper Error: ", e); }
         }
+
+        // Initialize Enquiry Promo Slider
+        if (document.querySelector('.enquirySlider') && typeof Swiper !== 'undefined') {
+            try {
+                if (!document.querySelector('.enquirySlider').swiper) {
+                    new Swiper('.enquirySlider', {
+                        loop: true,
+                        speed: 1000,
+                        effect: 'fade',
+                        fadeEffect: { crossFade: true },
+                        autoplay: {
+                            delay: 4000,
+                            disableOnInteraction: false,
+                        },
+                        pagination: {
+                            el: '.enquiry-pagination',
+                            clickable: true,
+                        },
+                    });
+                }
+            } catch(e) { console.error("Enquiry Swiper Error: ", e); }
+        }
+
 
         // Initialize Wall of Fame (Toppers) Slider
         if (document.querySelector('.toppersSwiper') && typeof Swiper !== 'undefined') {
@@ -77,6 +93,39 @@
                 }
             } catch(e) { console.error("Testimonial Swiper Error: ", e); }
         }
+
+        // Initialize Faculty Slider (About Page)
+        if (document.querySelector('.facultySwiper') && typeof Swiper !== 'undefined') {
+            try {
+                if (!document.querySelector('.facultySwiper').swiper) {
+                    new Swiper('.facultySwiper', {
+                        slidesPerView: 1,
+                        spaceBetween: 30,
+                        loop: true,
+                        autoplay: { delay: 4000, disableOnInteraction: false },
+                        pagination: { el: '.facultySwiper .swiper-pagination', clickable: true },
+                        breakpoints: {
+                            576: { slidesPerView: 2 },
+                            992: { slidesPerView: 3 },
+                            1200: { slidesPerView: 4 }
+                        }
+                    });
+                }
+            } catch(e) { console.error("Faculty Swiper Error: ", e); }
+        }
+
+        // Auto-show Registration Modal after 5 seconds
+        setTimeout(function() {
+            var registrationModal = document.getElementById('registrationPopupModal');
+            if (registrationModal && !sessionStorage.getItem('registrationModalShown')) {
+                // Ensure bootstrap is available
+                if (typeof bootstrap !== 'undefined') {
+                    var modalInstance = new bootstrap.Modal(registrationModal);
+                    modalInstance.show();
+                    sessionStorage.setItem('registrationModalShown', 'true');
+                }
+            }
+        }, 5000);
     }
 
     // Robust Initialization: fire immediately if DOM is ready, otherwise listen for events.

@@ -1,18 +1,22 @@
 <?php
 // config/database.php
 
-if ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['SERVER_ADDR'] == '127.0.0.1') {
+if (php_sapi_name() == 'cli' || (isset($_SERVER['HTTP_HOST']) && ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['SERVER_ADDR'] == '127.0.0.1'))) {
     // Local Settings (XAMPP)
     define("DB_HOST", "localhost");
     define("DB_USER", "root");
     define("DB_PASS", "");
-    define("DB_NAME", "eklavya_academy");
+    define("DB_NAME", "ek");
+    define("BASE_URL", "/eklavya/");
+    define("SITE_URL", "http://localhost/eklavya/");
 } else {
     // Hostinger Live Settings
     define("DB_HOST", "localhost");
     define("DB_USER", "u769307048_ek");
     define("DB_PASS", "KunalGW@1411");
     define("DB_NAME", "u769307048_ek");
+    define("BASE_URL", "/");
+    define("SITE_URL", "https://eklavya-academy.com/"); // Placeholder, usually the domain
 }
 
 try {

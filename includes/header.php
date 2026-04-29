@@ -1,11 +1,43 @@
+<?php 
+include_once 'config/database.php'; 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// SEO Logic
+$current_page = basename($_SERVER['PHP_SELF'], ".php");
+$seo_title = "Ekalavya | Proven Results in IIT-JEE & NEET";
+$seo_desc = "Ekalavya is a premier offline coaching institute for IIT-JEE, NEET, and School Prep in Patna and Gaya. Achieve your dreams with our expert faculty and result-oriented approach.";
+
+if ($current_page == 'courses' || $current_page == 'classroom-courses') {
+    $seo_title = "Classroom Courses & Programs | Ekalavya NEET & IIT-JEE";
+    $seo_desc = "Browse our premium classroom programs for IIT-JEE, NEET, and School Prep. Result-oriented offline coaching available in Patna and Gaya.";
+} elseif ($current_page == 'scholarship') {
+    $seo_title = "Ekalavya Scholarship Program 2026 | Up to 100% Scholarship";
+    $seo_desc = "Register for the Ekalavya Scholarship Admission Test (ESAT) 2026. Avail up to 100% scholarship for NEET, IIT-JEE and School Prep (Class 7th-12th) classroom programs.";
+} elseif ($current_page == 'test-series') {
+    $seo_title = "AITS Test Series & Mock Exams | Ekalavya";
+    $seo_desc = "Enroll in our All India Test Series (AITS) and mock examinations designed for precise national-level benchmarking for NEET and IIT-JEE.";
+} elseif ($current_page == 'study-material') {
+    $seo_title = "Knowledge Assets & Study Material | Ekalavya";
+    $seo_desc = "Download exclusive study modules, notes, and revision practice sheets for physics, chemistry, biology, and mathematics.";
+} elseif ($current_page == 'about') {
+    $seo_title = "About Ekalavya | India's Leading Institute";
+    $seo_desc = "Learn about Ekalavya's proven academic methodologies, expert faculty, and mission to deliver exceptional results in medical and engineering exams.";
+} elseif ($current_page == 'contact') {
+    $seo_title = "Contact Us | Ekalavya Admission Enquiry";
+    $seo_desc = "Get in touch with Ekalavya. Find our head office locations in Patna and Gaya, WhatsApp helpline, and admission details.";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eklavya Academy | Proven Results in IIT-JEE & NEET</title>
-    <meta name="description" content="Eklavya Academy is a premier offline coaching institute for IIT-JEE, NEET, and Foundation courses in Patna and Gaya. Achieve your dreams with our expert faculty and result-oriented approach.">
-    <meta name="keywords" content="IIT-JEE, NEET, Foundation, Coaching, Patna, Gaya, Eklavya Academy, Offline Coaching">
+    <title><?php echo $seo_title; ?></title>
+    <meta name="description" content="<?php echo $seo_desc; ?>">
+    <meta name="keywords" content="IIT-JEE, NEET, School Prep (Class 7th-12th), Coaching, Patna, Gaya, Ekalavya Academy, Offline Coaching">
+    <link rel="icon" type="image/png" href="<?php echo BASE_URL; ?>assets/images/favicon_new.png">
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,102 +49,174 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
     <!-- Custom Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/premium.css?v=<?php echo time(); ?>">
 </head>
 <body>
 
     <!-- Main Header -->
     <header class="main-header sticky-top bg-white">
         <!-- Top Utility Bar (Desktop Only) -->
-        <div class="top-utility-bar d-none d-lg-block py-2">
+        <div class="top-utility-bar d-none d-lg-block py-1">
             <div class="container d-flex justify-content-between align-items-center">
                 <div class="top-info small text-white">
                     <span class="me-4"><i class="fas fa-phone-alt me-2"></i> 9934244522</span>
-                    <span><i class="fas fa-envelope me-2"></i> info.ekalavya@gmail.com</span>
+                    <span><i class="fas fa-envelope me-2"></i> info.ekalavyaeducation@gmail.com</span>
                 </div>
                 <div class="top-socials small">
                     <a href="https://www.instagram.com/ekalavya.education/" target="_blank" class="text-white mx-3 opacity-75 hover-opacity-100"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-white mx-3 opacity-75 hover-opacity-100"><i class="fab fa-facebook-f"></i></a>
                     <span class="ms-4 text-white"><i class="fas fa-map-marker-alt me-2 text-white opacity-75"></i> Patna | Gaya</span>
                 </div>
             </div>
         </div>
 
-        <!-- Main Navigation Bar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm">
-            <div class="container">
-                <!-- Logo -->
-                <a class="navbar-brand py-0" href="./">
-    <img src="assets/images/logo.png" alt="Eklavya Academy" height="70">
-</a>
+<?php
+// Intelligent Menu Aggregation Logic
+$nav_scholarships = []; $nav_courses = []; $nav_study = []; $nav_tests = [];
+try {
+    // Fetch top 5 items with slugs to keep menu compact and SEO friendly
+    $nav_courses = $pdo->query("SELECT id, title, slug FROM courses ORDER BY title ASC LIMIT 5")->fetchAll();
+    $nav_scholarships = $pdo->query("SELECT id, title, slug FROM scholarship_programs ORDER BY created_at DESC LIMIT 5")->fetchAll();
+    $nav_study = $pdo->query("SELECT id, title, slug FROM study_material ORDER BY created_at DESC LIMIT 5")->fetchAll();
+    $nav_tests = $pdo->query("SELECT id, title, slug FROM test_series ORDER BY created_at DESC LIMIT 5")->fetchAll();
+} catch (PDOException $e) { /* Critical fallback suppressed */ }
+?>
 
-<!-- Mobile Toggler -->
-<button class="navbar-toggler border-0 shadow-none d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
-    <span class="navbar-toggler-icon"></span>
-</button>
+        <!-- Main Navigation Bar -->
+        <nav class="navbar navbar-expand-xl navbar-light bg-white py-1 shadow-sm">
+            <div class="container-fluid px-3 px-xxl-5">
+                <!-- Logo -->
+                <a class="navbar-brand py-0 me-xl-1 me-xxl-3" href="<?php echo BASE_URL; ?>">
+                    <img src="<?php echo BASE_URL; ?>assets/images/logo.png" alt="Ekalavya" class="logo-main">
+                </a>
+
+                <!-- Mobile Scholarship Button (Center) -->
+                <a href="<?php echo BASE_URL; ?>scholarship.php" class="btn-header-pill btn-header-scholarship d-xl-none mx-auto px-2 py-1 shadow-sm">
+                    <i class="fas fa-graduation-cap me-1"></i> Scholarship
+                </a>
+
+                <!-- Mobile Toggler -->
+                <button class="navbar-toggler border-0 shadow-none d-xl-none ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
 <!-- Desktop Menu -->
 <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav mx-auto">
-        <!-- Courses Dropdown -->
+    <ul class="navbar-nav mx-auto gap-xl-0 gap-xxl-3">
+        <!-- Classroom Courses Dropdown -->
         <li class="nav-item dropdown">
-            <a class="nav-link px-3 text-uppercase dropdown-toggle" style="font-size: 0.9rem;" href="courses.php" id="coursesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Courses
+            <a class="nav-link px-xl-1 px-xxl-3 text-capitalize d-flex align-items-center text-nowrap" href="<?php echo BASE_URL; ?>classroom-courses">
+                Classroom Courses <i class="fas fa-chevron-down ms-1 ms-xxl-2 small opacity-50"></i>
             </a>
-            <ul class="dropdown-menu border-0 shadow-lg p-3" aria-labelledby="coursesDropdown">
-                <li><a class="dropdown-item py-2 px-3 rounded-3" href="courses.php#foundational"><i class="fas fa-layer-group me-2 opacity-50"></i> Foundational (7th-10th)</a></li>
-                <li><a class="dropdown-item py-2 px-3 rounded-3" href="courses.php#iitjee"><i class="fas fa-atom me-2 opacity-50"></i> IIT-JEE (Mains & Adv)</a></li>
-                <li><a class="dropdown-item py-2 px-3 rounded-3" href="courses.php#neetug"><i class="fas fa-user-md me-2 opacity-50"></i> NEET-UG (Medical)</a></li>
+            <ul class="dropdown-menu border-0 shadow-lg p-3">
+                <li class="dropdown-item py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                    <span><i class="fas fa-certificate me-2 opacity-50"></i> NEET (Medical)</span>
+                    <i class="fas fa-chevron-right small opacity-50"></i>
+                    <ul class="dropdown-submenu list-unstyled m-0">
+                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=NURTURE">NURTURE (Class XI)</a></li>
+                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=EMERGE">EMERGE (Class XII)</a></li>
+                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=IMPULSE">IMPULSE (Dropper)</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown-item py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                    <span><i class="fas fa-gear me-2 opacity-50"></i> IIT-JEE (Engg.)</span>
+                    <i class="fas fa-chevron-right small opacity-50"></i>
+                    <ul class="dropdown-submenu list-unstyled m-0">
+                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>courses.php?category=IIT-JEE&type=NURTURE">NURTURE (Class XI)</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown-item py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                    <span><i class="fas fa-school me-2 opacity-50"></i> School Prep (Class 7th-12th)</span>
+                    <i class="fas fa-chevron-right small opacity-50"></i>
+                    <ul class="dropdown-submenu list-unstyled m-0">
+                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=8">Class 8th Standard</a></li>
+                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=9">Class 9th Standard</a></li>
+                    </ul>
+                </li>
+                <li><hr class="dropdown-divider opacity-10"></li>
+                <li><a class="dropdown-item py-2 px-3 rounded-3 fw-bold text-primary" href="<?php echo BASE_URL; ?>classroom-courses.php"><i class="fas fa-chalkboard-teacher me-2"></i> Classroom Programs</a></li>
+                <li><a class="dropdown-item py-2 px-3 rounded-3 fw-bold text-primary" href="<?php echo BASE_URL; ?>courses.php">Browse All Courses</a></li>
             </ul>
         </li>
-        
+
+        <li class="nav-item dropdown">
+            <a class="nav-link px-xl-1 px-xxl-3 text-capitalize d-flex align-items-center text-nowrap" href="<?php echo BASE_URL; ?>test-series.php">
+                Test Series <i class="fas fa-chevron-down ms-1 ms-xxl-2 small opacity-50"></i>
+            </a>
+            <ul class="dropdown-menu border-0 shadow-lg p-3">
+                <li class="dropdown-item py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                    <span><i class="fas fa-vial me-2 opacity-50"></i> AITS (NEET)</span>
+                    <i class="fas fa-chevron-right small opacity-50"></i>
+                    <ul class="dropdown-submenu list-unstyled m-0">
+                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>test-series.php?category=NEET&type=FullLength">Full Length Mock</a></li>
+                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>test-series.php?category=NEET&type=Chapterwise">Chapter-wise Test</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown-item py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                    <span><i class="fas fa-vial me-2 opacity-50"></i> AITS (IIT-JEE)</span>
+                    <i class="fas fa-chevron-right small opacity-50"></i>
+                    <ul class="dropdown-submenu list-unstyled m-0">
+                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>test-series.php?category=IIT-JEE&type=FullLength">Full Length Mock</a></li>
+                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>test-series.php?category=IIT-JEE&type=Chapterwise">Chapter-wise Test</a></li>
+                    </ul>
+                </li>
+                <li><hr class="dropdown-divider opacity-10"></li>
+                <li><a class="dropdown-item py-2 px-3 rounded-3 fw-bold text-primary" href="<?php echo BASE_URL; ?>test-series">All Test Series</a></li>
+            </ul>
+        </li>
+
         <!-- Scholarship Dropdown -->
         <li class="nav-item dropdown">
-            <a class="nav-link px-3 text-uppercase dropdown-toggle" style="font-size: 0.9rem;" href="scholarship.php" id="scholarshipDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Scholarship
+            <a class="nav-link px-xl-1 px-xxl-3 text-capitalize d-flex align-items-center text-nowrap" href="<?php echo BASE_URL; ?>scholarship.php">
+                Scholarship <i class="fas fa-chevron-down ms-1 ms-xxl-2 small opacity-50"></i>
             </a>
-            <ul class="dropdown-menu border-0 shadow-lg p-3" aria-labelledby="scholarshipDropdown">
-                <li><a class="dropdown-item py-2 px-3 rounded-3" href="scholarship.php#esat"><i class="fas fa-edit me-2 opacity-50"></i> ESAT Exam</a></li>
-                <li><a class="dropdown-item py-2 px-3 rounded-3" href="scholarship.php#eligibility"><i class="fas fa-info-circle me-2 opacity-50"></i> Eligibility & Benefits</a></li>
-                <li><a class="dropdown-item py-2 px-3 rounded-3" href="scholarship.php#register"><i class="fas fa-user-plus me-2 opacity-50"></i> Register Now</a></li>
+            <ul class="dropdown-menu border-0 shadow-lg p-3" style="min-width: 250px;">
+                <li><a class="dropdown-item py-2 px-3 rounded-3" href="<?php echo BASE_URL; ?>scholarship-program.php"><i class="fas fa-graduation-cap me-2 opacity-50"></i> Scholarship Program</a></li>
+                <li><a class="dropdown-item py-2 px-3 rounded-3" href="<?php echo BASE_URL; ?>scholarship.php?path=esat"><i class="fas fa-file-signature me-2 opacity-50"></i> ESAT</a></li>
+                <li><a class="dropdown-item py-2 px-3 rounded-3" href="<?php echo BASE_URL; ?>scholarship.php?path=emrs"><i class="fas fa-medal me-2 opacity-50"></i> EMRS</a></li>
+                <li><hr class="dropdown-divider opacity-10"></li>
+                <li><a class="dropdown-item py-2 px-3 rounded-3 fw-bold text-primary" href="<?php echo BASE_URL; ?>scholarship.php"><i class="fas fa-edit me-2"></i> Register for ESAT 2026</a></li>
             </ul>
         </li>
 
-        <!-- Study Materials Dropdown -->
-        <li class="nav-item dropdown">
-            <a class="nav-link px-3 text-uppercase dropdown-toggle" style="font-size: 0.9rem;" href="study-material.php" id="studyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Study Materials
+        <!-- CareerPath -->
+        <li class="nav-item">
+            <a class="nav-link px-xl-1 px-xxl-3 text-capitalize fw-bold text-primary d-flex align-items-center text-nowrap" href="<?php echo BASE_URL; ?>careerpath.php">
+                CareerPath <span class="badge bg-danger ms-1" style="font-size: 0.6rem;">NEW</span>
             </a>
-            <ul class="dropdown-menu border-0 shadow-lg p-3" aria-labelledby="studyDropdown">
-                <li><a class="dropdown-item py-2 px-3 rounded-3" href="study#physics"><i class="fas fa-rocket me-2 opacity-50"></i> Physics Modules</a></li>
-                <li><a class="dropdown-item py-2 px-3 rounded-3" href="study#chemistry"><i class="fas fa-flask me-2 opacity-50"></i> Chemistry Modules</a></li>
-                <li><a class="dropdown-item py-2 px-3 rounded-3" href="study#math"><i class="fas fa-square-root-alt me-2 opacity-50"></i> Math Modules</a></li>
-                <li><a class="dropdown-item py-2 px-3 rounded-3" href="study#biology"><i class="fas fa-dna me-2 opacity-50"></i> Biology Modules</a></li>
-            </ul>
         </li>
 
-        <!-- Test Series Dropdown -->
+        <!-- Study Material Dropdown -->
         <li class="nav-item dropdown">
-            <a class="nav-link px-3 text-uppercase dropdown-toggle" style="font-size: 0.9rem;" href="test-series.php" id="testDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Test Series
+            <a class="nav-link px-xl-1 px-xxl-3 text-capitalize d-flex align-items-center text-nowrap" href="<?php echo BASE_URL; ?>study-material.php">
+                Study Material <i class="fas fa-chevron-down ms-1 ms-xxl-2 small opacity-50"></i>
             </a>
-            <ul class="dropdown-menu border-0 shadow-lg p-3" aria-labelledby="testDropdown">
-                <li><a class="dropdown-item py-2 px-3 rounded-3" href="tests#aits"><i class="fas fa-vial me-2 opacity-50"></i> All India Test Series</a></li>
-                <li><a class="dropdown-item py-2 px-3 rounded-3" href="tests#mock"><i class="fas fa-laptop-code me-2 opacity-50"></i> Mock Examinations</a></li>
-                <li><a class="dropdown-item py-2 px-3 rounded-3" href="tests#prev"><i class="fas fa-history me-2 opacity-50"></i> Previous Year Papers</a></li>
+            <ul class="dropdown-menu border-0 shadow-lg p-3">
+                <li><a class="dropdown-item py-2 px-3 rounded-3" href="<?php echo BASE_URL; ?>study-material.php?category=JEE"><i class="fas fa-atom me-2 opacity-50"></i> Jee Mains</a></li>
+                <li><a class="dropdown-item py-2 px-3 rounded-3" href="<?php echo BASE_URL; ?>study-material.php?category=NEET"><i class="fas fa-user-md me-2 opacity-50"></i> NEET</a></li>
+                <li><a class="dropdown-item py-2 px-3 rounded-3" href="<?php echo BASE_URL; ?>study-material.php?category=NCERT"><i class="fas fa-book me-2 opacity-50"></i> NCERT</a></li>
+                <li><a class="dropdown-item py-2 px-3 rounded-3" href="<?php echo BASE_URL; ?>study-material.php?category=HC-Verma"><i class="fas fa-square-root-alt me-2 opacity-50"></i> Physics/HC VERMA Solution</a></li>
+                <li><hr class="dropdown-divider opacity-10"></li>
+                <li><a class="dropdown-item py-2 px-3 rounded-3 fw-bold text-primary" href="<?php echo BASE_URL; ?>study-material.php">Browse All Vault</a></li>
             </ul>
         </li>
     </ul>
-                    <div class="nav-cta ms-lg-3 d-flex align-items-center gap-2">
-                        <a href="login" class="btn-header-pill btn-header-login">
-                            <i class="far fa-clipboard"></i> Student Portal
-                        </a>
-                        <a href="scholarship" class="btn-header-pill btn-header-scholarship">
-                            <i class="fas fa-graduation-cap"></i> Register for Scholarship Exam
-                        </a>
+                    <div class="nav-cta ms-xl-1 ms-xxl-2 d-flex align-items-center gap-1 gap-xxl-2">
+                        <?php if(isset($_SESSION['student_id'])): ?>
+                            <a href="<?php echo BASE_URL; ?>student-dashboard.php" class="btn-header-pill btn-header-login">
+                                <i class="fas fa-columns"></i> Dashboard
+                            </a>
+                        <?php else: ?>
+                            <a href="<?php echo BASE_URL; ?>student-login.php" class="btn-header-pill btn-header-login">
+                                <i class="far fa-clipboard"></i> Student Portal
+                            </a>
+                        <?php endif; ?>
+                        <a href="<?php echo BASE_URL; ?>scholarship.php" class="btn-header-pill btn-header-scholarship ms-1 ms-xxl-2">
+                        <i class="fas fa-graduation-cap"></i> Scholarship 2026
+                    </a>
                     </div>
                 </div>
             </div>
@@ -120,42 +224,56 @@
     </header>
 
     <!-- Offcanvas Mobile Menu (Mobile only) -->
-    <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div class="offcanvas offcanvas-start d-xl-none" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header border-bottom">
-            <a class="navbar-brand py-0" href="index.php">
-                <img src="assets/images/logo.png" alt="Logo" height="50">
+            <a class="navbar-brand py-0" href="<?php echo BASE_URL; ?>">
+                <img src="<?php echo BASE_URL; ?>assets/images/logo.png" alt="Logo" height="50">
             </a>
             <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body d-flex flex-column">
             <ul class="navbar-nav flex-grow-1 pe-3">
                 <li class="nav-item mb-2">
-                    <a class="nav-link" href="courses.php"><i class="fas fa-book me-2 text-primary"></i> Courses</a>
+                    <a class="nav-link" href="<?php echo BASE_URL; ?>classroom-courses.php"><i class="fas fa-chalkboard-teacher me-2 text-primary"></i> Classroom Courses</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a class="nav-link" href="scholarship.php"><i class="fas fa-graduation-cap me-2 text-primary"></i> Scholarship</a>
+                    <a class="nav-link" href="<?php echo BASE_URL; ?>test-series.php"><i class="fas fa-pen-to-square me-2 text-primary"></i> Test Series</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a class="nav-link" href="study-material.php"><i class="fas fa-file-pdf me-2 text-primary"></i> Study Materials</a>
+                    <a class="nav-link" href="<?php echo BASE_URL; ?>scholarship.php"><i class="fas fa-graduation-cap me-2 text-primary"></i> Scholarship</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a class="nav-link" href="test-series.php"><i class="fas fa-pen-to-square me-2 text-primary"></i> Test Series</a>
+                    <a class="nav-link" href="<?php echo BASE_URL; ?>careerpath.php"><i class="fas fa-route me-2 text-primary"></i> CareerPath</a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a class="nav-link" href="<?php echo BASE_URL; ?>study-material.php"><i class="fas fa-file-pdf me-2 text-primary"></i> Study Material</a>
                 </li>
             </ul>
             
             <div class="mt-auto pt-4 border-top text-center">
                 <div class="d-grid gap-3 mb-4">
-                     <a href="login.php" class="btn-header-pill btn-header-login justify-content-center py-3">
-                         <i class="far fa-clipboard"></i> Student Portal
+                     <?php if(isset($_SESSION['student_id'])): ?>
+                         <a href="<?php echo BASE_URL; ?>student-dashboard.php" class="btn-header-pill btn-header-login d-flex align-items-center px-3 py-3">
+                             <i class="fas fa-columns me-2 flex-shrink-0"></i> <span>Dashboard</span>
+                         </a>
+                     <?php else: ?>
+                         <a href="<?php echo BASE_URL; ?>student-login.php" class="btn-header-pill btn-header-login d-flex align-items-center px-3 py-3">
+                             <i class="far fa-clipboard me-2 flex-shrink-0"></i> <span>Student Portal</span>
+                         </a>
+                     <?php endif; ?>
+                     <a href="<?php echo BASE_URL; ?>scholarship.php" class="btn-header-pill btn-header-scholarship d-flex align-items-center px-3 py-3">
+                         <i class="fas fa-graduation-cap me-2 flex-shrink-0"></i> <span class="small fw-bold">Register for Scholarship Exam</span>
                      </a>
-                     <a href="scholarship.php" class="btn-header-pill btn-header-scholarship justify-content-center py-3">
-                         <i class="fas fa-graduation-cap"></i> Register for Scholarship Exam
-                     </a>
-                     <a href="tel:9934244522" class="btn btn-outline-dark py-3 rounded-pill"><i class="fas fa-phone-alt me-2 text-primary"></i> 9934244522</a>
+                     <a href="tel:9934244522" class="btn btn-outline-dark py-3 rounded-pill d-flex align-items-center px-3"><i class="fas fa-phone-alt me-2 text-primary flex-shrink-0"></i> <span>9934244522</span></a>
+                     <a href="mailto:info.ekalavyaeducation@gmail.com" class="btn btn-outline-dark py-2 rounded-pill d-flex align-items-center px-3" style="font-size: 0.75rem;"><i class="fas fa-envelope me-2 text-primary flex-shrink-0"></i> <span style="word-break: break-all; line-height: 1.2;">info.ekalavyaeducation@gmail.com</span></a>
                 </div>
-                <div class="social-links">
-                    <a href="https://www.instagram.com/ekalavya.education/" target="_blank" class="text-primary mx-2 fs-4"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-primary mx-2 fs-4"><i class="fab fa-facebook-f"></i></a>
+                <div class="d-flex justify-content-between align-items-center pt-2">
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/ekalavya.education/" target="_blank" class="text-primary fs-4"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="small text-muted fw-bold">
+                        <i class="fas fa-map-marker-alt me-2 text-primary"></i> PATNA | GAYA
+                    </div>
                 </div>
             </div>
         </div>

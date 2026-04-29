@@ -1,84 +1,193 @@
 <?php include 'includes/header.php'; ?>
 
-<!-- Hero Section: Connect with Admissions -->
-<section class="page-hero bg-primary position-relative overflow-hidden py-5 text-white">
-    <div class="container py-lg-5">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <span class="badge bg-white text-primary mb-3 px-3 py-2 rounded-pill fw-bold">CONTACT US</span>
-                <h1 class="display-3 fw-black mb-4">Start Your <span class="text-white opacity-75">Elite Journey</span></h1>
-                <p class="lead opacity-90 mb-5">Have a query about our programs, scholarship entrance exam (ESAT), or career counseling? Our admissions experts are ready to guide you at every step.</p>
-                <div class="d-flex gap-3">
-                    <a href="tel:9934244522" class="btn btn-light btn-lg px-4 rounded-pill fw-bold text-primary shadow-lg"><i class="fas fa-phone-alt me-2"></i> +91 9934244522</a>
-                    <a href="https://wa.me/919934244522" target="_blank" class="btn btn-success btn-lg px-4 rounded-pill fw-bold shadow-lg"><i class="fab fa-whatsapp me-2"></i> WhatsApp Us</a>
-                </div>
-            </div>
-            <div class="col-lg-6 d-none d-lg-block text-end">
-                <i class="fas fa-headset opacity-10" style="font-size: 350px; transform: rotate(-15deg);"></i>
-            </div>
-        </div>
+<!-- Premium Institutional Header -->
+<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('assets/images/contact_header.png') center/cover no-repeat;">
+    <div class="container text-center text-white">
+        <h1 class="fw-black mb-0">CONTACT <span class="text-primary">US</span></h1>
     </div>
 </section>
 
-<!-- Contact Form & Address Grid (High-Fidelity Studio Layout) -->
-<section class="contact-hub py-6 bg-white" id="connect">
-    <div class="container container-1440">
-        <div class="row g-5">
-            <!-- Stunning Contact Form -->
-            <div class="col-lg-7">
-                <div class="contact-form-master p-5 rounded-5 shadow-2xl border-0 overflow-hidden position-relative bg-light">
-                    <h3 class="fw-black text-secondary display-6 mb-4">SEND AN <span class="text-primary">ENQUIRY</span></h3>
-                    <p class="text-muted small mb-5">Our academic counselor will reach out to you within 24 business hours for a personalized counseling session.</p>
+<!-- Ultra Premium Contact Hub -->
+<section class="contact-hub py-6 position-relative bg-white" id="connect">
+    <div class="container container-1440 position-relative z-1">
+        <div class="row g-4 align-items-center">
+            
+            <!-- Left: Gaya Center -->
+            <div class="col-lg-4">
+                <div class="location-card p-4 p-md-5 rounded-5 text-white h-100 transition-all hover-translate-y position-relative overflow-hidden d-flex flex-column" style="background-color: #0d1b31; border: 1px solid rgba(255,255,255,0.05);">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="icon-box bg-white bg-opacity-10 text-warning rounded-4 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="fw-black mb-0 text-uppercase text-warning fs-4">GAYA CENTER</h3>
+                    </div>
                     
-                    <form action="process-contact.php" method="POST" class="row g-4">
-                        <div class="col-md-6"><input type="text" name="name" class="form-control-minimal p-4 rounded-4 w-100 border-0 bg-white shadow-sm" placeholder="Your Name" required></div>
-                        <div class="col-md-6"><input type="tel" name="phone" class="form-control-minimal p-4 rounded-4 w-100 border-0 bg-white shadow-sm" placeholder="Phone Number" required></div>
-                        <div class="col-md-12"><input type="email" name="email" class="form-control-minimal p-4 rounded-4 w-100 border-0 bg-white shadow-sm" placeholder="Email Address" required></div>
-                        <div class="col-md-12">
-                            <select name="subject" class="form-select-minimal p-4 rounded-4 w-100 border-0 bg-white shadow-sm text-muted" required>
-                                <option value="" disabled selected>Nature of Inquiry</option>
-                                <option value="Admissions">New Admission Inquiry</option>
-                                <option value="Scholarship">Scholarship (ESAT) Doubt</option>
-                                <option value="Counseling">Personalized Counseling Session</option>
+                    <p class="text-light opacity-75 mb-5 fs-6">Ekalavya Academy Campus, Bisar Talab Rd, Gaya, Bihar 823001.</p>
+                    
+                    <div class="contact-info-list d-flex flex-column gap-4 mb-5">
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="fas fa-phone-alt text-warning"></i>
+                            <span class="fw-bold">+91 9934244522</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="fas fa-envelope text-warning"></i>
+                            <span class="fw-bold">info.ekalavyaeducation@gmail.com</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="fas fa-clock text-warning"></i>
+                            <span class="fw-bold">Open: 8:00 AM - 8:00 PM</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-auto">
+                        <a href="https://maps.google.com" target="_blank" class="btn btn-outline-light w-100 py-3 rounded-pill fw-bold border-opacity-25">
+                            View On Map <i class="fas fa-paper-plane ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center: Enquiry Form -->
+            <div class="col-lg-4">
+                <div class="contact-form-premium p-4 p-md-5 rounded-5 bg-white position-relative h-100 shadow-lg text-center">
+                    <div class="badge bg-warning bg-opacity-10 text-warning px-4 py-2 rounded-pill mb-4 fw-black tracking-widest small">GET IN TOUCH</div>
+                    <h2 class="fw-black text-dark mb-3 text-uppercase">SEND AN <span class="text-warning">ENQUIRY</span></h2>
+                    <p class="text-muted small mb-5">Our academic counselor will reach out to you within 24 hours.</p>
+                    
+                    <form action="process-contact.php" method="POST" class="row g-4 text-start">
+                        <div class="col-12">
+                            <input type="text" name="name" class="form-control form-control-lg border-0 bg-light rounded-4 px-4 py-3" placeholder="Your Name" required>
+                        </div>
+                        <div class="col-12">
+                            <input type="tel" name="phone" class="form-control form-control-lg border-0 bg-light rounded-4 px-4 py-3" placeholder="Phone Number" required>
+                        </div>
+                        <div class="col-12">
+                            <input type="email" name="email" class="form-control form-control-lg border-0 bg-light rounded-4 px-4 py-3" placeholder="Email Address" required>
+                        </div>
+                        <div class="col-12">
+                            <select name="subject" class="form-select form-select-lg border-0 bg-light rounded-4 px-4 py-3 text-muted" required>
+                                <option value="" disabled selected>Select Inquiry Type</option>
+                                <option value="Admissions">Admission Inquiry</option>
+                                <option value="Scholarship">Scholarship Doubt</option>
                                 <option value="Others">General Query</option>
                             </select>
                         </div>
-                        <div class="col-12"><textarea name="message" class="form-control-minimal p-4 rounded-4 w-100 border-0 bg-white shadow-sm" rows="5" placeholder="Your Message / Query in Detail" required></textarea></div>
+                        <div class="col-12">
+                            <textarea name="message" class="form-control border-0 bg-light rounded-4 px-4 py-3" rows="4" placeholder="Your Message" required></textarea>
+                        </div>
                         <div class="col-12 mt-5">
-                            <button type="submit" class="btn btn-primary w-100 py-4 rounded-pill fw-bold text-uppercase letter-spacing-2 shadow-lg scale-hover">SUBMIT ADMISSION QUERY</button>
+                            <button type="submit" class="btn btn-warning w-100 py-3 rounded-pill fw-black shadow-lg text-uppercase" style="background: #f7941d; border: none; color: white;">
+                                Submit Enquiry
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <!-- Address Cards (Glassmorphism & Authority) -->
-            <div class="col-lg-5">
-                <div class="address-grid vstack gap-4 ps-lg-4">
-                    <!-- Patna Center -->
-                    <div class="address-card p-5 rounded-5 shadow-sm border border-light transition-all hover-translate-y hover-shadow-lg h-100">
-                        <div class="center-meta d-flex justify-content-between mb-4 align-items-center">
-                            <h4 class="fw-black text-secondary mb-0">PATNA <span class="text-primary">CENTER</span></h4>
-                            <span class="badge bg-orange-soft text-primary px-3 py-2 rounded-pill small fw-bold">HEAD OFFICE</span>
+            <!-- Right: Patna Center -->
+            <div class="col-lg-4">
+                <div class="location-card p-4 p-md-5 rounded-5 text-white h-100 transition-all hover-translate-y position-relative overflow-hidden d-flex flex-column" style="background-color: #0d1b31; border: 1px solid rgba(255,255,255,0.05);">
+                    <div class="position-absolute top-0 end-0 mt-4 me-4 badge bg-primary text-white px-3 py-1 rounded shadow-sm very-small fw-bold z-2">HEAD OFFICE</div>
+                    
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="icon-box bg-white bg-opacity-10 text-warning rounded-4 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                            <i class="fas fa-building"></i>
                         </div>
-                        <p class="text-muted small mb-4">Shakti Enclave, Opposite of G.D. Goenka School, Canal Road, Boring Road, Patna, Bihar.</p>
-                        <div class="contact-links vstack gap-2 small fw-bold text-secondary mb-4">
-                            <a href="tel:9934244522" class="text-decoration-none hover-text-primary"><i class="fas fa-phone-alt text-primary me-2"></i> +91 9934244522</a>
-                            <a href="mailto:info.ekalavya@gmail.com" class="text-decoration-none hover-text-primary"><i class="fas fa-envelope text-primary me-2"></i> info.ekalavya@gmail.com</a>
-                            <a href="#" class="text-decoration-none hover-text-primary"><i class="fas fa-clock text-primary me-2"></i> Open: 8:00 AM - 8:00 PM</a>
-                        </div>
-                        <a href="https://maps.google.com" target="_blank" class="btn btn-outline-primary py-2 px-4 rounded-pill small fw-bold hstack gap-2">View On Map <i class="fas fa-location-arrow"></i></a>
+                        <h3 class="fw-black mb-0 text-uppercase text-warning fs-4">PATNA CENTER</h3>
                     </div>
                     
-                    <!-- Gaya Center -->
-                    <div class="address-card p-5 rounded-5 shadow-sm border border-light transition-all hover-translate-y hover-shadow-lg h-100">
-                        <h4 class="fw-black text-secondary mb-4">GAYA <span class="text-primary">CENTER</span></h4>
-                        <p class="text-muted small mb-4">Eklavya Academy Campus, Bisar Talab Rd, Gaya, Bihar 823001.</p>
-                        <div class="contact-links vstack gap-2 small fw-bold text-secondary mb-4">
-                             <a href="tel:9934244522" class="text-decoration-none hover-text-primary"><i class="fas fa-phone-alt text-primary me-2"></i> +91 9934244522</a>
-                             <a href="mailto:info.ekalavya@gmail.com" class="text-decoration-none hover-text-primary"><i class="fas fa-envelope text-primary me-2"></i> info.ekalavya@gmail.com</a>
-                             <a href="#" class="text-decoration-none hover-text-primary"><i class="fas fa-clock text-primary me-2"></i> Open: 8:00 AM - 8:00 PM</a>
+                    <p class="text-light opacity-75 mb-5 fs-6">Shakti Enclave, Opposite of G.D. Goenka School, Canal Road, Boring Road, Patna, Bihar.</p>
+                    
+                    <div class="contact-info-list d-flex flex-column gap-4 mb-5">
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="fas fa-phone-alt text-warning"></i>
+                            <span class="fw-bold">+91 9934244522</span>
                         </div>
-                        <a href="https://maps.google.com" target="_blank" class="btn btn-outline-primary py-2 px-4 rounded-pill small fw-bold hstack gap-2">View On Map <i class="fas fa-location-arrow"></i></a>
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="fas fa-envelope text-warning"></i>
+                            <span class="fw-bold">info.ekalavyaeducation@gmail.com</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="fas fa-clock text-warning"></i>
+                            <span class="fw-bold">Open: 8:00 AM - 8:00 PM</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-auto">
+                        <a href="https://maps.google.com" target="_blank" class="btn btn-outline-light w-100 py-3 rounded-pill fw-bold border-opacity-25">
+                            View On Map <i class="fas fa-paper-plane ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <style>
+        .very-small { font-size: 0.65rem; }
+        .contact-hub input::placeholder, .contact-hub textarea::placeholder { color: #8892b0 !important; font-weight: 500; }
+        .contact-hub .form-control:focus { background: #fff !important; box-shadow: 0 0 0 4px rgba(247, 148, 29, 0.1); }
+    </style>
+</section>
+
+<!-- Map Section -->
+<section class="py-0 bg-white">
+    <div class="container container-1440">
+        <div class="rounded-5 overflow-hidden shadow-lg" style="height: 400px;">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.1788!2d85.1!3d25.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sPatna%2C+Bihar!5e0!3m2!1sen!2sin!4v1" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+</section>
+
+<!-- Quick FAQ + CTA -->
+<section class="section-padding bg-light">
+    <div class="container container-1440">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <h2 class="fw-black mb-4">FREQUENTLY <span class="text-primary">ASKED</span></h2>
+                <div class="accordion faq-modern" id="contactFaq">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">What are the office timings?</button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#contactFaq">
+                            <div class="accordion-body">Our centers in Patna and Gaya operate from 8:00 AM to 8:00 PM, Monday to Saturday. Sunday consultations are available by appointment.</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">How can I schedule a campus visit?</button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
+                            <div class="accordion-body">Call us at +91 9934244522 or fill the enquiry form above. Our team will schedule a guided tour of our facilities.</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">Is there a free demo class available?</button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
+                            <div class="accordion-body">Yes! We offer free demo sessions for all programs. Book yours through WhatsApp or the enquiry form.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="cta-banner-premium rounded-5 overflow-hidden p-5 text-center position-relative" style="background: var(--navy-gradient); min-height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <h6 class="text-primary fw-bold text-uppercase tracking-widest mb-3">Admissions Open</h6>
+                    <h2 class="display-5 fw-black text-white mb-4">START YOUR<br><span class="text-primary">JOURNEY</span> TODAY</h2>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="scholarship.php" class="btn btn-aurous-gradient btn-lg rounded-pill px-5 py-3 fw-bold shadow-glow">APPLY FOR SCHOLARSHIP</a>
+                        <a href="https://wa.me/919934244522" class="btn btn-outline-light btn-lg rounded-pill px-4 py-3 fw-bold"><i class="fab fa-whatsapp me-2"></i> WHATSAPP</a>
                     </div>
                 </div>
             </div>

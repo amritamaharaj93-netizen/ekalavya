@@ -1,22 +1,36 @@
 <?php include 'includes/header.php'; ?>
 
-<!-- Hero Section: Institutional Legacy -->
-<section class="page-hero bg-primary position-relative overflow-hidden py-5 text-white">
-    <div class="container py-lg-5">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <span class="badge bg-white text-primary mb-3 px-3 py-2 rounded-pill fw-bold">OUR LEGACY</span>
-                <h1 class="display-3 fw-black mb-4">Engineering <span class="text-white opacity-75">Excellence</span> Since 2012</h1>
-                <p class="lead opacity-90 mb-5">Eklavya Academy began with a single mission: to provide world-class competitive coaching with a personalized mentorship touch. Today, we are the region's most trusted name in IIT-JEE and NEET preparation.</p>
-                <div class="d-flex gap-3">
-                    <a href="#vision" class="btn btn-light btn-lg px-4 rounded-pill fw-bold text-primary">Our Vision</a>
-                    <a href="#faculty" class="btn btn-outline-light btn-lg px-4 rounded-pill fw-bold">Meet the Faculty</a>
-                </div>
+<!-- Premium Institutional Header -->
+<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('assets/images/about_header.png') center/cover no-repeat;">
+    <div class="container text-center text-white">
+        <h1 class="fw-black mb-2">OUR <span class="text-primary">LEGACY</span></h1>
+        <div class="breadcrumb-wrap justify-content-center">
+            <a href="<?php echo BASE_URL; ?>">Home</a>
+            <span class="breadcrumb-separator px-2 opacity-50">/</span>
+            <span>Institutional Profile</span>
+        </div>
+    </div>
+</section>
+
+<!-- Impact Stats Bar -->
+<section class="stats-premium">
+    <div class="container">
+        <div class="stats-glass-container rounded-5 p-4 p-lg-5 d-flex flex-wrap justify-content-around gap-4">
+            <div class="stat-glass-card text-center px-4 py-3">
+                <h2 class="fw-black mb-1 text-white">18+</h2>
+                <p class="text-white-50 mb-0 small fw-bold text-uppercase">Years Experience</p>
             </div>
-            <div class="col-lg-6 d-none d-lg-block">
-                <div class="hero-visual text-end">
-                    <i class="fas fa-landmark opacity-10" style="font-size: 350px; transform: rotate(-15deg);"></i>
-                </div>
+            <div class="stat-glass-card text-center px-4 py-3">
+                <h2 class="fw-black mb-1 text-white">500+</h2>
+                <p class="text-white-50 mb-0 small fw-bold text-uppercase">IITians & Doctors</p>
+            </div>
+            <div class="stat-glass-card text-center px-4 py-3">
+                <h2 class="fw-black mb-1 text-white">5000+</h2>
+                <p class="text-white-50 mb-0 small fw-bold text-uppercase">Students Mentored</p>
+            </div>
+            <div class="stat-glass-card text-center px-4 py-3">
+                <h2 class="fw-black mb-1 text-white">2</h2>
+                <p class="text-white-50 mb-0 small fw-bold text-uppercase">Campus Locations</p>
             </div>
         </div>
     </div>
@@ -59,7 +73,7 @@
             </div>
             <div class="col-lg-7">
                 <h2 class="display-5 fw-black mb-4">The Architect's <span class="text-primary">Vision</span></h2>
-                <p class="lead text-muted mb-4 italic">"True coaching is not about dumping information into student's minds; it's about lighting the fire of curiosity and discipline. At Eklavya, we build character first, and the results follow naturally."</p>
+                <p class="lead text-muted mb-4 italic">"True coaching is not about dumping information into student's minds; it's about lighting the fire of curiosity and discipline. At Ekalavya, we build character first, and the results follow naturally."</p>
                 <div class="director-meta mb-5">
                     <div class="row g-3">
                         <div class="col-md-6 d-flex align-items-center"><i class="fas fa-check-circle text-primary me-2"></i> 18+ Years Pedagogy Experience</div>
@@ -68,46 +82,90 @@
                         <div class="col-md-6 d-flex align-items-center"><i class="fas fa-check-circle text-primary me-2"></i> Motivational Mentor</div>
                     </div>
                 </div>
-                <a href="contact.php" class="btn btn-primary btn-lg px-5 rounded-pill fw-bold shadow-lg">Work With Amit Sir</a>
+                <a href="contact" class="btn btn-primary btn-lg px-5 rounded-pill fw-bold shadow-lg">Work With Amit Sir</a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Core Faculty Faculty Section -->
+<!-- Core Faculty Section (Dynamic Slider) -->
 <section class="faculty-section py-6 bg-white" id="faculty">
-    <div class="container">
+    <div class="container-fluid px-lg-5">
         <div class="section-title text-center mb-6">
             <h2 class="fw-black">CHAMPION <span class="text-primary">MENTORS</span></h2>
-            <p class="text-muted">A handpicked team of senior IITians and medical scholars dedicated to your success.</p>
-            <div class="title-accent mx-auto"></div>
+            <p class="text-muted mx-auto" style="max-width: 600px;">A handpicked team of senior IITians and medical scholars dedicated to engineering your academic success.</p>
+            <div class="title-accent mx-auto mt-3"></div>
         </div>
         
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-        <div class="swiper facultySwiper">
+        <div class="swiper facultySwiper pb-5">
             <div class="swiper-wrapper">
                 <!-- Faculty 1 -->
-                <div class="swiper-slide p-3">
-                    <div class="faculty-card p-4 bg-light rounded-5 text-center border-0 transition-all hover-translate-y">
-                        <div class="faculty-avatar mb-4 mx-auto" style="width:120px; height:120px;">
-                            <img src="assets/images/logo.png" class="img-fluid rounded-circle grayscale opacity-25" alt="Faculty">
+                <div class="swiper-slide h-auto">
+                    <div class="faculty-card p-5 bg-light rounded-5 text-center border-0 transition-all hover-translate-y h-100 shadow-sm">
+                        <div class="faculty-avatar mb-4 mx-auto shadow-lg border border-white border-4 rounded-circle overflow-hidden" style="width:140px; height:140px;">
+                            <img src="assets/images/logo.png" class="img-fluid grayscale opacity-25 h-100 w-100 object-fit-cover" alt="Faculty">
                         </div>
-                        <h5 class="fw-bold mb-1">M.K. SHARMA</h5>
-                        <p class="text-primary small fw-bold text-uppercase mb-3">Mathematics | IIT Delhi</p>
-                        <p class="text-muted small">Specialist in Calculus and Coordinate Geometry with 12+ years expertise.</p>
+                        <h5 class="fw-black mb-1">M.K. SHARMA</h5>
+                        <p class="text-primary small fw-bold text-uppercase mb-3 tracking-wider">Mathematics | IIT Delhi</p>
+                        <hr class="my-3 opacity-10 mx-auto w-25">
+                        <p class="text-muted small mb-0 px-2">Specialist in Calculus and Coordinate Geometry with 12+ years of expertise in ranking students.</p>
                     </div>
                 </div>
+
                 <!-- Faculty 2 -->
-                <div class="swiper-slide p-3">
-                    <div class="faculty-card p-4 bg-light rounded-5 text-center border-0 transition-all hover-translate-y">
-                        <div class="faculty-avatar mb-4 mx-auto" style="width:120px; height:120px;">
-                            <img src="assets/images/logo.png" class="img-fluid rounded-circle grayscale opacity-25" alt="Faculty">
+                <div class="swiper-slide h-auto">
+                    <div class="faculty-card p-5 bg-light rounded-5 text-center border-0 transition-all hover-translate-y h-100 shadow-sm">
+                        <div class="faculty-avatar mb-4 mx-auto shadow-lg border border-white border-4 rounded-circle overflow-hidden" style="width:140px; height:140px;">
+                            <img src="assets/images/logo.png" class="img-fluid grayscale opacity-25 h-100 w-100 object-fit-cover" alt="Faculty">
                         </div>
-                        <h5 class="fw-bold mb-1">DR. SARITA RAI</h5>
-                        <p class="text-primary small fw-bold text-uppercase mb-3">Biology | AIIMS Delhi</p>
-                        <p class="text-muted small">Renowned expert in Human Physiology and Genetic analysis for NEET.</p>
+                        <h5 class="fw-black mb-1">DR. SARITA RAI</h5>
+                        <p class="text-primary small fw-bold text-uppercase mb-3 tracking-wider">Biology | AIIMS Delhi</p>
+                        <hr class="my-3 opacity-10 mx-auto w-25">
+                        <p class="text-muted small mb-0 px-2">Renowned expert in Human Physiology and Genetic analysis with a record of medical toppers.</p>
                     </div>
                 </div>
+
+                <!-- Faculty 3 -->
+                <div class="swiper-slide h-auto">
+                    <div class="faculty-card p-5 bg-light rounded-5 text-center border-0 transition-all hover-translate-y h-100 shadow-sm">
+                        <div class="faculty-avatar mb-4 mx-auto shadow-lg border border-white border-4 rounded-circle overflow-hidden" style="width:140px; height:140px;">
+                            <img src="assets/images/logo.png" class="img-fluid grayscale opacity-25 h-100 w-100 object-fit-cover" alt="Faculty">
+                        </div>
+                        <h5 class="fw-black mb-1">S. CHOUDHARY</h5>
+                        <p class="text-primary small fw-bold text-uppercase mb-3 tracking-wider">Chemistry | IIT Kanpur</p>
+                        <hr class="my-3 opacity-10 mx-auto w-25">
+                        <p class="text-muted small mb-0 px-2">Expert in Organic synthesis and Periodic analysis. Making Chemistry intuitive for over a decade.</p>
+                    </div>
+                </div>
+
+                <!-- Faculty 4 -->
+                <div class="swiper-slide h-auto">
+                    <div class="faculty-card p-5 bg-light rounded-5 text-center border-0 transition-all hover-translate-y h-100 shadow-sm">
+                        <div class="faculty-avatar mb-4 mx-auto shadow-lg border border-white border-4 rounded-circle overflow-hidden" style="width:140px; height:140px;">
+                            <img src="assets/images/logo.png" class="img-fluid grayscale opacity-25 h-100 w-100 object-fit-cover" alt="Faculty">
+                        </div>
+                        <h5 class="fw-black mb-1">R.K. SINGH</h5>
+                        <p class="text-primary small fw-bold text-uppercase mb-3 tracking-wider">Physics | ISM Dhanbad</p>
+                        <hr class="my-3 opacity-10 mx-auto w-25">
+                        <p class="text-muted small mb-0 px-2">Master of Mechanics and Electrodynamics. Simplifies complex laws through visual analysis.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination mt-4"></div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section-padding" style="background: #fff;">
+    <div class="container">
+        <div class="cta-banner-premium rounded-5 overflow-hidden p-5 text-center position-relative shadow-heavy" style="background: var(--navy-gradient); min-height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <h6 class="text-primary fw-bold text-uppercase tracking-widest mb-3">Join the Ekalavya Family</h6>
+            <h2 class="display-4 fw-black text-white mb-4">READY TO START YOUR<br>ACADEMIC <span class="text-primary">JOURNEY?</span></h2>
+            <div class="d-flex flex-wrap justify-content-center gap-4">
+                <a href="contact.php" class="btn btn-aurous-gradient btn-lg rounded-pill px-5 py-3 fw-bold shadow-glow">BOOK FREE COUNSELING</a>
+                <a href="tel:9934244522" class="btn btn-outline-light btn-lg rounded-pill px-5 py-3 fw-bold"><i class="fas fa-phone-alt me-2"></i> CALL ADMISSIONS</a>
             </div>
         </div>
     </div>

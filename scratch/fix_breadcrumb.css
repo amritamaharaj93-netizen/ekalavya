@@ -1,0 +1,56 @@
+
+/* Breadcrumb Mobile Optimization */
+@media (max-width: 768px) {
+    .breadcrumb-wrap {
+        font-size: 0.7rem !important;
+        gap: 6px !important;
+        flex-wrap: wrap;
+        justify-content: center !important;
+        padding: 0 15px !important;
+        letter-spacing: 0.5px !important;
+    }
+    
+    .breadcrumb-wrap a, 
+    .breadcrumb-wrap span {
+        font-size: 0.7rem !important;
+    }
+
+    .breadcrumb-separator {
+        opacity: 0.4 !important;
+        font-size: 0.65rem !important;
+    }
+
+    /* Bootstrap Breadcrumb overrides for mobile */
+    .breadcrumb {
+        font-size: 0.75rem !important;
+        padding: 8px 12px !important;
+        background: rgba(0,0,0,0.03) !important;
+        border-radius: 8px !important;
+        justify-content: center !important;
+    }
+
+    .breadcrumb-item {
+        font-size: 0.75rem !important;
+    }
+
+    .breadcrumb-item + .breadcrumb-item::before {
+        padding: 0 5px !important;
+        font-size: 0.7rem !important;
+    }
+
+    /* Specific Course Hero V2 Breadcrumb */
+    .course-hero-v2 .breadcrumb-item a,
+    .course-hero-v2 .breadcrumb-item.active {
+        font-size: 0.75rem !important;
+    }
+
+    /* Adjust page header padding on mobile to accommodate smaller breadcrumbs */
+    .page-header {
+        padding: 50px 0 !important;
+    }
+    
+    .page-header h1 {
+        font-size: 2rem !important;
+        letter-spacing: 1px !important;
+    }
+}

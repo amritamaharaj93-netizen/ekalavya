@@ -2,7 +2,6 @@
 session_start();
 require_once '../config/database.php';
 
-// Check if logged in
 if (!isset($_SESSION['admin_logged_in'])) {
     header("Location: login.php");
     exit();
@@ -12,14 +11,24 @@ if (!isset($_SESSION['admin_logged_in'])) {
 $stmt_courses = $pdo->query("SELECT COUNT(*) FROM courses");
 $courses_count = $stmt_courses->fetchColumn();
 
-$stmt_results = $pdo->query("SELECT COUNT(*) FROM results");
-$results_count = $stmt_results->fetchColumn();
-
 $stmt_leads = $pdo->query("SELECT COUNT(*) FROM contact_leads");
-$leads_count = $stmt_leads->fetchColumn();
+$enquiries_count = $stmt_leads->fetchColumn();
 
 $stmt_scholarships = $pdo->query("SELECT COUNT(*) FROM scholarship_forms");
 $scholarships_count = $stmt_scholarships->fetchColumn();
+
+$stmt_tests = $pdo->query("SELECT COUNT(*) FROM test_series");
+$tests_count = $stmt_tests->fetchColumn();
+
+$stmt_materials = $pdo->query("SELECT COUNT(*) FROM study_material");
+$materials_count = $stmt_materials->fetchColumn();
+
+$stmt_students = $pdo->query("SELECT COUNT(*) FROM scholarship_forms");
+$students_count = $stmt_scholarships->fetchColumn();
+
+// Fetch Recent Enquiries for the table
+$stmt_recent = $pdo->query("SELECT * FROM contact_leads ORDER BY created_at DESC LIMIT 8");
+$recent_enquiries = $stmt_recent->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -27,74 +36,122 @@ $scholarships_count = $stmt_scholarships->fetchColumn();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Eklavya Admin</title>
+    <title>Dashboard | Ekalavya Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <style>
-        .sidebar { min-height: 100vh; background: #212121; padding-top: 2rem; }
-        .sidebar .nav-link { color: #888; padding: 1rem 1.5rem; }
-        .sidebar .nav-link:hover, .sidebar .nav-link.active { color: #fff; background: rgba(255,255,255,0.05); border-left: 3px solid var(--primary-color); }
-        .content { background: #f8f9fa; min-height: 100vh; }
-    </style>
+    <link rel="stylesheet" href="assets/css/admin-premium.css">
 </head>
 <body>
 
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            <div class="col-md-2 p-0 sidebar">
-                <div class="text-white text-center mb-5">
-                    <h5 class="fw-bold">Eklavya Admin</h5>
+    <div class="row g-0 overflow-hidden" style="min-height: 100vh;">
+        <div class="col-auto">
+            <?php 
+            $current_page = 'dashboard';
+            include 'includes/sidebar.php'; 
+            ?>
+        </div>
+        
+        <div class="col admin-main">
+            <header class="admin-header">
+                <h4>DASHBOARD OVERVIEW</h4>
+                <div class="d-flex align-items-center gap-3">
+                    <span class="text-muted small fw-medium">SESSION : <b class="text-dark">ADMIN SECURE</b></span>
+                    <div class="bg-success rounded-circle shadow-sm" style="width: 10px; height: 10px;"></div>
                 </div>
-                <nav class="nav flex-column">
-                    <a class="nav-link active" href="dashboard.php"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
-                    <a class="nav-link" href="manage-courses.php"><i class="fas fa-book me-2"></i> Manage Courses</a>
-                    <a class="nav-link" href="manage-results.php"><i class="fas fa-trophy me-2"></i> Manage Results</a>
-                    <a class="nav-link" href="view-leads.php"><i class="fas fa-envelope-open-text me-2"></i> Contact Leads</a>
-                    <a class="nav-link" href="view-scholarships.php"><i class="fas fa-graduation-cap me-2"></i> Scholarships</a>
-                    <a class="nav-link mt-5" href="logout.php"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
-                </nav>
+            </header>
+            
+            <div class="row g-4 mb-5">
+                <div class="col-xl-4 col-md-6">
+                    <a href="view-enquiries.php" class="text-decoration-none">
+                    <div class="stat-card">
+                        <div class="label text-primary">Total Enquiries</div>
+                        <h2><?php echo $enquiries_count; ?></h2>
+                        <div class="mt-2 small text-muted">ACTIVE STUDENT LEADS</div>
+                    </div></a>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <a href="manage-courses.php" class="text-decoration-none">
+                    <div class="stat-card">
+                        <div class="label text-success">Active Courses</div>
+                        <h2><?php echo $courses_count; ?></h2>
+                        <div class="mt-2 small text-muted">CURRICULUM MODULES</div>
+                    </div></a>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <a href="view-scholarships.php" class="text-decoration-none">
+                    <div class="stat-card">
+                        <div class="label text-warning">Scholarship Apps</div>
+                        <h2><?php echo $scholarships_count; ?></h2>
+                        <div class="mt-2 small text-muted">ESAT REGISTRATIONS</div>
+                    </div></a>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <a href="manage-test-series.php" class="text-decoration-none">
+                    <div class="stat-card">
+                        <div class="label text-info">Test Series</div>
+                        <h2><?php echo $tests_count; ?></h2>
+                        <div class="mt-2 small text-muted">DEPLOYED EXAM SETS</div>
+                    </div></a>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <a href="manage-study-material.php" class="text-decoration-none">
+                    <div class="stat-card">
+                        <div class="label text-secondary">Study Assets</div>
+                        <h2><?php echo $materials_count; ?></h2>
+                        <div class="mt-2 small text-muted">UPLOADED RESOURCES</div>
+                    </div></a>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <a href="manage-scholarships.php" class="text-decoration-none">
+                    <div class="stat-card">
+                        <div class="label text-danger">Scholarship Programs</div>
+                        <h2><?php echo $scholarships_count; ?></h2>
+                        <div class="mt-2 small text-muted">ACTIVE PROGRAMS</div>
+                    </div></a>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-bold m-0"><i class="fas fa-history me-2 text-primary"></i> Recent Enquiries</h5>
+                    <a href="view-enquiries.php" class="btn btn-sm btn-outline-primary rounded-pill px-3">View All Enquiries</a>
+                </div>
+                
+                <div class="table-container">
+                    <table class="table table-premium table-hover m-0">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Contact Info</th>
+                                <th>Inquiry Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if($recent_enquiries): ?>
+                                <?php foreach($recent_enquiries as $enq): ?>
+                                <tr>
+                                    <td><b class="text-dark"><?php echo htmlspecialchars($enq['name']); ?></b></td>
+                                    <td>
+                                        <div class="small"><i class="fas fa-phone small me-1"></i> <?php echo htmlspecialchars($enq['phone']); ?></div>
+                                        <div class="small text-muted truncated" style="max-width: 200px;"><?php echo htmlspecialchars($enq['message']); ?></div>
+                                    </td>
+                                    <td><span class="text-muted small"><?php echo date('M d, Y', strtotime($enq['created_at'])); ?></span></td>
+                                    <td><span class="badge bg-primary bg-opacity-10 text-primary border-primary border-opacity-25 border px-2 py-1">New</span></td>
+                                </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr><td colspan="4" class="text-center py-5 text-muted font-monospace">No enquiries received yet.</td></tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             
-            <!-- Main Content -->
-            <div class="col-md-10 p-0 content">
-                <header class="bg-white p-3 shadow-sm d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">Dashboard Overview</h4>
-                    <span class="text-secondary small"><i class="fas fa-user-circle me-1"></i> Hello, <?php echo $_SESSION['admin_username']; ?></span>
-                </header>
-                
-                <div class="p-4">
-                    <div class="row g-4">
-                        <div class="col-md-3">
-                            <div class="card p-4 border-0 shadow-sm text-center">
-                                <h2 class="mb-1 fw-bold text-primary"><?php echo $courses_count; ?></h2>
-                                <p class="text-muted small mb-0">Courses Listed</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card p-4 border-0 shadow-sm text-center">
-                                <h2 class="mb-1 fw-bold text-success"><?php echo $results_count; ?></h2>
-                                <p class="text-muted small mb-0">Total Results</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card p-4 border-0 shadow-sm text-center">
-                                <h2 class="mb-1 fw-bold text-info"><?php echo $leads_count; ?></h2>
-                                <p class="text-muted small mb-0">Contact Leads</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card p-4 border-0 shadow-sm text-center">
-                                <h2 class="mb-1 fw-bold text-warning"><?php echo $scholarships_count; ?></h2>
-                                <p class="text-muted small mb-0">Scholarship Entries</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <footer class="admin-footer">&copy; 2026 Ekalavya ACADEMY ADMINISTRATIVE PORTAL.</footer>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
