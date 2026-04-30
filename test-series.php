@@ -152,7 +152,7 @@ if ($type == 'FullLength') {
                             <h3 class="fw-black mb-1 text-uppercase">Enroll <span class="text-orange">Series</span></h3>
                             <p class="very-small text-muted uppercase fw-bold">Testing Portal <?php echo date('Y'); ?>-<?php echo date('y') + 1; ?></p>
                         </div>
-                        <form action="<?php echo BASE_URL; ?>process-enquiry.php" method="POST" class="vstack gap-3">
+                        <form id="enrollSeriesForm" action="<?php echo BASE_URL; ?>process-enquiry.php" method="POST" class="vstack gap-3">
                             <div class="form-floating">
                                 <input type="text" name="name" class="form-control bg-light border-0 rounded-3" id="floatingName" placeholder="Full Name" required>
                                 <label for="floatingName" class="text-muted small">Full Name</label>
@@ -250,3 +250,57 @@ if ($type == 'FullLength') {
 </main>
 
 <?php include 'includes/footer.php'; ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const enrollForm = document.getElementById('enrollSeriesForm');
+    if(enrollForm) {
+        enrollForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalBtnContent = submitBtn.innerHTML;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> ENROLLING...';
+
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === 'success') {
+                    const cardContainer = this.closest('.enroll-card');
+                    cardContainer.innerHTML = `
+                        <div class="text-center p-4 animate__animated animate__zoomIn">
+                            <div class="success-pulse mb-4">
+                                <div class="bg-success bg-opacity-10 text-success rounded-circle d-inline-flex align-items-center justify-content-center shadow-lg" style="width: 70px; height: 70px;">
+                                    <i class="fas fa-check-double fs-2"></i>
+                                </div>
+                            </div>
+                            <h4 class="fw-black text-dark mb-2 text-uppercase">Enrollment <span class="text-success">Successful</span></h4>
+                            <p class="text-muted small mb-4">${data.message}</p>
+                            <div class="divider mb-4" style="height: 1px; background: #eee;"></div>
+                            <a href="student-login.php" class="btn btn-dark w-100 py-2 rounded-pill fw-bold small">Go to Portal</a>
+                        </div>
+                    `;
+                } else {
+                    alert(data.message);
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnContent;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnContent;
+            });
+        });
+    }
+});
+</script>

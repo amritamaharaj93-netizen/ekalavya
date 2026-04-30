@@ -216,6 +216,7 @@
             var enquiryModal = document.getElementById('enquiryModal');
             enquiryModal.addEventListener('show.bs.modal', function(event) {
                 var button = event.relatedTarget;
+                if (!button) return;
                 var courseName = button.getAttribute('data-course');
                 var selectElement = document.getElementById('modalCourseSelect');
                 
@@ -228,6 +229,56 @@
                     }
                 }
             });
+
+            // AJAX Enquiry Submission
+            const enquiryForm = document.getElementById('globalEnquiryForm');
+            if(enquiryForm) {
+                enquiryForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(this);
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalBtnContent = submitBtn.innerHTML;
+                    
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> PROCESSING...';
+
+                    fetch(this.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.status === 'success') {
+                            const modalBody = this.closest('.modal-body');
+                            modalBody.innerHTML = `
+                                <div class="text-center p-5 animate__animated animate__fadeIn">
+                                    <div class="success-icon-wrap mb-4">
+                                        <div class="bg-success bg-opacity-10 text-success rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                            <i class="fas fa-check-circle fs-1"></i>
+                                        </div>
+                                    </div>
+                                    <h3 class="fw-black text-dark mb-2">ENQUIRY <span class="text-success">RECEIVED</span></h3>
+                                    <p class="text-muted small mb-4">${data.message}</p>
+                                    <button type="button" class="btn btn-dark rounded-pill px-4 py-2 fw-bold small" data-bs-dismiss="modal">Close Portal</button>
+                                </div>
+                            `;
+                        } else {
+                            alert(data.message);
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = originalBtnContent;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Something went wrong. Please try again.');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalBtnContent;
+                    });
+                });
+            }
         });
     </script>
     <script src="<?php echo BASE_URL; ?>assets/js/script.js?v=<?php echo time(); ?>"></script>

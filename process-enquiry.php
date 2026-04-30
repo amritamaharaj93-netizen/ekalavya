@@ -33,11 +33,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         sendInstitutionalMail(SMTP_USER, $adminSubject, $adminBody);
 
-        // Success - Redir with flag
+        // Success - Check for AJAX
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            echo json_encode(['status' => 'success', 'message' => 'Your enquiry has been submitted successfully! Our team will contact you shortly.']);
+            exit();
+        }
+
         header("Location: " . $_SERVER['HTTP_REFERER'] . "?status=enquiry_sent");
         exit();
 
     } catch (PDOException $e) {
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            echo json_encode(['status' => 'error', 'message' => 'System error. Please try again later.']);
+            exit();
+        }
         header("Location: " . $_SERVER['HTTP_REFERER'] . "?error=failed");
         exit();
     }
