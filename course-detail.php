@@ -24,22 +24,10 @@ include 'includes/header.php';
 <!-- Allen-Inspired Hero Section -->
 <section class="course-hero-v2 py-6 bg-white position-relative overflow-hidden border-bottom">
     <div class="container container-1400">
-        <!-- Premium ESAT Scholarship Banner (Mockup Style) -->
-        <div class="scholarship-hero-banner mb-5 p-4 rounded-5 border bg-white d-flex align-items-center justify-content-between overflow-hidden position-relative shadow-sm" style="background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%); min-height: 280px;">
-            <div class="banner-content z-index-10 position-relative py-2">
-                <h2 class="text-primary fw-black mb-1" style="font-size: clamp(1rem, 2.5vw, 1.3rem); letter-spacing: -0.5px;">ESAT Scholarship Admission Test</h2>
-                <h3 class="fw-black text-dark mb-3" style="font-size: clamp(1.4rem, 3.5vw, 2.2rem); line-height: 1.1;">Get up to <span class="text-primary">100% Scholarship*</span></h3>
-                <div class="d-flex align-items-center gap-2 text-orange fw-bold mb-3" style="font-size: 1rem;">
-                    <i class="fas fa-sparkles"></i> Special Offer
-                </div>
-                <a href="<?php echo BASE_URL; ?>scholarship" class="btn btn-primary rounded-pill px-4 py-3 fw-black d-inline-flex align-items-center gap-3 shadow-lg scale-hover" style="font-size: 1rem;">
-                    Register for <span class="text-decoration-line-through opacity-50 fw-normal small">₹500</span> ₹99/- <i class="fas fa-arrow-right-long ms-1"></i>
-                </a>
-            </div>
-            <div class="banner-graphic d-none d-lg-block position-absolute" style="right: -40px; top: 55%; transform: translateY(-50%); width: 650px; z-index: 5;">
-                <img src="assets/images/scholarship_student_v3.png" alt="ESAT Scholar" class="img-fluid" style="transform: scale(0.6); transform-origin: center right; -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%); mask-image: linear-gradient(to right, transparent 0%, black 20%);">
-            </div>
-        </div>
+        <!-- Premium ESAT Scholarship Banner -->
+        <a href="<?php echo BASE_URL; ?>scholarship" class="d-block mb-5">
+            <img src="assets/images/scholarship image.png" alt="ESAT Scholarship Admission Test" class="img-fluid rounded-5 shadow-sm w-100">
+        </a>
 
         <div class="row align-items-start g-5">
             <div class="col-lg-8">
@@ -51,9 +39,9 @@ include 'includes/header.php';
                     </ol>
                 </nav>
 
-                <div class="d-flex align-items-center gap-2 mb-4">
-                    <span class="badge bg-dark px-3 py-2 rounded-1 fw-bold tracking-widest text-uppercase" style="font-size: 0.6rem;">Regular Course</span>
-                    <span class="badge bg-primary px-3 py-2 rounded-1 fw-bold tracking-widest text-uppercase" style="font-size: 0.6rem;">Classroom Program</span>
+                <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
+                    <span class="badge bg-dark px-3 py-2 rounded-1 fw-bold text-uppercase" style="font-size: 0.6rem; letter-spacing: 1px;">Regular Course</span>
+                    <span class="badge bg-primary px-3 py-2 rounded-1 fw-bold text-uppercase" style="font-size: 0.6rem; letter-spacing: 1px;">Classroom Program</span>
                 </div>
 
                 <h1 class="display-4 fw-black mb-4 text-dark" style="letter-spacing: -1.5px;">
@@ -251,13 +239,13 @@ include 'includes/header.php';
                     <p class="text-muted mb-5">At Ekalavya, we follow a scientifically structured student journey that ensures consistent growth from day one to the final examination.</p>
                     <div class="row g-3">
                         <div class="col-6">
-                            <div class="p-4 bg-white rounded-4 border border-light">
+                            <div class="p-4 bg-white rounded-4 border border-light h-100">
                                 <h4 class="fw-black text-primary mb-1">98%</h4>
                                 <p class="small text-muted mb-0">Student Satisfaction</p>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="p-4 bg-white rounded-4 border border-light">
+                            <div class="p-4 bg-white rounded-4 border border-light h-100">
                                 <h4 class="fw-black text-primary mb-1">150+</h4>
                                 <p class="small text-muted mb-0">Tests Yearly</p>
                             </div>
@@ -297,7 +285,7 @@ include 'includes/header.php';
 <section class="curriculum-detail py-6 bg-white">
     <div class="container">
         <div class="section-title text-center mb-6">
-            <h2 class="fw-black mb-3">Detailed <span class="text-primary">Curriculum</span></h2>
+            <h2 class="fw-black mb-3" style="font-size: clamp(1.4rem, 5vw, 3rem); letter-spacing: -1px;">Detailed <span class="text-primary">Curriculum</span></h2>
             <p class="text-muted">Explore the modular breakdown of the academic session.</p>
         </div>
         <div class="row justify-content-center">
@@ -456,7 +444,7 @@ include 'includes/header.php';
                     </tbody>
                 </table>
             </div>
-            <div class="bg-dark p-4 px-5 d-flex justify-content-between align-items-center text-white">
+            <div class="bg-dark p-4 px-md-5 d-flex flex-column flex-md-row justify-content-between align-items-center text-white text-center text-md-start gap-4">
                 <div class="d-flex align-items-center gap-3">
                     <i class="fas fa-graduation-cap fs-4 text-primary"></i>
                     <div>
@@ -464,7 +452,7 @@ include 'includes/header.php';
                         <p class="very-small text-white-50 mb-0">Save up to 90% based on scholarship test performance.</p>
                     </div>
                 </div>
-                <a href="<?php echo BASE_URL; ?>scholarship" class="btn btn-outline-primary btn-sm rounded-pill px-4">Register for ESAT</a>
+                <a href="<?php echo BASE_URL; ?>scholarship" class="btn btn-outline-primary rounded-pill px-5 py-2 fw-bold text-nowrap">Register for ESAT</a>
             </div>
         </div>
     </div>

@@ -225,49 +225,184 @@ try {
 
     <!-- Offcanvas Mobile Menu (Mobile only) -->
     <div class="offcanvas offcanvas-start d-xl-none" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div class="offcanvas-header border-bottom">
+        <div class="offcanvas-header">
             <a class="navbar-brand py-0" href="<?php echo BASE_URL; ?>">
                 <img src="<?php echo BASE_URL; ?>assets/images/logo.png" alt="Logo" height="50">
             </a>
             <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body d-flex flex-column">
-            <ul class="navbar-nav flex-grow-1 pe-3">
-                <li class="nav-item mb-2">
-                    <a class="nav-link" href="<?php echo BASE_URL; ?>classroom-courses.php"><i class="fas fa-chalkboard-teacher me-2 text-primary"></i> Classroom Courses</a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a class="nav-link" href="<?php echo BASE_URL; ?>test-series.php"><i class="fas fa-pen-to-square me-2 text-primary"></i> Test Series</a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a class="nav-link" href="<?php echo BASE_URL; ?>scholarship.php"><i class="fas fa-graduation-cap me-2 text-primary"></i> Scholarship</a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a class="nav-link" href="<?php echo BASE_URL; ?>careerpath.php"><i class="fas fa-route me-2 text-primary"></i> CareerPath</a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a class="nav-link" href="<?php echo BASE_URL; ?>study-material.php"><i class="fas fa-file-pdf me-2 text-primary"></i> Study Material</a>
-                </li>
-            </ul>
+            <div class="mobile-nav-wrapper flex-grow-1">
+                <ul class="nav flex-column mobile-main-nav">
+                    <!-- Classroom Courses -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center justify-content-between collapsed" data-bs-toggle="collapse" href="#mobileCourses" role="button" aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-chalkboard-teacher menu-icon"></i>
+                                <span class="menu-text">Classroom Courses</span>
+                            </div>
+                            <i class="fas fa-chevron-down arrow-icon"></i>
+                        </a>
+                        <div class="collapse" id="mobileCourses">
+                            <ul class="nav flex-column mobile-sub-nav">
+                                <!-- NEET Nested -->
+                                <li class="pe-3">
+                                    <a href="#mobileNeetSub" data-bs-toggle="collapse" class="d-flex align-items-center justify-content-between collapsed py-2 text-decoration-none">
+                                        <span class="text-dark"><i class="fas fa-certificate me-2 opacity-50"></i> NEET (Medical)</span>
+                                        <i class="fas fa-chevron-right small opacity-50"></i>
+                                    </a>
+                                    <div class="collapse" id="mobileNeetSub">
+                                        <ul class="nav flex-column mobile-inner-nav">
+                                            <li><a href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=NURTURE">NURTURE (Class XI)</a></li>
+                                            <li><a href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=EMERGE">EMERGE (Class XII)</a></li>
+                                            <li><a href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=IMPULSE">IMPULSE (Dropper)</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <!-- IIT-JEE Nested -->
+                                <li class="pe-3">
+                                    <a href="#mobileJeeSub" data-bs-toggle="collapse" class="d-flex align-items-center justify-content-between collapsed py-2 text-decoration-none">
+                                        <span class="text-dark"><i class="fas fa-gear me-2 opacity-50"></i> IIT-JEE (Engg.)</span>
+                                        <i class="fas fa-chevron-right small opacity-50"></i>
+                                    </a>
+                                    <div class="collapse" id="mobileJeeSub">
+                                        <ul class="nav flex-column mobile-inner-nav">
+                                            <li><a href="<?php echo BASE_URL; ?>courses.php?category=IIT-JEE&type=NURTURE">NURTURE (Class XI)</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <!-- School Prep Nested -->
+                                <li class="pe-3">
+                                    <a href="#mobileSchoolSub" data-bs-toggle="collapse" class="d-flex align-items-center justify-content-between collapsed py-2 text-decoration-none">
+                                        <span class="text-dark"><i class="fas fa-school me-2 opacity-50"></i> School Prep</span>
+                                        <i class="fas fa-chevron-right small opacity-50"></i>
+                                    </a>
+                                    <div class="collapse" id="mobileSchoolSub">
+                                        <ul class="nav flex-column mobile-inner-nav">
+                                            <li><a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=8">Class 8th Standard</a></li>
+                                            <li><a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=9">Class 9th Standard</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="<?php echo BASE_URL; ?>classroom-courses.php" class="fw-bold text-primary">All Classroom Programs</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Test Series -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center justify-content-between collapsed" data-bs-toggle="collapse" href="#mobileTestSeries" role="button" aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-edit menu-icon"></i>
+                                <span class="menu-text">Test Series</span>
+                            </div>
+                            <i class="fas fa-chevron-down arrow-icon"></i>
+                        </a>
+                        <div class="collapse" id="mobileTestSeries">
+                            <ul class="nav flex-column mobile-sub-nav">
+                                <!-- AITS NEET -->
+                                <li class="pe-3">
+                                    <a href="#mobileAitsNeet" data-bs-toggle="collapse" class="d-flex align-items-center justify-content-between collapsed py-2 text-decoration-none">
+                                        <span class="text-dark"><i class="fas fa-vial me-2 opacity-50"></i> AITS (NEET)</span>
+                                        <i class="fas fa-chevron-right small opacity-50"></i>
+                                    </a>
+                                    <div class="collapse" id="mobileAitsNeet">
+                                        <ul class="nav flex-column mobile-inner-nav">
+                                            <li><a href="<?php echo BASE_URL; ?>test-series.php?category=NEET&type=FullLength">Full Length Mock</a></li>
+                                            <li><a href="<?php echo BASE_URL; ?>test-series.php?category=NEET&type=Chapterwise">Chapter-wise Test</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <!-- AITS JEE -->
+                                <li class="pe-3">
+                                    <a href="#mobileAitsJee" data-bs-toggle="collapse" class="d-flex align-items-center justify-content-between collapsed py-2 text-decoration-none">
+                                        <span class="text-dark"><i class="fas fa-vial me-2 opacity-50"></i> AITS (IIT-JEE)</span>
+                                        <i class="fas fa-chevron-right small opacity-50"></i>
+                                    </a>
+                                    <div class="collapse" id="mobileAitsJee">
+                                        <ul class="nav flex-column mobile-inner-nav">
+                                            <li><a href="<?php echo BASE_URL; ?>test-series.php?category=IIT-JEE&type=FullLength">Full Length Mock</a></li>
+                                            <li><a href="<?php echo BASE_URL; ?>test-series.php?category=IIT-JEE&type=Chapterwise">Chapter-wise Test</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="<?php echo BASE_URL; ?>test-series.php" class="fw-bold text-primary">All Test Series</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Scholarship -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center justify-content-between collapsed" data-bs-toggle="collapse" href="#mobileScholarship" role="button" aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-graduation-cap menu-icon"></i>
+                                <span class="menu-text">Scholarship</span>
+                            </div>
+                            <i class="fas fa-chevron-down arrow-icon"></i>
+                        </a>
+                        <div class="collapse" id="mobileScholarship">
+                            <ul class="nav flex-column mobile-sub-nav">
+                                <li><a href="<?php echo BASE_URL; ?>scholarship-program.php">Scholarship Program</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>scholarship.php?path=esat">ESAT 2026</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>scholarship.php?path=emrs">EMRS</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- CareerPath -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="<?php echo BASE_URL; ?>careerpath.php">
+                            <i class="fas fa-route menu-icon"></i>
+                            <span class="menu-text">CareerPath</span>
+                        </a>
+                    </li>
+
+                    <!-- Study Material -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center justify-content-between collapsed" data-bs-toggle="collapse" href="#mobileStudy" role="button" aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-file-pdf menu-icon"></i>
+                                <span class="menu-text">Study Material</span>
+                            </div>
+                            <i class="fas fa-chevron-down arrow-icon"></i>
+                        </a>
+                        <div class="collapse" id="mobileStudy">
+                            <ul class="nav flex-column mobile-sub-nav">
+                                <li><a href="<?php echo BASE_URL; ?>study-material.php?category=JEE"><i class="fas fa-atom me-2 opacity-50"></i> JEE Mains</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>study-material.php?category=NEET"><i class="fas fa-user-md me-2 opacity-50"></i> NEET</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>study-material.php?category=NCERT"><i class="fas fa-book me-2 opacity-50"></i> NCERT</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>study-material.php?category=HC-Verma"><i class="fas fa-square-root-alt me-2 opacity-50"></i> Physics/HC VERMA</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>study-material.php" class="fw-bold text-primary">Browse All Vault</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
             
-            <div class="mt-auto pt-4 border-top text-center">
-                <div class="d-grid gap-3 mb-4">
+            <div class="mt-auto p-4 border-top">
+                <div class="d-grid gap-3">
                      <?php if(isset($_SESSION['student_id'])): ?>
-                         <a href="<?php echo BASE_URL; ?>student-dashboard.php" class="btn-header-pill btn-header-login d-flex align-items-center px-3 py-3">
-                             <i class="fas fa-columns me-2 flex-shrink-0"></i> <span>Dashboard</span>
+                         <a href="<?php echo BASE_URL; ?>student-dashboard.php" class="btn btn-portal-mobile py-3 rounded-pill">
+                             <i class="fas fa-columns me-2"></i> Dashboard
                          </a>
                      <?php else: ?>
-                         <a href="<?php echo BASE_URL; ?>student-login.php" class="btn-header-pill btn-header-login d-flex align-items-center px-3 py-3">
-                             <i class="far fa-clipboard me-2 flex-shrink-0"></i> <span>Student Portal</span>
+                         <a href="<?php echo BASE_URL; ?>student-login.php" class="btn btn-portal-mobile py-3 rounded-pill">
+                             <i class="far fa-clipboard me-2"></i> Student Portal
                          </a>
                      <?php endif; ?>
-                     <a href="<?php echo BASE_URL; ?>scholarship.php" class="btn-header-pill btn-header-scholarship d-flex align-items-center px-3 py-3">
-                         <i class="fas fa-graduation-cap me-2 flex-shrink-0"></i> <span class="small fw-bold">Register for Scholarship Exam</span>
+                     <a href="<?php echo BASE_URL; ?>scholarship.php" class="btn btn-header-pill btn-scholarship-mobile d-flex align-items-center justify-content-center py-3">
+                         <i class="fas fa-graduation-cap me-2"></i> <span class="fw-bold">Scholarship Exam 2026</span>
                      </a>
-                     <a href="tel:9934244522" class="btn btn-outline-dark py-3 rounded-pill d-flex align-items-center px-3"><i class="fas fa-phone-alt me-2 text-primary flex-shrink-0"></i> <span>9934244522</span></a>
-                     <a href="mailto:info.ekalavyaeducation@gmail.com" class="btn btn-outline-dark py-2 rounded-pill d-flex align-items-center px-3" style="font-size: 0.75rem;"><i class="fas fa-envelope me-2 text-primary flex-shrink-0"></i> <span style="word-break: break-all; line-height: 1.2;">info.ekalavyaeducation@gmail.com</span></a>
                 </div>
-                <div class="d-flex justify-content-between align-items-center pt-2">
+                <div class="mobile-contact-info d-grid gap-2 mt-3">
+                    <a href="tel:9934244522" class="btn btn-outline-dark rounded-pill d-flex align-items-center fw-bold shadow-sm">
+                        <i class="fas fa-phone-alt me-3 text-orange"></i> 9934244522
+                    </a>
+                    <a href="mailto:info.ekalavyaeducation@gmail.com" class="btn btn-outline-dark rounded-pill d-flex align-items-center fw-bold shadow-sm" style="font-size: 0.75rem;">
+                        <i class="fas fa-envelope me-3 text-orange"></i> info.ekalavyaeducation@gmail.com
+                    </a>
+                </div>
+                <div class="d-flex justify-content-between align-items-center pt-4">
                     <div class="social-links">
                         <a href="https://www.instagram.com/ekalavya.education/" target="_blank" class="text-primary fs-4"><i class="fab fa-instagram"></i></a>
                     </div>

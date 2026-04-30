@@ -44,7 +44,8 @@ $student = $stmt->fetch();
                             </div>
                             <h4 class="fw-black mb-2">ADMIT CARD</h4>
                             <p class="small text-muted mb-5">Download your official ESAT examination admission slip with venue details.</p>
-                            <a href="<?php echo ($student['admit_card'] == '#') ? '#' : 'uploads/admit_cards/' . htmlspecialchars($student['admit_card']); ?>" target="_blank" class="btn <?php echo ($student['admit_card'] == '#') ? 'btn-secondary disabled' : 'btn-primary'; ?> w-100 py-2 rounded-pill fw-black">DOWNLOAD SLIP <i class="fas fa-download ms-2"></i></a>
+                            <?php $admit_card = (isset($student['admit_card']) && $student['admit_card'] != '#') ? 'uploads/admit_cards/' . $student['admit_card'] : '#'; ?>
+                            <a href="<?php echo $admit_card; ?>" download target="_blank" class="btn btn-warning w-100 py-2 rounded-pill fw-black text-white">DOWNLOAD SLIP <i class="fas fa-download ms-2"></i></a>
                         </div>
                     </div>
 
@@ -56,7 +57,8 @@ $student = $stmt->fetch();
                             </div>
                             <h4 class="fw-black mb-2">TEST SERIES</h4>
                             <p class="small text-muted mb-5">Access your mocks, part-tests, and real-time rank forecasting analytics.</p>
-                            <a href="<?php echo htmlspecialchars($student['test_series_link']); ?>" target="_blank" class="btn <?php echo ($student['test_series_link'] == '#') ? 'btn-success disabled' : 'btn-success'; ?> w-100 py-2 rounded-pill fw-black text-white">ENTER PORTAL <i class="fas fa-external-link-alt ms-2"></i></a>
+                            <?php $ts_link = (isset($student['test_series_link']) && $student['test_series_link'] != '#') ? $student['test_series_link'] : 'test-series.php'; ?>
+                            <a href="<?php echo $ts_link; ?>" target="_blank" class="btn btn-success w-100 py-2 rounded-pill fw-black text-white">ENTER PORTAL <i class="fas fa-external-link-alt ms-2"></i></a>
                         </div>
                     </div>
 
@@ -69,10 +71,11 @@ $student = $stmt->fetch();
                                 </div>
                                 <div>
                                     <p class="very-small text-muted uppercase fw-black mb-1">Active Program</p>
-                                    <h3 class="fw-black mb-0"><?php echo htmlspecialchars($student['program']); ?></h3>
+                                    <h3 class="fw-black mb-0"><?php echo htmlspecialchars(isset($student['program']) ? $student['program'] : 'IIT-JEE'); ?></h3>
                                 </div>
                             </div>
-                            <a href="<?php echo htmlspecialchars($student['course_link']); ?>" target="_blank" class="btn <?php echo ($student['course_link'] == '#') ? 'btn-dark disabled' : 'btn-dark'; ?> px-5 py-3 rounded-pill fw-black">GO TO COURSE <i class="fas fa-arrow-right ms-2"></i></a>
+                            <?php $c_link = (isset($student['course_link']) && $student['course_link'] != '#') ? $student['course_link'] : 'course-detail.php?slug=nurture-jee-11'; ?>
+                            <a href="<?php echo $c_link; ?>" target="_blank" class="btn btn-dark px-5 py-3 rounded-pill fw-black">GO TO COURSE <i class="fas fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
 

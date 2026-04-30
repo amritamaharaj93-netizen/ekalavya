@@ -1,5 +1,5 @@
 <?php 
-include 'includes/header.php'; 
+include 'config/database.php';
 
 // Fetch test series details
 $test = null;
@@ -18,20 +18,14 @@ if (!$test) {
     header('Location: ' . BASE_URL . 'test-series.php');
     exit();
 }
+
+include 'includes/header.php'; 
 ?>
 
 <!-- Professional Page Header -->
-<section class="page-header test-series-header">
-    <div class="container text-center">
-        <h1><?php echo htmlspecialchars($test['title']); ?></h1>
-        <p><?php echo htmlspecialchars($test['category'] ?: 'National Level Testing'); ?> • Academic Excellence</p>
-        <div class="breadcrumb-wrap">
-            <a href="<?php echo BASE_URL; ?>">Home</a>
-            <span class="breadcrumb-separator">></span>
-            <a href="<?php echo BASE_URL; ?>test-series">Test Series</a>
-            <span class="breadcrumb-separator">></span>
-            <span><?php echo htmlspecialchars($test['title']); ?></span>
-        </div>
+<section class="page-header test-series-header" style="padding: clamp(30px, 6vh, 60px) 0 !important;">
+        <h1 style="font-size: clamp(1.8rem, 8vw, 3.5rem); line-height: 1.1;"><?php echo htmlspecialchars($test['title']); ?></h1>
+        <p class="mb-0 small opacity-75"><?php echo htmlspecialchars($test['category'] ?: 'National Level Testing'); ?> • Academic Excellence</p>
     </div>
 </section>
 
@@ -170,7 +164,7 @@ if (!$test) {
                         <div class="cta-stack vstack gap-2">
                             <button class="btn btn-primary w-100 py-2 rounded-2 fw-black shadow-lg small" data-bs-toggle="modal" data-bs-target="#enquiryModal" data-course="Test Series: <?php echo htmlspecialchars($test['title']); ?>">ENROLL NOW <i class="fas fa-paper-plane ms-2"></i></button>
                             <?php if(!empty($test['link'])): ?>
-                                <a href="<?php echo htmlspecialchars($test['link']); ?>" target="_blank" class="btn btn-outline-primary w-100 py-2 rounded-2 fw-bold small">PORTAL ACCESS</a>
+                                <a href="#" class="btn btn-warning w-100 py-2 rounded-2 fw-black small text-white">PORTAL ACCESS</a>
                             <?php endif; ?>
                             <a href="https://wa.me/919934244522?text=I'm interested in the <?php echo urlencode($test['title']); ?> test series" target="_blank" class="btn btn-outline-success w-100 py-2 rounded-2 fw-bold d-flex align-items-center justify-content-center gap-2 small">
                                 <i class="fab fa-whatsapp"></i> WHATSAPP

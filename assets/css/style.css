@@ -1751,24 +1751,32 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
 }
 
-/* --- MOBILE MENU BUTTON UNIFORMITY --- */
 .offcanvas-body .btn, 
 .offcanvas-body .btn-header-pill {
     width: 100% !important;
-    min-height: 55px !important;
+    min-height: 42px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 12px 20px !important;
+    padding: 8px 15px !important;
     border-radius: 50px !important;
-    font-size: 0.85rem !important;
-    margin-bottom: 10px;
+    font-size: 0.8rem !important;
+    margin-bottom: 8px;
 }
 
 .offcanvas-body .btn i, 
 .offcanvas-body .btn-header-pill i {
     font-size: 1.1rem;
     margin-right: 10px;
+}
+
+/* Hide scrollbar for offcanvas-body */
+.offcanvas-body {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+.offcanvas-body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
 }
 
 /* Specific fix for long email in mobile menu */

@@ -1,9 +1,9 @@
 <?php include 'includes/header.php'; ?>
 
 <!-- Premium Institutional Header -->
-<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('assets/images/contact_header.png') center/cover no-repeat;">
+<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('assets/images/contact_header.png') center/cover no-repeat; padding: clamp(40px, 8vh, 100px) 0 !important;">
     <div class="container text-center text-white">
-        <h1 class="fw-black mb-0">CONTACT <span class="text-primary">US</span></h1>
+        <h1 class="fw-black mb-0" style="font-size: clamp(2.2rem, 10vw, 4.5rem); line-height: 1.1;">CONTACT <span class="text-primary d-block d-md-inline">US</span></h1>
     </div>
 </section>
 

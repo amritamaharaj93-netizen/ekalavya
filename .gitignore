@@ -1,0 +1,10 @@
+# Database config (contains credentials)
+config/database.php
+
+# PHP environment / XAMPP
+/scratch/*.php
+.vscode/
+.DS_Store
+node_modules/
+vendor/
+*.log

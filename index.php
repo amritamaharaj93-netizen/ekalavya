@@ -4,69 +4,37 @@ include 'includes/header.php';
 ?>
 
 
-    <!-- New Premium Hero Slider -->
-    <section class="premium-hero">
-        <div class="swiper mainHeroSwiper">
+    <!-- Section 1: Home Banner Slider -->
+    <section class="home-banner-slider">
+        <div class="swiper mainHomeSwiper">
             <div class="swiper-wrapper">
-                
                 <!-- Slide 1 -->
                 <div class="swiper-slide">
-                    <div class="hero-image" style="background-image: url('<?php echo BASE_URL; ?>assets/images/eklavya-hero-new.png');"></div>
-                    <div class="hero-overlay"></div>
-                    <div class="container hero-container">
-                        <div class="hero-content">
-                            <span class="hero-badge animate__animated animate__fadeInDown">Empowering Future Leaders</span>
-                            <h1 class="hero-title animate__animated animate__fadeInLeft">EKALAVYA</h1>
-                            <p class="hero-subtitle animate__animated animate__fadeInUp">Architecting India's future IITians and Doctors through world-class precision mentoring.</p>
-                            <div class="hero-actions animate__animated animate__fadeInUp">
-                                <a href="courses.php" class="btn btn-primary btn-lg rounded-pill shadow-lg">Our Programs</a>
-                                <a href="scholarship.php" class="btn btn-outline-light btn-lg rounded-pill ms-md-3">Scholarship 2026</a>
-                            </div>
-                        </div>
-                    </div>
+                    <a href="<?php echo BASE_URL; ?>scholarship.php">
+                        <img src="<?php echo BASE_URL; ?>assets/images/home banner1.png" alt="Ekalavya Home Banner 1" class="banner-img">
+                    </a>
                 </div>
-
                 <!-- Slide 2 -->
                 <div class="swiper-slide">
-                    <div class="hero-image" style="background-image: url('<?php echo BASE_URL; ?>assets/images/neet-hero.png');"></div>
-                    <div class="hero-overlay"></div>
-                    <div class="container hero-container">
-                        <div class="hero-content">
-                            <span class="hero-badge animate__animated animate__fadeInDown">Medical Excellence</span>
-                            <h1 class="hero-title animate__animated animate__fadeInLeft">NEET <br><span class="text-primary">DOMINANCE</span></h1>
-                            <p class="hero-subtitle animate__animated animate__fadeInUp">Specialized biological analysis and chemical conceptualization for top-tier medical ranks.</p>
-                            <div class="hero-actions animate__animated animate__fadeInUp">
-                                <a href="courses.php" class="btn btn-primary btn-lg rounded-pill shadow-lg">NEET Programs</a>
-                                <a href="contact.php" class="btn btn-outline-light btn-lg rounded-pill ms-md-3">Book Counseling</a>
-                            </div>
-                        </div>
-                    </div>
+                    <a href="<?php echo BASE_URL; ?>course-detail.php?slug=nurture-neet-11">
+                        <img src="<?php echo BASE_URL; ?>assets/images/home banner4.png" alt="Ekalavya Home Banner 4" class="banner-img">
+                    </a>
                 </div>
-
                 <!-- Slide 3 -->
                 <div class="swiper-slide">
-                    <div class="hero-image" style="background-image: url('<?php echo BASE_URL; ?>assets/images/jee-hero.png');"></div>
-                    <div class="hero-overlay"></div>
-                    <div class="container hero-container">
-                        <div class="hero-content">
-                            <span class="hero-badge animate__animated animate__fadeInDown">Engineering Mastery</span>
-                            <h1 class="hero-title animate__animated animate__fadeInLeft">IIT-JEE <br><span class="text-primary">MASTERY</span></h1>
-                            <p class="hero-subtitle animate__animated animate__fadeInUp">Advanced physics derivation and mathematical logic from India's finest IITian faculty.</p>
-                            <div class="hero-actions animate__animated animate__fadeInUp">
-                                <a href="courses.php" class="btn btn-primary btn-lg rounded-pill shadow-lg">JEE Programs</a>
-                                <a href="test-series.php" class="btn btn-outline-light btn-lg rounded-pill ms-md-3">Explore AITS</a>
-                            </div>
-                        </div>
-                    </div>
+                    <a href="<?php echo BASE_URL; ?>course-detail.php?slug=nurture-jee-11">
+                        <img src="<?php echo BASE_URL; ?>assets/images/home banner3.png" alt="Ekalavya Home Banner 3" class="banner-img">
+                    </a>
                 </div>
-
             </div>
-            
+            <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
-            <div class="swiper-button-next d-none d-md-flex"></div>
-            <div class="swiper-button-prev d-none d-md-flex"></div>
+            <!-- Add Navigation -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
     </section>
+
 
 
 
@@ -76,7 +44,7 @@ include 'includes/header.php';
         <div class="container">
             <div class="section-title text-center mb-5 pb-4">
                 <h6 class="text-primary fw-bold text-uppercase tracking-widest mb-3">Academic Excellence</h6>
-                <h2 class="fw-black" style="font-size: 1.6rem;">THE <span class="text-primary">Ekalavya</span> CURRICULUM</h2>
+                <h2 class="fw-black" style="font-size: clamp(1.3rem, 4vw, 2.5rem); letter-spacing: -0.5px;">THE <span class="text-primary">Ekalavya</span> CURRICULUM</h2>
                 <div class="title-accent mx-auto mt-4" style="width: 100px; height: 6px; background: var(--primary-yellow); border-radius: 10px;"></div>
             </div>
 
@@ -150,78 +118,19 @@ include 'includes/header.php';
                         <div class="swiper enquirySlider w-100 flex-grow-1">
                             <div class="swiper-wrapper">
                                 
-                                <!-- Slide 1: JEE Advanced Result -->
-                                <div class="swiper-slide p-4 p-lg-5 bg-white">
-                                    <div class="row g-4 align-items-center h-100">
-                                        <div class="col-md-5 text-center text-md-start">
-                                            <div class="result-badge bg-primary-yellow text-dark d-inline-block px-3 py-1 rounded-pill fw-black mb-3 small">JEE ADVANCED 2026</div>
-                                            <h2 class="display-3 fw-black text-secondary position-relative z-index-2 mb-0">SELECTIONS</h2>
-                                            <h2 class="display-4 fw-black text-primary mb-3">CROSS 100</h2>
-                                            <div class="featured-student-img">
-                                                <img src="<?php echo BASE_URL; ?>assets/images/topper_arjun.jpg" alt="Topper" class="img-fluid rounded-4 shadow-lg" style="max-height: 180px;">
-                                                <div class="mt-2">
-                                                    <h6 class="mb-0 fw-bold">ARJUN MEHTA</h6>
-                                                    <p class="text-primary mb-0 extra-small fw-bold">AIR 842 - IIT BOMBAY</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-7">
-                                            <div class="toppers-wall-premium bg-aurous-gradient rounded-4 p-3 shadow-inner">
-                                                <div class="row g-2">
-                                                    <?php for($i=1; $i<=24; $i++): ?>
-                                                    <div class="col-2">
-                                                        <div class="bg-white rounded-1 p-1 text-center shadow-sm">
-                                                            <div class="avatar-mini bg-light rounded-1 mb-1" style="height: 20px; overflow: hidden;"><i class="fas fa-user text-muted opacity-50" style="font-size: 0.6rem;"></i></div>
-                                                            <div class="fw-black" style="font-size: 0.45rem;">AIR <?php echo rand(100, 5000); ?></div>
-                                                        </div>
-                                                    </div>
-                                                    <?php endfor; ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <!-- Slide 1 -->
+                                <div class="swiper-slide">
+                                    <img src="<?php echo BASE_URL; ?>assets/images/form image1.png" alt="Ekalavya Form 1" class="w-100 h-100" style="object-fit: cover;">
                                 </div>
 
-                                <!-- Slide 2: JEE Dropper Batch -->
-                                <div class="swiper-slide p-4 p-lg-5" style="background: #be1e2d;">
-                                    <div class="row h-100 align-items-center">
-                                        <div class="col-md-8 text-white">
-                                            <h6 class="text-warning fw-bold mb-1">ONE YEAR. ONE COMEBACK.</h6>
-                                            <h2 class="display-4 fw-black text-warning mb-0">JEE DROPPER</h2>
-                                            <h2 class="display-3 fw-black text-white mb-3">BATCH 2026</h2>
-                                            <div class="row g-2 mb-4">
-                                                <div class="col-6"><div class="d-flex align-items-center gap-2"><i class="fas fa-check-circle text-warning small"></i> <span class="small fw-bold">Experienced Faculty</span></div></div>
-                                                <div class="col-6"><div class="d-flex align-items-center gap-2"><i class="fas fa-check-circle text-warning small"></i> <span class="small fw-bold">Personal Attention</span></div></div>
-                                                <div class="col-6"><div class="d-flex align-items-center gap-2"><i class="fas fa-check-circle text-warning small"></i> <span class="small fw-bold">Expert Interaction</span></div></div>
-                                                <div class="col-6"><div class="d-flex align-items-center gap-2"><i class="fas fa-check-circle text-warning small"></i> <span class="small fw-bold">Doubt Solving Room</span></div></div>
-                                            </div>
-                                            <div class="bg-dark p-2 px-3 rounded-3 d-inline-block shadow-lg">
-                                                <h6 class="mb-0 fw-black text-warning">BATCH STARTING: <span class="text-white">16th APRIL 2026</span></h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 d-none d-md-block text-end">
-                                            <img src="<?php echo BASE_URL; ?>assets/images/banner2.png" alt="Dropper Batch" class="img-fluid rounded-4 shadow-2xl" style="max-height: 250px;">
-                                        </div>
-                                    </div>
+                                <!-- Slide 2 -->
+                                <div class="swiper-slide">
+                                    <img src="<?php echo BASE_URL; ?>assets/images/form image2.png" alt="Ekalavya Form 2" class="w-100 h-100" style="object-fit: cover;">
                                 </div>
 
-                                <!-- Slide 3: NEET Success -->
-                                <div class="swiper-slide p-4 p-lg-5" style="background: #7a111b;">
-                                    <div class="row h-100 align-items-center">
-                                        <div class="col-md-7 text-white">
-                                            <h4 class="fw-black mb-1">CRACK <span class="text-warning">NEET</span>, CONQUER <span class="text-warning">IIT-JEE</span></h4>
-                                            <h2 class="display-2 fw-black text-white mb-0" style="line-height: 0.8;">NEET</h2>
-                                            <h2 class="display-4 fw-black text-warning mb-4">के सिकंदर</h2>
-                                            <div class="scholarship-tag bg-white text-dark p-2 px-4 rounded-pill d-inline-flex align-items-center gap-3 shadow-lg">
-                                                <span class="fw-black text-danger small">APRE 2026</span>
-                                                <div class="vr"></div>
-                                                <span class="extra-small fw-bold">UP TO 100% SCHOLARSHIP</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <img src="<?php echo BASE_URL; ?>assets/images/banner1.png" alt="NEET Success" class="img-fluid rounded-4 shadow-lg" style="max-height: 250px;">
-                                        </div>
-                                    </div>
+                                <!-- Slide 3 -->
+                                <div class="swiper-slide">
+                                    <img src="<?php echo BASE_URL; ?>assets/images/form image3.png" alt="Ekalavya Form 3" class="w-100 h-100" style="object-fit: cover;">
                                 </div>
 
 
@@ -313,7 +222,7 @@ include 'includes/header.php';
         <div class="container">
             <div class="section-title text-center mb-5 pb-4">
                 <h6 class="text-primary fw-bold text-uppercase tracking-widest mb-3">Wall of Champions</h6>
-                <h2 class="display-3 fw-black">MEET OUR <span class="text-primary">STAR</span></h2>
+                <h2 class="fw-black" style="font-size: clamp(1.5rem, 6vw, 4.5rem); letter-spacing: -1.5px;">MEET OUR <span class="text-primary">STAR</span></h2>
             </div>
             
             <div class="row g-4 justify-content-center">

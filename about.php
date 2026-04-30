@@ -1,13 +1,13 @@
 <?php include 'includes/header.php'; ?>
 
 <!-- Premium Institutional Header -->
-<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('assets/images/about_header.png') center/cover no-repeat;">
+<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('assets/images/about_header.png') center/cover no-repeat; padding: clamp(40px, 8vh, 100px) 0 !important;">
     <div class="container text-center text-white">
-        <h1 class="fw-black mb-2">OUR <span class="text-primary">LEGACY</span></h1>
-        <div class="breadcrumb-wrap justify-content-center">
-            <a href="<?php echo BASE_URL; ?>">Home</a>
+        <h1 class="fw-black mb-0" style="font-size: clamp(2.2rem, 10vw, 4.5rem); line-height: 1.1;">OUR <span class="text-primary d-block d-md-inline">LEGACY</span></h1>
+        <div class="breadcrumb-wrap justify-content-center mt-3">
+            <a href="<?php echo BASE_URL; ?>" class="text-white text-decoration-none opacity-75">Home</a>
             <span class="breadcrumb-separator px-2 opacity-50">/</span>
-            <span>Institutional Profile</span>
+            <span class="opacity-75">Institutional Profile</span>
         </div>
     </div>
 </section>

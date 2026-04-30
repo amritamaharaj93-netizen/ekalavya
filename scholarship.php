@@ -9,7 +9,7 @@ include 'includes/header.php';
     
     <div class="container text-center text-white position-relative">
         <h6 class="text-primary fw-black tracking-widest mb-2 animate-up" style="font-size: 0.7rem; letter-spacing: 3px;">RECOGNISING TALENT • REWARDING MERIT</h6>
-        <h1 class="fw-black mb-0">SCHOLARSHIP <span class="text-primary">PORTAL 2026</span></h1>
+        <h1 class="fw-black mb-0" style="font-size: clamp(2rem, 9vw, 4.5rem); line-height: 1.1;">SCHOLARSHIP <span class="text-primary d-block d-md-inline">PORTAL 2026</span></h1>
     </div>
 </section>
 

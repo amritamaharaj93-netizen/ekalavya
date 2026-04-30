@@ -4,31 +4,31 @@
 
     function initScripts() {
 
-        // Initialize Premium Hero Slider (Index Page)
-        if (document.querySelector('.mainHeroSwiper') && typeof Swiper !== 'undefined') {
+        // Initialize Home Banner Slider (Index Page)
+        if (document.querySelector('.mainHomeSwiper') && typeof Swiper !== 'undefined') {
             try {
-                if (!document.querySelector('.mainHeroSwiper').swiper) {
-                    new Swiper('.mainHeroSwiper', {
+                if (!document.querySelector('.mainHomeSwiper').swiper) {
+                    new Swiper('.mainHomeSwiper', {
                         loop: true,
-                        speed: 1200,
-                        effect: 'fade',
-                        fadeEffect: { crossFade: true },
+                        speed: 1000,
+                        effect: 'slide',
                         autoplay: {
                             delay: 5000,
                             disableOnInteraction: false,
                         },
                         pagination: {
-                            el: '.mainHeroSwiper .swiper-pagination',
+                            el: '.mainHomeSwiper .swiper-pagination',
                             clickable: true,
                         },
                         navigation: {
-                            nextEl: '.mainHeroSwiper .swiper-button-next',
-                            prevEl: '.mainHeroSwiper .swiper-button-prev',
+                            nextEl: '.mainHomeSwiper .swiper-button-next',
+                            prevEl: '.mainHomeSwiper .swiper-button-prev',
                         },
                     });
                 }
-            } catch(e) { console.error("Hero Swiper Error: ", e); }
+            } catch(e) { console.error("Home Slider Error: ", e); }
         }
+
 
         // Initialize Enquiry Promo Slider
         if (document.querySelector('.enquirySlider') && typeof Swiper !== 'undefined') {

@@ -106,7 +106,7 @@ if ($type == 'FullLength') {
             <!-- Left Side: Assessment Roadmap -->
             <div class="col-lg-8">
                 <div class="pe-lg-5">
-                    <h2 class="fw-black mb-4 h1"><?php echo $lifecycle_title; ?></h2>
+                    <h2 class="fw-black mb-4 h1" style="font-size: clamp(1.1rem, 6.2vw, 2.8rem); white-space: nowrap; letter-spacing: -0.8px;"><?php echo $lifecycle_title; ?></h2>
                     <p class="text-muted lead mb-5"><?php echo $lifecycle_desc; ?></p>
                     
                     <div class="feature-ecosystem row g-3 mt-2">

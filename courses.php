@@ -69,9 +69,20 @@ if ($class) {
 ?>
 
 <!-- Premium Institutional Header -->
-<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.6)), url('assets/images/classroom_courses_hero.png') center/cover no-repeat; padding: 50px 0 !important;">
+<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.6)), url('assets/images/classroom_courses_hero.png') center/cover no-repeat; padding: clamp(40px, 8vh, 100px) 0 !important;">
     <div class="container text-center text-white">
-        <h1 class="display-3 fw-black mb-3"><?php echo $header_title; ?></h1>
+        <h1 class="fw-black mb-0" style="font-size: clamp(2.2rem, 10vw, 4.5rem); line-height: 1.1;">
+            <?php 
+                if ($category) {
+                    echo htmlspecialchars($category) . " <span class='text-primary d-block d-md-inline'>PROGRAMS</span>";
+                } else {
+                    echo "OUR <span class='text-primary d-block d-md-inline'>COURSES</span>";
+                }
+            ?>
+        </h1>
+        <?php if ($class): ?>
+            <small class='fs-4 d-block mt-2 opacity-75'>FOR CLASS <?php echo htmlspecialchars($class); ?></small>
+        <?php endif; ?>
     </div>
 </section>
 
