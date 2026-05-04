@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         ";
         
-        sendInstitutionalMail(SMTP_USER, $adminSubject, $adminBody);
+        sendInstitutionalMail(ADMIN_EMAIL, $adminSubject, $adminBody);
 
         // Success - Check for AJAX
         if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {

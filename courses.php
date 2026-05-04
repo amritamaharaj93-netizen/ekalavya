@@ -7,7 +7,12 @@ $class = isset($_GET['class']) ? trim($_GET['class']) : '';
 $type = isset($_GET['type']) ? trim($_GET['type']) : '';
 
 // Build dynamic query
-$query = "SELECT * FROM courses WHERE 1=1";
+$query = "SELECT * FROM courses WHERE 1=1 AND title NOT IN (
+    'SEED (NEET Batch for Class IX)', 
+    'ANKUR (NEET Batch for Class X)', 
+    'School Excellence Program (Class VIII)', 
+    'EMERGE CLASS - XII (JEE BATCH)'
+)";
 $params = [];
 
 if ($category) {
@@ -20,8 +25,7 @@ if ($category) {
 }
 
 if ($class) {
-    $query .= " AND (title LIKE ? OR description LIKE ? OR target_year LIKE ?)";
-    $params[] = "%$class%";
+    $query .= " AND (title LIKE ? OR description LIKE ?)";
     $params[] = "%$class%";
     $params[] = "%$class%";
 }
@@ -39,11 +43,10 @@ if ($type) {
     $mapped_class = isset($mapping[strtoupper($type)]) ? $mapping[strtoupper($type)] : '';
     
     if ($mapped_class) {
-        $query .= " AND (title LIKE ? OR slug LIKE ? OR category LIKE ? OR title LIKE ? OR description LIKE ?)";
+        $query .= " AND (title LIKE ? OR slug LIKE ? OR category LIKE ? OR title LIKE ?)";
         $params[] = "%$type%";
         $params[] = "%$type%";
         $params[] = "%$type%";
-        $params[] = "%$mapped_class%";
         $params[] = "%$mapped_class%";
     } else {
         $query .= " AND (title LIKE ? OR slug LIKE ? OR category LIKE ?)";
@@ -190,7 +193,7 @@ if ($class) {
                     ?>
                     <div class="course-card-v3 <?php echo $category_class; ?>">
                         <div class="card-image">
-                            <div class="course-badge"><?php echo $badge_text; ?></div>
+                            <!-- <div class="course-badge"><?php echo $badge_text; ?></div> -->
                             <img src="<?php echo BASE_URL; ?>assets/images/<?php echo $banner; ?>" alt="Course Banner">
                         </div>
                         <div class="card-body">

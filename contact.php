@@ -54,7 +54,7 @@
                     <h2 class="fw-black text-dark mb-3 text-uppercase">SEND AN <span class="text-warning">ENQUIRY</span></h2>
                     <p class="text-muted small mb-5">Our academic counselor will reach out to you within 24 hours.</p>
                     
-                    <form action="process-contact.php" method="POST" class="row g-4 text-start">
+                    <form id="contactEnquiryForm" action="process-contact.php" method="POST" class="row g-4 text-start">
                         <div class="col-12">
                             <input type="text" name="name" class="form-control form-control-lg border-0 bg-light rounded-4 px-4 py-3" placeholder="Your Name" required>
                         </div>
@@ -131,22 +131,6 @@
     </style>
 </section>
 
-<!-- Map Section -->
-<section class="py-0 bg-white">
-    <div class="container container-1440">
-        <div class="rounded-5 overflow-hidden shadow-lg" style="height: 400px;">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.1788!2d85.1!3d25.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sPatna%2C+Bihar!5e0!3m2!1sen!2sin!4v1" 
-                width="100%" 
-                height="100%" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-    </div>
-</section>
 
 <!-- Quick FAQ + CTA -->
 <section class="section-padding bg-light">
@@ -196,3 +180,63 @@
 </section>
 
 <?php include 'includes/footer.php'; ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactEnquiryForm');
+    if(contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalBtnContent = submitBtn.innerHTML;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> PROCESSING...';
+
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === 'success') {
+                    const cardContainer = this.closest('.contact-form-premium');
+                    cardContainer.innerHTML = `
+                        <div class="text-center p-5 animate__animated animate__fadeIn">
+                            <div class="success-orb mb-4 mx-auto">
+                                <div class="bg-warning bg-opacity-10 text-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow-lg" style="width: 90px; height: 90px;">
+                                    <i class="fas fa-paper-plane fs-1"></i>
+                                </div>
+                            </div>
+                            <h3 class="fw-black text-dark mb-3 text-uppercase">MESSAGE <span class="text-warning">SENT</span></h3>
+                            <p class="text-muted small mb-0">${data.message}</p>
+                            <div class="mt-5 pt-4 border-top border-light">
+                                <p class="very-small text-muted mb-0">Follow our journey on social media</p>
+                                <div class="d-flex justify-content-center gap-3 mt-3">
+                                    <a href="#" class="text-secondary"><i class="fab fa-instagram fs-5"></i></a>
+                                    <a href="#" class="text-secondary"><i class="fab fa-facebook fs-5"></i></a>
+                                    <a href="#" class="text-secondary"><i class="fab fa-linkedin fs-5"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    alert(data.message);
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnContent;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnContent;
+            });
+        });
+    }
+});
+</script>

@@ -18,16 +18,85 @@ if (!$course) {
     exit();
 }
 
+// Determine dynamic study material text based on course title
+$study_material_text = "Class-12th study material"; // Default
+if ($course) {
+    $title_upper = strtoupper($course['title']);
+    $scholarship_text = $course['scholarship_note'] ?: "Up to 100%"; 
+    
+    // Legacy hardcoded overrides (keep as fallbacks for now, but prioritize DB fees if they are set)
+    if (empty($course['fees'])) {
+        if (strpos($title_upper, 'EMERGE') !== false || strpos($title_upper, 'XII') !== false) {
+            $study_material_text = "Class-12th study material";
+            $course['fees'] = 54000;
+        } elseif (strpos($title_upper, 'NURTURE') !== false || strpos($title_upper, 'XI') !== false || strpos($title_upper, '11TH') !== false) {
+            $study_material_text = "Class-11th study material";
+            $course['fees'] = 82000;
+        } elseif (strpos($title_upper, 'IMPULSE') !== false || strpos($title_upper, 'DROPPER') !== false) {
+            $study_material_text = "Dropper study material";
+            $course['fees'] = 54000;
+            $scholarship_text = "50% SCHOLARSHIP";
+        } elseif (strpos($title_upper, 'SEED') !== false || (strpos($title_upper, 'IX') !== false && strpos($title_upper, 'XI') === false)) {
+            $study_material_text = "Class-9 study material";
+            $course['fees'] = 42000;
+        }
+    } else {
+        // If fees are set in DB, use them but still try to guess study material text
+        if (strpos($title_upper, 'EMERGE') !== false || strpos($title_upper, 'XII') !== false || strpos($title_upper, '12TH') !== false) $study_material_text = "Class-12th study material";
+        elseif (strpos($title_upper, 'NURTURE') !== false || strpos($title_upper, 'XI') !== false || strpos($title_upper, '11TH') !== false) $study_material_text = "Class-11th study material";
+        elseif (strpos($title_upper, '7TH') !== false) $study_material_text = "Class-7th study material";
+        elseif (strpos($title_upper, '8TH') !== false) $study_material_text = "Class-8th study material";
+        elseif (strpos($title_upper, '10TH') !== false) $study_material_text = "Class-10th study material";
+        elseif (strpos($title_upper, 'IMPULSE') !== false || strpos($title_upper, 'DROPPER') !== false) $study_material_text = "Dropper study material";
+        elseif (strpos($title_upper, 'SEED') !== false || strpos($title_upper, 'IX') !== false || strpos($title_upper, '9TH') !== false) $study_material_text = "Class-9th study material";
+    }
+
+    // Parse JSON fields
+    $experience = json_decode($course['experience_json'] ?? '', true);
+    if (empty($experience)) {
+        $experience = [
+            ['icon' => 'fas fa-chalkboard-teacher', 'title' => 'Concept Learning', 'desc' => '<b>Expert Faculty Guidance:</b> Classes conducted by experienced and dedicated teachers with a strong focus on concept clarity and exam-oriented preparation.<br><b>Advanced Classroom Environment:</b> Well-equipped, comfortable classrooms designed to create a focused and effective learning atmosphere.'],
+            ['icon' => 'fas fa-copy', 'title' => 'Well-Designed Study Material', 'desc' => '<b>Concept Practice Sheets:</b> Specially designed worksheets to strengthen concepts and improve problem-solving speed and accuracy.<br><b>Topic-Based Modules:</b> Structured study modules containing Level wise exercises, Important questions, and previous year questions for deeper understanding.<br><b>Revision Practice Material:</b> Revision Practice sheets post-course completion.'],
+            ['icon' => 'fas fa-chart-line', 'title' => 'Systematic Test', 'desc' => '<b>Regular Tests:</b> Regular Test based on recently completed chapters to monitor progress. Full-length tests designed to strengthen preparation and build confidence for competitive exams.<br><b>Performance Analysis:</b> Detailed feedback and analysis to help students identify strengths and improve weak areas.'],
+            ['icon' => 'fas fa-user-graduate', 'title' => 'Additional Academic Support', 'desc' => '<b>Doubt-Solving Sessions:</b> Special sessions to clarify concepts and ensure complete understanding.<br><b>Personalized Mentorship:</b> Regular guidance from mentors to support academic growth and keep students motivated.'],
+            ['icon' => 'fas fa-comments', 'title' => 'Student & Parent Interaction', 'desc' => '<b>Career Guidance Programs:</b> Expert sessions providing information about competitive exams, career options, and future opportunities.<br><b>Regular PTM:</b> Frequent interaction between parents and teachers keeps one informed about the child\'s academic progress and ensures academic success.']
+        ];
+    }
+
+    $roadmap = json_decode($course['roadmap_json'] ?? '[]', true) ?: [
+        ['title' => 'Concept Building', 'desc' => 'Initiating with basic fundamentals to bridge any academic gaps.'],
+        ['title' => 'Exhaustive Module Coverage', 'desc' => 'Deep dive into physics, chemistry, and biology/maths modules.'],
+        ['title' => 'Periodic Benchmarking', 'desc' => 'Bi-weekly tests and monthly rank-analysis exams.'],
+        ['title' => 'Doubt & Revision Sprints', 'desc' => 'Intensive doubt-clearing sessions and formula-recall workshops.'],
+        ['title' => 'All India Mock Tests', 'desc' => 'Final touch-ups with national-level benchmarking and predicted AIR analysis.']
+    ];
+
+    $curriculum = json_decode($course['curriculum_json'] ?? '[]', true) ?: [
+        ['title' => 'Phase 1: Comprehensive Fundamentals', 'badge' => 'FOUNDATION', 'desc' => 'Initiation into core concepts with focus on higher-level problem solving.', 'topics' => 'Unit & Dimensions, Atomic Structure, Maths for Science', 'outcome_icon' => 'fas fa-bullseye', 'outcome_text' => 'Concept Clarity'],
+        ['title' => 'Phase 2: Intermediate Application', 'badge' => 'PRACTICE', 'desc' => 'Applying fundamental concepts to Level 1 and Level 2 problems.', 'topics' => 'Kinematics, Thermodynamics, Periodic Table', 'outcome_icon' => 'fas fa-bolt', 'outcome_text' => 'Problem Solving'],
+        ['title' => 'Phase 3: Rank Booster Mastery', 'badge' => 'RANKING', 'desc' => 'Mastering previous year questions and Level 3 problems.', 'topics' => 'Organic Chemistry, Calculus, Optics', 'outcome_icon' => 'fas fa-trophy', 'outcome_text' => 'Exam Readiness']
+    ];
+    // Parse scholarship percentage and calculate discounted fee
+    preg_match('/(\d+)%/', $scholarship_text, $matches);
+    $scholarship_pct = isset($matches[1]) ? intval($matches[1]) : 0;
+    $discounted_fee = $course['fees'] * (1 - ($scholarship_pct / 100));
+    // Parse scholarship percentage and calculate discounted fee
+    preg_match('/(\d+)%/', $scholarship_text, $matches);
+    $scholarship_pct = isset($matches[1]) ? intval($matches[1]) : 0;
+    $discounted_fee = $course['fees'] * (1 - ($scholarship_pct / 100));
+}
+
 include 'includes/header.php'; 
 ?>
 
 <!-- Allen-Inspired Hero Section -->
 <section class="course-hero-v2 py-6 bg-white position-relative overflow-hidden border-bottom">
     <div class="container container-1400">
-        <!-- Premium ESAT Scholarship Banner -->
-        <a href="<?php echo BASE_URL; ?>scholarship" class="d-block mb-5">
-            <img src="assets/images/scholarship image.png" alt="ESAT Scholarship Admission Test" class="img-fluid rounded-5 shadow-sm w-100">
-        </a>
+        <!-- Premium ESAT Scholarship Banner (Dynamic Content) -->
+        <!-- Scholarship Banner Image (Full Size) -->
+        <div class="scholarship-dynamic-banner rounded-5 mb-5 position-relative overflow-hidden shadow-heavy border">
+            <img src="<?php echo BASE_URL; ?>assets/images/<?php echo $course['hero_banner'] ?: 'scholar image.png'; ?>" class="img-fluid w-100" alt="Scholarship Program">
+        </div>
 
         <div class="row align-items-start g-5">
             <div class="col-lg-8">
@@ -49,7 +118,7 @@ include 'includes/header.php';
                     <span class="text-primary d-block mt-1">BATCH <?php echo $course['target_year'] ?: '2026'; ?></span>
                 </h1>
                 
-                <p class="lead text-muted mb-5 pe-lg-5" style="line-height: 1.6;"><?php echo htmlspecialchars($course['description']); ?></p>
+                <p class="lead text-muted mb-5 pe-lg-5" style="line-height: 1.6;"><?php echo nl2br(htmlspecialchars($course['description'])); ?></p>
                 
                 <?php if ($course['admission_eligibility']): ?>
                 <div class="modern-hub-header mb-5">
@@ -96,7 +165,7 @@ include 'includes/header.php';
                                 </div>
                                 <div>
                                     <small class="text-uppercase fw-black text-muted d-block mb-1" style="font-size: 0.65rem; letter-spacing: 1.5px;">Medium</small>
-                                    <h5 class="fw-black text-dark mb-0">English / Hindi</h5>
+                                    <h5 class="fw-black text-dark mb-0"><?php echo htmlspecialchars($course['medium'] ?: 'English / Hindi'); ?></h5>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +183,7 @@ include 'includes/header.php';
                     <div class="mb-5">
                         <label class="form-label very-small fw-black text-muted text-uppercase tracking-wider mb-3">Academic Session</label>
                         <div class="d-flex gap-2">
-                             <div class="w-100 p-3 rounded-3 bg-light border text-center fw-bold text-dark">2026-2027</div>
+                             <div class="w-100 p-3 rounded-3 bg-light border text-center fw-bold text-dark"><?php echo htmlspecialchars($course['academic_session'] ?: '2026-2027'); ?></div>
                         </div>
                     </div>
 
@@ -132,11 +201,47 @@ include 'includes/header.php';
                         <div class="p-4 rounded-4 bg-primary bg-opacity-10 border border-primary border-opacity-10">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <span class="text-secondary small">Course Fee</span>
-                                <span class="text-muted small">₹<?php echo number_format($course['fees'] * 1.2, 0); ?></span>
+                                <span class="text-muted small">₹<?php echo number_format($course['fees'], 0); ?></span>
                             </div>
+
+                            <div class="fee-includes-list mt-3 mb-3 pt-3 border-top border-primary border-opacity-10">
+                                <h6 class="very-small fw-black text-dark text-uppercase mb-2" style="font-size: 0.6rem; letter-spacing: 0.5px;">Things Included in fee</h6>
+                                <ul class="list-unstyled mb-0">
+                                    <?php 
+                                    if (!empty($course['fee_includes'])) {
+                                        $items = explode("\n", $course['fee_includes']);
+                                        foreach ($items as $item) {
+                                            if (trim($item)) {
+                                                echo '<li class="very-small text-muted d-flex align-items-start gap-2 mb-1" style="font-size: 0.7rem;">';
+                                                echo '<i class="fas fa-check-circle text-primary mt-1" style="font-size: 0.6rem;"></i>';
+                                                echo '<span>' . htmlspecialchars(trim($item)) . '</span>';
+                                                echo '</li>';
+                                            }
+                                        }
+                                    } else {
+                                        // Fallback if empty
+                                        ?>
+                                        <li class="very-small text-muted d-flex align-items-start gap-2 mb-1" style="font-size: 0.7rem;">
+                                            <i class="fas fa-check-circle text-primary mt-1" style="font-size: 0.6rem;"></i> 
+                                            <span><?php echo $study_material_text; ?></span>
+                                        </li>
+                                        <li class="very-small text-muted d-flex align-items-start gap-2 mb-1" style="font-size: 0.7rem;">
+                                            <i class="fas fa-check-circle text-primary mt-1" style="font-size: 0.6rem;"></i> 
+                                            <span>Uniform for classroom</span>
+                                        </li>
+                                        <li class="very-small text-muted d-flex align-items-start gap-2 mb-1" style="font-size: 0.7rem;">
+                                            <i class="fas fa-check-circle text-primary mt-1" style="font-size: 0.6rem;"></i> 
+                                            <span>Necessary Stationary</span>
+                                        </li>
+                                        <?php
+                                    }
+                                    ?>
+                                </ul>
+                            </div>
+
                             <div class="d-flex justify-content-between align-items-baseline">
-                                <span class="fw-bold text-dark small"><i class="fas fa-graduation-cap me-1 text-primary"></i> Avail scholarship Up to 100%</span>
-                                <span class="fw-black text-primary fs-3">₹<?php echo number_format($course['fees'], 0); ?></span>
+                                <span class="fw-bold text-dark small"><i class="fas fa-graduation-cap me-1 text-primary"></i> Avail scholarship <?php echo $scholarship_text; ?></span>
+                                <span class="fw-black text-primary fs-3">₹<?php echo number_format($discounted_fee, 0); ?></span>
                             </div>
                         </div>
                     </div>
@@ -158,72 +263,31 @@ include 'includes/header.php';
         </div>
         
         <div class="experience-stack vstack gap-0">
-            <!-- Feature Item 1: Concept Learning -->
+            <?php foreach($experience as $index => $item): ?>
             <div class="exp-item d-flex align-items-center justify-content-between p-4 p-md-5 rounded-4 border-bottom hover-bg-light transition-all">
                 <div class="exp-content pe-lg-5">
-                    <h4 class="fw-bold mb-3"><i class="fas fa-brain text-primary me-2 opacity-50"></i> Concept Learning</h4>
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><b class="text-dark">Expert Faculty Guidance:</b> Classes conducted by experienced and dedicated teachers with a strong focus on concept clarity and exam-oriented preparation.</li>
-                        <li><b class="text-dark">Advanced Classroom Environment:</b> Well-equipped, comfortable classrooms designed to create a focused and effective learning atmosphere.</li>
-                    </ul>
+                    <h4 class="fw-bold mb-3"><i class="<?php echo $item['icon'] ?: 'fas fa-check'; ?> text-primary me-2 opacity-50"></i> <?php echo htmlspecialchars($item['title']); ?></h4>
+                    <div class="text-muted mb-0 experience-points">
+                        <?php 
+                        $points = explode('<br>', $item['desc']);
+                        foreach($points as $point): 
+                            if(trim($point)):
+                        ?>
+                            <div class="d-flex align-items-start gap-3 mb-3">
+                                <i class="fas fa-circle text-dark" style="font-size: 8px; margin-top: 8px;"></i>
+                                <span class="lh-base"><?php echo $point; ?></span>
+                            </div>
+                        <?php 
+                            endif;
+                        endforeach; 
+                        ?>
+                    </div>
                 </div>
-                <div class="exp-icon bg-orange-soft p-4 rounded-circle d-none d-md-block">
-                    <i class="fas fa-chalkboard-teacher fs-1 text-primary"></i>
-                </div>
-            </div>
-            <!-- Feature Item 2: Study Material -->
-             <div class="exp-item d-flex align-items-center justify-content-between p-4 p-md-5 rounded-4 border-bottom hover-bg-light transition-all">
-                <div class="exp-content pe-lg-5">
-                    <h4 class="fw-bold mb-3"><i class="fas fa-book-open text-primary me-2 opacity-50"></i> Well-Designed Study Material</h4>
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><b class="text-dark">Concept Practice Sheets:</b> Specially designed worksheets to strengthen concepts and improve problem-solving speed and accuracy.</li>
-                        <li class="mb-2"><b class="text-dark">Topic-Based Modules:</b> Structured study modules containing Level wise exercises, Important questions, and previous year questions.</li>
-                        <li><b class="text-dark">Revision Material:</b> Revision Practice sheets post-course completion.</li>
-                    </ul>
-                </div>
-                <div class="exp-icon bg-blue-soft p-4 rounded-circle d-none d-md-block">
-                    <i class="fas fa-copy fs-1 text-primary"></i>
+                <div class="exp-icon bg-<?php echo ($index % 2 == 0) ? 'orange' : 'blue'; ?>-soft p-4 rounded-circle d-none d-md-block">
+                    <i class="<?php echo $item['icon'] ?: 'fas fa-star'; ?> fs-1 text-primary"></i>
                 </div>
             </div>
-            <!-- Feature Item 3: Systematic Test -->
-            <div class="exp-item d-flex align-items-center justify-content-between p-4 p-md-5 rounded-4 border-bottom hover-bg-light transition-all">
-                <div class="exp-content pe-lg-5">
-                    <h4 class="fw-bold mb-3"><i class="fas fa-vial text-primary me-2 opacity-50"></i> Systematic Test</h4>
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><b class="text-dark">Regular Tests:</b> Regular Tests based on recently completed chapters and full-length tests to build confidence.</li>
-                        <li><b class="text-dark">Performance Analysis:</b> Detailed feedback and analysis to help students identify strengths and improve weak areas.</li>
-                    </ul>
-                </div>
-                <div class="exp-icon bg-orange-soft p-4 rounded-circle d-none d-md-block">
-                    <i class="fas fa-chart-line fs-1 text-primary"></i>
-                </div>
-            </div>
-             <!-- Feature Item 4: Academic Support -->
-             <div class="exp-item d-flex align-items-center justify-content-between p-4 p-md-5 rounded-4 border-bottom hover-bg-light transition-all">
-                <div class="exp-content pe-lg-5">
-                    <h4 class="fw-bold mb-3"><i class="fas fa-hands-holding-circle text-primary me-2 opacity-50"></i> Additional Academic Support</h4>
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><b class="text-dark">Doubt-Solving Sessions:</b> Special sessions to clarify concepts and ensure complete understanding.</li>
-                        <li><b class="text-dark">Personalized Mentorship:</b> Regular guidance from mentors to support academic growth and keep students motivated.</li>
-                    </ul>
-                </div>
-                <div class="exp-icon bg-blue-soft p-4 rounded-circle d-none d-md-block">
-                    <i class="fas fa-user-graduate fs-1 text-primary"></i>
-                </div>
-            </div>
-            <!-- Feature Item 5: Interaction -->
-            <div class="exp-item d-flex align-items-center justify-content-between p-4 p-md-5 rounded-4 border-bottom hover-bg-light transition-all">
-                <div class="exp-content pe-lg-5">
-                    <h4 class="fw-bold mb-3"><i class="fas fa-users-viewfinder text-primary me-2 opacity-50"></i> Student & Parent Interaction</h4>
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><b class="text-dark">Career Guidance Programs:</b> Expert sessions providing information about competitive exams and career options.</li>
-                        <li><b class="text-dark">Regular PTM:</b> Frequent interaction between parents and teachers to keep informed about the child's progress.</li>
-                    </ul>
-                </div>
-                <div class="exp-icon bg-orange-soft p-4 rounded-circle d-none d-md-block">
-                    <i class="fas fa-comments fs-1 text-primary"></i>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
@@ -255,26 +319,12 @@ include 'includes/header.php';
             </div>
             <div class="col-lg-7">
                 <div class="journey-timeline">
-                    <div class="journey-step">
-                        <h4 class="fw-bold text-dark">School Prep (Class 7th-12th) & Concept Building</h4>
-                        <p class="text-muted">Initiating with basic fundamentals to bridge any academic gaps, ensuring a strong foundation for advanced topics.</p>
+                    <?php foreach($roadmap as $index => $step): ?>
+                    <div class="journey-step <?php echo ($index == count($roadmap) - 1) ? 'mb-0' : ''; ?>">
+                        <h4 class="fw-bold text-dark"><?php echo htmlspecialchars($step['title']); ?></h4>
+                        <p class="text-muted"><?php echo htmlspecialchars($step['desc']); ?></p>
                     </div>
-                    <div class="journey-step">
-                        <h4 class="fw-bold text-dark">Exhaustive Module Coverage</h4>
-                        <p class="text-muted">Deep dive into physics, chemistry, and biology/maths modules with graded exercises (Level 1, 2, and 3).</p>
-                    </div>
-                    <div class="journey-step">
-                        <h4 class="fw-bold text-dark">Periodic Benchmarking</h4>
-                        <p class="text-muted">Bi-weekly tests and monthly rank-analysis exams to simulate actual competitive environments.</p>
-                    </div>
-                    <div class="journey-step">
-                        <h4 class="fw-bold text-dark">Doubt & Revision Sprints</h4>
-                        <p class="text-muted">Intensive doubt-clearing sessions and formula-recall workshops organized after syllabus completion.</p>
-                    </div>
-                    <div class="journey-step mb-0">
-                        <h4 class="fw-bold text-dark">All India Mock Tests</h4>
-                        <p class="text-muted">Final touch-ups with national-level benchmarking and predicted AIR analysis before the final exam.</p>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
@@ -291,100 +341,47 @@ include 'includes/header.php';
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="learning-path-timeline position-relative">
-                    <!-- Module 1 -->
+                    <?php 
+                    $phase_colors = ['primary', 'success', 'dark', 'info', 'warning'];
+                    foreach($curriculum as $index => $module): 
+                        $color = $phase_colors[$index % count($phase_colors)];
+                    ?>
                     <div class="learning-module-card mb-5 position-relative">
-                        <div class="module-number-pill position-absolute d-none d-xl-flex">01</div>
+                        <div class="module-number-pill position-absolute d-none d-xl-flex"><?php echo str_pad($index + 1, 2, '0', STR_PAD_LEFT); ?></div>
                         <div class="card border-0 shadow-2xl rounded-5 overflow-hidden transition-all hover-lift">
-                            <div class="card-header bg-primary p-4 border-0 d-flex justify-content-between align-items-center">
-                                <h4 class="text-white fw-black mb-0">Phase 1: Comprehensive Fundamentals</h4>
-                                <span class="badge bg-white rounded-pill px-3 py-2 fw-bold" style="font-size: 0.7rem; color: #0d6efd;">FOUNDATION</span>
+                            <div class="card-header bg-<?php echo $color; ?> p-4 border-0 d-flex justify-content-between align-items-center">
+                                <h4 class="text-white fw-black mb-0"><?php echo htmlspecialchars($module['title']); ?></h4>
+                                <span class="badge bg-white rounded-pill px-3 py-2 fw-bold text-<?php echo $color; ?>" style="font-size: 0.7rem;"><?php echo htmlspecialchars($module['badge'] ?: 'ACADEMIC'); ?></span>
                             </div>
                             <div class="card-body p-4 p-md-5">
                                 <div class="row align-items-center">
                                     <div class="col-md-7">
-                                        <p class="lead text-dark fw-bold mb-4">Initiation into core concepts with focus on higher-level problem solving and time management.</p>
+                                        <p class="lead text-dark fw-bold mb-4"><?php echo htmlspecialchars($module['desc']); ?></p>
                                         <div class="row g-3">
+                                            <?php 
+                                            $topics = explode(',', $module['topics']);
+                                            foreach($topics as $topic): ?>
                                             <div class="col-sm-6">
                                                 <div class="d-flex align-items-center gap-2 mb-2">
-                                                    <div class="dot bg-primary"></div>
-                                                    <span class="small fw-bold text-muted">Unit & Dimensions (Phy)</span>
-                                                </div>
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div class="dot bg-primary"></div>
-                                                    <span class="small fw-bold text-muted">Atomic Structure (Chem)</span>
+                                                    <div class="dot bg-<?php echo $color; ?>"></div>
+                                                    <span class="small fw-bold text-muted"><?php echo trim(htmlspecialchars($topic)); ?></span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div class="dot bg-primary"></div>
-                                                    <span class="small fw-bold text-muted">Maths for Science</span>
-                                                </div>
-                                            </div>
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
                                     <div class="col-md-5 text-center text-md-end mt-4 mt-md-0">
                                         <div class="outcome-box d-inline-block p-4 rounded-4 bg-light border border-white">
-                                            <i class="fas fa-bullseye text-primary fs-3 mb-2"></i>
+                                            <i class="<?php echo $module['outcome_icon'] ?: 'fas fa-bullseye'; ?> text-<?php echo $color; ?> fs-3 mb-2"></i>
                                             <small class="d-block text-dark opacity-50 text-uppercase fw-black" style="font-size: 0.6rem;">Key Outcome</small>
-                                            <span class="fw-black text-dark">Concept Clarity</span>
+                                            <span class="fw-black text-dark"><?php echo htmlspecialchars($module['outcome_text'] ?: 'Success'); ?></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Module 2 -->
-                    <div class="learning-module-card mb-5 position-relative">
-                        <div class="module-number-pill position-absolute d-none d-xl-flex">02</div>
-                        <div class="card border-0 shadow-2xl rounded-5 overflow-hidden transition-all hover-lift">
-                            <div class="card-header bg-success p-4 border-0 d-flex justify-content-between align-items-center">
-                                <h4 class="text-white fw-black mb-0">Phase 2: Intermediate Application</h4>
-                                <span class="badge bg-white text-success rounded-pill px-3 py-2 fw-bold" style="font-size: 0.7rem;">PRACTICE</span>
-                            </div>
-                            <div class="card-body p-4 p-md-5">
-                                <div class="row align-items-center">
-                                    <div class="col-md-7">
-                                        <p class="lead text-dark fw-bold mb-4">Applying fundamental concepts to Level 1 and Level 2 problems for speed and accuracy.</p>
-                                        <p class="text-muted small mb-0">Focus: Numerical proficiency and advanced logic application.</p>
-                                    </div>
-                                    <div class="col-md-5 text-center text-md-end mt-4 mt-md-0">
-                                        <div class="outcome-box d-inline-block p-4 rounded-4 bg-light border border-white">
-                                            <i class="fas fa-bolt text-success fs-3 mb-2"></i>
-                                            <small class="d-block text-dark opacity-50 text-uppercase fw-black" style="font-size: 0.6rem;">Key Outcome</small>
-                                            <span class="fw-black text-dark">Problem Solving</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Module 3 -->
-                    <div class="learning-module-card position-relative">
-                        <div class="module-number-pill position-absolute d-none d-xl-flex">03</div>
-                        <div class="card border-0 shadow-2xl rounded-5 overflow-hidden transition-all hover-lift">
-                            <div class="card-header bg-dark p-4 border-0 d-flex justify-content-between align-items-center">
-                                <h4 class="text-white fw-black mb-0">Phase 3: Rank Booster Mastery</h4>
-                                <span class="badge bg-white text-dark rounded-pill px-3 py-2 fw-bold" style="font-size: 0.7rem;">RANKING</span>
-                            </div>
-                            <div class="card-body p-4 p-md-5">
-                                <div class="row align-items-center">
-                                    <div class="col-md-7">
-                                        <p class="lead text-dark fw-bold mb-4">Mastering previous year questions and Level 3 rank-booster problems.</p>
-                                        <p class="text-muted small mb-0">Goal: National-level competitive standing and predicted AIR improvement.</p>
-                                    </div>
-                                    <div class="col-md-5 text-center text-md-end mt-4 mt-md-0">
-                                        <div class="outcome-box d-inline-block p-4 rounded-4 bg-light border border-white">
-                                            <i class="fas fa-trophy text-warning fs-3 mb-2"></i>
-                                            <small class="d-block text-dark opacity-50 text-uppercase fw-black" style="font-size: 0.6rem;">Key Outcome</small>
-                                            <span class="fw-black text-dark">Exam Readiness</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
@@ -417,7 +414,7 @@ include 'includes/header.php';
                             </td>
                             <td class="text-center py-5 bg-primary bg-opacity-10">
                                 <h2 class="fw-black text-primary mb-0">₹<?php echo number_format($course['fees'], 0); ?></h2>
-                                <span class="badge bg-success px-2 py-1 rounded-pill very-small uppercase mt-2"><i class="fas fa-graduation-cap me-1"></i> Avail scholarship Up to 100%</span>
+                                <span class="badge bg-success px-2 py-1 rounded-pill very-small uppercase mt-2"><i class="fas fa-graduation-cap me-1"></i> Avail scholarship <?php echo $scholarship_text; ?></span>
                             </td>
                             <td class="py-5 pe-5">
                                 <div class="vstack gap-3 border-start ps-4">
@@ -429,11 +426,11 @@ include 'includes/header.php';
                                     <?php endif; ?>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <span class="text-secondary small fw-bold">1st Installment (At Admission)</span>
-                                        <span class="fw-black text-dark">₹<?php echo number_format($course['fees'] * 0.6, 0); ?></span>
+                                        <span class="fw-black text-dark">₹<?php echo number_format($course['fees'] * (($course['inst_1_pct'] ?: 60) / 100), 0); ?></span>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <span class="text-secondary small fw-bold">2nd Installment (After 45 Days)</span>
-                                        <span class="fw-black text-dark">₹<?php echo number_format($course['fees'] * 0.5, 0); ?></span>
+                                        <span class="fw-black text-dark">₹<?php echo number_format($course['fees'] * (($course['inst_2_pct'] ?: 50) / 100), 0); ?></span>
                                     </div>
                                     <div class="alert bg-light border ps-3 py-2 rounded-3 mb-0 very-small text-muted italic mt-2">
                                         * Installment plan includes administrative processing surcharge.

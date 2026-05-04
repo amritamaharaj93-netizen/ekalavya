@@ -25,17 +25,15 @@ CREATE TABLE IF NOT EXISTS `courses` (
   `target_year` varchar(10) DEFAULT NULL,
   `admission_eligibility` varchar(255) DEFAULT NULL,
   `fee_includes` text DEFAULT NULL,
-  `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Table: results
-CREATE TABLE IF NOT EXISTS `results` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `percentile` varchar(50) NOT NULL,
-  `course` varchar(255) NOT NULL,
+  `hero_banner` varchar(255) DEFAULT 'scholar image.png',
+  `medium` varchar(50) DEFAULT 'English / Hindi',
+  `academic_session` varchar(50) DEFAULT '2026-2027',
+  `scholarship_note` varchar(255) DEFAULT 'Up to 100%',
+  `experience_json` text DEFAULT NULL,
+  `roadmap_json` text DEFAULT NULL,
+  `curriculum_json` text DEFAULT NULL,
+  `inst_1_pct` int(11) DEFAULT 60,
+  `inst_2_pct` int(11) DEFAULT 50,
   `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

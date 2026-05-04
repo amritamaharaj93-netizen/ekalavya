@@ -51,6 +51,39 @@
                 }
             } catch(e) { console.error("Enquiry Swiper Error: ", e); }
         }
+        // Initialize Scholarship Video Slider
+        if (document.querySelector('.scholarshipVideoSwiper') && typeof Swiper !== 'undefined') {
+            try {
+                if (!document.querySelector('.scholarshipVideoSwiper').swiper) {
+                    const videoSwiper = new Swiper('.scholarshipVideoSwiper', {
+                        loop: true,
+                        speed: 1000,
+                        autoplay: {
+                            delay: 8000,
+                            disableOnInteraction: true,
+                        },
+                        pagination: {
+                            el: '.video-pagination',
+                            clickable: true,
+                        },
+                    });
+
+                    // Fix: Stop autoplay when video starts playing
+                    const videos = document.querySelectorAll('.scholarshipVideoSwiper video');
+                    videos.forEach(video => {
+                        video.addEventListener('play', () => {
+                            videoSwiper.autoplay.stop();
+                        });
+                        video.addEventListener('pause', () => {
+                            videoSwiper.autoplay.start();
+                        });
+                        video.addEventListener('ended', () => {
+                            videoSwiper.autoplay.start();
+                        });
+                    });
+                }
+            } catch(e) { console.error("Scholarship Swiper Error: ", e); }
+        }
 
 
         // Initialize Wall of Fame (Toppers) Slider

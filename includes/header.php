@@ -63,7 +63,7 @@ if ($current_page == 'courses' || $current_page == 'classroom-courses') {
         <div class="top-utility-bar d-none d-lg-block py-1">
             <div class="container d-flex justify-content-between align-items-center">
                 <div class="top-info small text-white">
-                    <span class="me-4"><i class="fas fa-phone-alt me-2"></i> 9934244522</span>
+                    <span class="me-4"><i class="fas fa-phone-alt fa-flip-horizontal me-2"></i> 9934244522</span>
                     <span><i class="fas fa-envelope me-2"></i> info.ekalavyaeducation@gmail.com</span>
                 </div>
                 <div class="top-socials small">
@@ -77,8 +77,33 @@ if ($current_page == 'courses' || $current_page == 'classroom-courses') {
 // Intelligent Menu Aggregation Logic
 $nav_scholarships = []; $nav_courses = []; $nav_study = []; $nav_tests = [];
 try {
-    // Fetch top 5 items with slugs to keep menu compact and SEO friendly
-    $nav_courses = $pdo->query("SELECT id, title, slug FROM courses ORDER BY title ASC LIMIT 5")->fetchAll();
+    // Fetch individual courses for the dynamic menu
+    $menu_neet = $pdo->query("SELECT title, slug FROM courses WHERE category = 'NEET' ORDER BY 
+        CASE 
+            WHEN title LIKE 'NURTURE%' THEN 1 
+            WHEN title LIKE 'EMERGE%' THEN 2 
+            WHEN title LIKE 'IMPULSE%' THEN 3 
+            ELSE 4 
+        END, title ASC")->fetchAll();
+    $menu_jee = $pdo->query("SELECT title, slug FROM courses WHERE category = 'IIT-JEE' ORDER BY 
+        CASE 
+            WHEN title LIKE 'SEED%' THEN 1 
+            WHEN title LIKE 'NURTURE%' THEN 2 
+            WHEN title LIKE 'EMERGE%' THEN 3 
+            WHEN title LIKE 'IMPULSE%' THEN 4 
+            ELSE 5 
+        END, title ASC")->fetchAll();
+    $menu_school = $pdo->query("SELECT title, slug FROM courses WHERE category = 'School Prep (Class 7th-12th)' ORDER BY 
+        CASE 
+            WHEN title LIKE '%7th%' THEN 1 
+            WHEN title LIKE '%8th%' THEN 2 
+            WHEN title LIKE '%9th%' THEN 3 
+            WHEN title LIKE '%10th%' THEN 4 
+            WHEN title LIKE '%11th%' THEN 5 
+            WHEN title LIKE '%12th%' THEN 6 
+            ELSE 7 
+        END, title ASC")->fetchAll();
+    
     $nav_scholarships = $pdo->query("SELECT id, title, slug FROM scholarship_programs ORDER BY created_at DESC LIMIT 5")->fetchAll();
     $nav_study = $pdo->query("SELECT id, title, slug FROM study_material ORDER BY created_at DESC LIMIT 5")->fetchAll();
     $nav_tests = $pdo->query("SELECT id, title, slug FROM test_series ORDER BY created_at DESC LIMIT 5")->fetchAll();
@@ -116,24 +141,33 @@ try {
                     <span><i class="fas fa-certificate me-2 opacity-50"></i> NEET (Medical)</span>
                     <i class="fas fa-chevron-right small opacity-50"></i>
                     <ul class="dropdown-submenu list-unstyled m-0">
-                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=NURTURE">NURTURE (Class XI)</a></li>
-                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=EMERGE">EMERGE (Class XII)</a></li>
-                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=IMPULSE">IMPULSE (Dropper)</a></li>
+                        <?php if($menu_neet): foreach($menu_neet as $item): ?>
+                            <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>course/<?php echo $item['slug']; ?>"><?php echo htmlspecialchars($item['title']); ?></a></li>
+                        <?php endforeach; else: ?>
+                            <li><a class="dropdown-item py-2 text-muted disabled" href="#">No courses added</a></li>
+                        <?php endif; ?>
                     </ul>
                 </li>
                 <li class="dropdown-item py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                     <span><i class="fas fa-gear me-2 opacity-50"></i> IIT-JEE (Engg.)</span>
                     <i class="fas fa-chevron-right small opacity-50"></i>
                     <ul class="dropdown-submenu list-unstyled m-0">
-                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>courses.php?category=IIT-JEE&type=NURTURE">NURTURE (Class XI)</a></li>
+                        <?php if($menu_jee): foreach($menu_jee as $item): ?>
+                            <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>course/<?php echo $item['slug']; ?>"><?php echo htmlspecialchars($item['title']); ?></a></li>
+                        <?php endforeach; else: ?>
+                            <li><a class="dropdown-item py-2 text-muted disabled" href="#">No courses added</a></li>
+                        <?php endif; ?>
                     </ul>
                 </li>
                 <li class="dropdown-item py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                     <span><i class="fas fa-school me-2 opacity-50"></i> School Prep (Class 7th-12th)</span>
                     <i class="fas fa-chevron-right small opacity-50"></i>
                     <ul class="dropdown-submenu list-unstyled m-0">
-                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=8">Class 8th Standard</a></li>
-                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=9">Class 9th Standard</a></li>
+                        <?php if($menu_school): foreach($menu_school as $item): ?>
+                            <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>course/<?php echo $item['slug']; ?>"><?php echo htmlspecialchars($item['title']); ?></a></li>
+                        <?php endforeach; else: ?>
+                            <li><a class="dropdown-item py-2 text-muted disabled" href="#">No courses added</a></li>
+                        <?php endif; ?>
                     </ul>
                 </li>
                 <li><hr class="dropdown-divider opacity-10"></li>
@@ -151,16 +185,17 @@ try {
                     <span><i class="fas fa-vial me-2 opacity-50"></i> AITS (NEET)</span>
                     <i class="fas fa-chevron-right small opacity-50"></i>
                     <ul class="dropdown-submenu list-unstyled m-0">
-                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>test-series.php?category=NEET&type=FullLength">Full Length Mock</a></li>
-                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>test-series.php?category=NEET&type=Chapterwise">Chapter-wise Test</a></li>
+                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>test-series.php?category=NEET&type=Class11">CLASS- 11TH</a></li>
+                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>test-series.php?category=NEET&type=Class12">CLASS 12TH</a></li>
+                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>test-series.php?category=NEET&type=Dropper">NEET: 12TH PASS /DROPPER</a></li>
                     </ul>
                 </li>
                 <li class="dropdown-item py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                     <span><i class="fas fa-vial me-2 opacity-50"></i> AITS (IIT-JEE)</span>
                     <i class="fas fa-chevron-right small opacity-50"></i>
                     <ul class="dropdown-submenu list-unstyled m-0">
-                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>test-series.php?category=IIT-JEE&type=FullLength">Full Length Mock</a></li>
-                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>test-series.php?category=IIT-JEE&type=Chapterwise">Chapter-wise Test</a></li>
+                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>test-series.php?category=IIT-JEE&type=Class11">CLASS- 11TH</a></li>
+                        <li><a class="dropdown-item py-2" href="<?php echo BASE_URL; ?>test-series.php?category=IIT-JEE&type=Class12">CLASS 12TH</a></li>
                     </ul>
                 </li>
                 <li><hr class="dropdown-divider opacity-10"></li>
@@ -174,7 +209,7 @@ try {
                 Scholarship <i class="fas fa-chevron-down ms-1 ms-xxl-2 small opacity-50"></i>
             </a>
             <ul class="dropdown-menu border-0 shadow-lg p-3" style="min-width: 250px;">
-                <li><a class="dropdown-item py-2 px-3 rounded-3" href="<?php echo BASE_URL; ?>scholarship-program.php"><i class="fas fa-graduation-cap me-2 opacity-50"></i> Scholarship Program</a></li>
+                <li><a class="dropdown-item py-2 px-3 rounded-3" href="<?php echo BASE_URL; ?>scholarship.php?path=esat"><i class="fas fa-graduation-cap me-2 opacity-50"></i> Scholarship Exam</a></li>
                 <li><a class="dropdown-item py-2 px-3 rounded-3" href="<?php echo BASE_URL; ?>scholarship.php?path=esat"><i class="fas fa-file-signature me-2 opacity-50"></i> ESAT</a></li>
                 <li><a class="dropdown-item py-2 px-3 rounded-3" href="<?php echo BASE_URL; ?>scholarship.php?path=emrs"><i class="fas fa-medal me-2 opacity-50"></i> EMRS</a></li>
                 <li><hr class="dropdown-divider opacity-10"></li>
@@ -267,6 +302,7 @@ try {
                                     </a>
                                     <div class="collapse" id="mobileJeeSub">
                                         <ul class="nav flex-column mobile-inner-nav">
+                                            <li><a href="<?php echo BASE_URL; ?>courses.php?category=IIT-JEE&type=SEED">SEED (Class IX)</a></li>
                                             <li><a href="<?php echo BASE_URL; ?>courses.php?category=IIT-JEE&type=NURTURE">NURTURE (Class XI)</a></li>
                                         </ul>
                                     </div>
@@ -279,8 +315,12 @@ try {
                                     </a>
                                     <div class="collapse" id="mobileSchoolSub">
                                         <ul class="nav flex-column mobile-inner-nav">
+                                            <li><a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=7">Class 7th Standard</a></li>
                                             <li><a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=8">Class 8th Standard</a></li>
                                             <li><a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=9">Class 9th Standard</a></li>
+                                            <li><a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=10">Class 10th Standard</a></li>
+                                            <li><a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=11">Class 11th Standard</a></li>
+                                            <li><a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=12">Class 12th Standard</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -308,8 +348,9 @@ try {
                                     </a>
                                     <div class="collapse" id="mobileAitsNeet">
                                         <ul class="nav flex-column mobile-inner-nav">
-                                            <li><a href="<?php echo BASE_URL; ?>test-series.php?category=NEET&type=FullLength">Full Length Mock</a></li>
-                                            <li><a href="<?php echo BASE_URL; ?>test-series.php?category=NEET&type=Chapterwise">Chapter-wise Test</a></li>
+                                            <li><a href="<?php echo BASE_URL; ?>test-series.php?category=NEET&type=Class11">CLASS- 11TH</a></li>
+                                            <li><a href="<?php echo BASE_URL; ?>test-series.php?category=NEET&type=Class12">CLASS 12TH</a></li>
+                                            <li><a href="<?php echo BASE_URL; ?>test-series.php?category=NEET&type=Dropper">NEET: 12TH PASS /DROPPER</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -321,8 +362,8 @@ try {
                                     </a>
                                     <div class="collapse" id="mobileAitsJee">
                                         <ul class="nav flex-column mobile-inner-nav">
-                                            <li><a href="<?php echo BASE_URL; ?>test-series.php?category=IIT-JEE&type=FullLength">Full Length Mock</a></li>
-                                            <li><a href="<?php echo BASE_URL; ?>test-series.php?category=IIT-JEE&type=Chapterwise">Chapter-wise Test</a></li>
+                                            <li><a href="<?php echo BASE_URL; ?>test-series.php?category=IIT-JEE&type=Class11">CLASS- 11TH</a></li>
+                                            <li><a href="<?php echo BASE_URL; ?>test-series.php?category=IIT-JEE&type=Class12">CLASS 12TH</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -342,9 +383,10 @@ try {
                         </a>
                         <div class="collapse" id="mobileScholarship">
                             <ul class="nav flex-column mobile-sub-nav">
-                                <li><a href="<?php echo BASE_URL; ?>scholarship-program.php">Scholarship Program</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>scholarship.php?path=esat">Scholarship Exam</a></li>
                                 <li><a href="<?php echo BASE_URL; ?>scholarship.php?path=esat">ESAT 2026</a></li>
                                 <li><a href="<?php echo BASE_URL; ?>scholarship.php?path=emrs">EMRS</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>scholarship.php" class="fw-bold text-primary"><i class="fas fa-edit me-2"></i> Register for ESAT 2026</a></li>
                             </ul>
                         </div>
                     </li>
@@ -376,10 +418,6 @@ try {
                             </ul>
                         </div>
                     </li>
-                </ul>
-            </div>
-            
-            <div class="mt-auto p-4 border-top">
                 <div class="d-grid gap-3">
                      <?php if(isset($_SESSION['student_id'])): ?>
                          <a href="<?php echo BASE_URL; ?>student-dashboard.php" class="btn btn-portal-mobile py-3 rounded-pill">
@@ -396,7 +434,7 @@ try {
                 </div>
                 <div class="mobile-contact-info d-grid gap-2 mt-3">
                     <a href="tel:9934244522" class="btn btn-outline-dark rounded-pill d-flex align-items-center fw-bold shadow-sm">
-                        <i class="fas fa-phone-alt me-3 text-orange"></i> 9934244522
+                        <i class="fas fa-phone-alt fa-flip-horizontal me-3 text-orange"></i> 9934244522
                     </a>
                     <a href="mailto:info.ekalavyaeducation@gmail.com" class="btn btn-outline-dark rounded-pill d-flex align-items-center fw-bold shadow-sm" style="font-size: 0.75rem;">
                         <i class="fas fa-envelope me-3 text-orange"></i> info.ekalavyaeducation@gmail.com

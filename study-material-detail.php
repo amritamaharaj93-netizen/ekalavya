@@ -136,38 +136,84 @@ elseif (strpos($cat, 'biol') !== false) { $icon = 'fa-dna'; }
             <!-- Right Column -->
             <div class="col-lg-4">
                 <div class="sticky-top" style="top: 140px; z-index: 5;">
-                    <div class="course-summary-card p-5 rounded-5 bg-white border border-light shadow-2xl">
-                        <div class="d-flex align-items-center gap-2 mb-4">
-                            <span class="badge bg-primary px-3 py-2 rounded-pill"><?php echo strtoupper($material['type'] ?: 'PDF'); ?></span>
-                            <span class="text-muted small fw-bold uppercase">Resource Portal</span>
+                    <!-- Request Vault - High Fidelity Portal -->
+                    <div class="request-vault-card p-4 p-md-5 rounded-5 bg-white shadow-2xl border border-light text-center position-relative overflow-hidden">
+                        <div class="vault-header mb-4">
+                            <h3 class="fw-black mb-1 text-uppercase tracking-tight" style="font-size: 1.8rem; color: #1a1a1a;">REQUEST <span style="color: #f7941d;">VAULT</span></h3>
+                            <p class="text-muted small fw-bold tracking-widest opacity-75">Module Access 2026</p>
                         </div>
                         
-                        <h4 class="fw-black mb-1"><?php echo htmlspecialchars($material['title']); ?></h4>
-                        <p class="text-muted small mb-4"><?php echo htmlspecialchars($material['category']); ?></p>
-                        
-                        <div class="divider mb-4" style="height: 1px; background: #eee;"></div>
-                        
-                        <div class="vstack gap-3 mb-5">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="text-muted small">Update Date:</span>
-                                <span class="fw-bold"><?php echo date('M Y', strtotime($material['created_at'])); ?></span>
+                        <form action="<?php echo BASE_URL; ?>process-enquiry.php" method="POST" class="vstack gap-3">
+                            <input type="hidden" name="course" value="Module Access: <?php echo htmlspecialchars($material['title']); ?>">
+                            
+                            <div class="vault-input-group">
+                                <input type="text" name="name" class="vault-input w-100 mb-3" placeholder="Full Name" required>
+                                
+                                <div class="row g-2 mb-3">
+                                    <div class="col-6">
+                                        <input type="tel" name="phone" class="vault-input w-100" placeholder="Mobile" required>
+                                    </div>
+                                    <div class="col-6">
+                                        <select class="vault-input w-100 text-muted" style="appearance: none; -webkit-appearance: none; background: #f8f9fa url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22/%3E%3C/svg%3E') no-repeat right 15px center/10px auto;">
+                                            <option selected><?php echo htmlspecialchars($material['category']); ?></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <input type="email" name="email" class="vault-input w-100" placeholder="Email Address" required>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="text-muted small">Access:</span>
-                                <span class="fw-bold text-success">Institutional</span>
-                            </div>
-                        </div>
 
-                        <div class="cta-stack vstack gap-3">
-                            <button class="btn btn-primary w-100 py-3 rounded-pill fw-black shadow-lg" data-bs-toggle="modal" data-bs-target="#enquiryModal" data-course="Module: <?php echo htmlspecialchars($material['title']); ?>">REQUEST ACCESS <i class="fas fa-unlock-alt ms-2"></i></button>
-                            <?php if(!empty($material['file_path'])): ?>
-                                <a href="<?php echo SITE_URL; ?>document-viewer?file=<?php echo urlencode($material['file_path']); ?>&title=<?php echo urlencode($material['title']); ?>" target="_blank" class="btn btn-outline-primary w-100 py-3 rounded-pill fw-bold">VIEW DOCUMENT</a>
-                            <?php endif; ?>
-                            <a href="https://wa.me/919934244522?text=I'd like to access the <?php echo urlencode($material['title']); ?> study module" target="_blank" class="btn btn-outline-success w-100 py-3 rounded-pill fw-bold d-flex align-items-center justify-content-center gap-2">
-                                <i class="fab fa-whatsapp fs-5"></i> WHATSAPP US
-                            </a>
-                        </div>
+                            <button type="submit" class="btn btn-vault-access w-100 py-3 rounded-pill fw-black shadow-lg mt-3 text-uppercase position-relative">
+                                REQUEST ACCESS <i class="fas fa-lock ms-2 opacity-50"></i>
+                            </button>
+                            
+                            <div class="mt-4">
+                                <a href="https://wa.me/919934244522" target="_blank" class="text-success fw-bold text-decoration-none small d-flex align-items-center justify-content-center gap-2">
+                                    <i class="fab fa-whatsapp fs-5"></i> WHATSAPP HELPLINE
+                                </a>
+                            </div>
+                        </form>
                     </div>
+
+                    <style>
+                        .vault-input {
+                            background: #f8f9fa;
+                            border: 1px solid #eee;
+                            padding: 15px 20px;
+                            border-radius: 12px;
+                            font-size: 0.95rem;
+                            font-weight: 500;
+                            color: #444;
+                            transition: all 0.3s ease;
+                        }
+                        .vault-input:focus {
+                            outline: none;
+                            background: #fff;
+                            border-color: #f7941d;
+                            box-shadow: 0 0 0 4px rgba(247, 148, 29, 0.05);
+                        }
+                        .vault-input::placeholder {
+                            color: #888;
+                            opacity: 0.8;
+                        }
+                        .btn-vault-access {
+                            background: #f7941d;
+                            color: #fff;
+                            border: none;
+                            letter-spacing: 0.5px;
+                            font-size: 1rem;
+                            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                        }
+                        .btn-vault-access:hover {
+                            background: #e68512;
+                            color: #fff;
+                            transform: translateY(-3px) scale(1.02);
+                            box-shadow: 0 15px 30px rgba(247, 148, 29, 0.3) !important;
+                        }
+                        .shadow-2xl {
+                            box-shadow: 0 25px 60px -12px rgba(10, 31, 68, 0.12);
+                        }
+                    </style>
                 </div>
             </div>
         </div>

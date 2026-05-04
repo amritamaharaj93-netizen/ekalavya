@@ -63,8 +63,6 @@ include 'includes/header.php';
             <!-- NEET Content -->
             <div class="tab-pane fade show active" id="neet-content" role="tabpanel">
                 <div class="row g-4">
-                    <?php renderProgramCard('SEED', 'Target 2030', 'Class VIII to IX Moving', 'neet-seed'); ?>
-                    <?php renderProgramCard('ANKUR', 'Target 2029', 'Class IX to X Moving', 'neet-ankur'); ?>
                     <?php renderProgramCard('NURTURE', 'Target 2028', 'Class X to XI Moving', 'neet-nurture'); ?>
                     <?php renderProgramCard('EMERGE', 'Target 2029', 'Class XI to XII Moving', 'neet-emerge'); ?>
                     <?php renderProgramCard('IMPULSE', 'Target 2029', 'Class XII Pass (Droppers)', 'neet-impulse'); ?>
@@ -322,8 +320,6 @@ $neet_desc = "This classroom program builds strong concepts for success in schoo
 $jee_desc = "Focused engineering entrance preparation designed to bridge the gap between school curriculum and the level required for JEE Main & Advanced.";
 
 // Generate NEET Modals
-renderProgramModal('neet-seed', 'SEED (NEET)', 'Class IX', '01 Feb 2025', '30 Apr 2025', '15 Apr 2025', 'Direct Admission', 'Classroom learning with highly qualified faculty, printed study material, DPPs, and test series in a healthy environment.', '2030');
-renderProgramModal('neet-ankur', 'ANKUR (NEET)', 'Class X', '01 Feb 2025', '30 Apr 2025', '15 Apr 2025', 'Through Ekalavya Scholarship Admission Test', $neet_desc, '2029');
 renderProgramModal('neet-nurture', 'NURTURE (NEET)', 'Class XI', '01 Feb 2025', '30 Apr 2025', '15 Apr 2025', 'Through Ekalavya Scholarship Admission Test', $neet_desc, '2028');
 renderProgramModal('neet-emerge', 'EMERGE (NEET)', '01 Feb 2025', '30 Apr 2025', '15 Apr 2025', 'Class XII', 'Through Ekalavya Scholarship Admission Test', $neet_desc, '2027');
 renderProgramModal('neet-impulse', 'IMPULSE (NEET)', 'Class XII Pass', '01 Feb 2025', '30 Apr 2025', '15 Apr 2025', 'Through Ekalavya Scholarship Admission Test', $neet_desc, '2026');

@@ -8,7 +8,7 @@ include 'includes/header.php';
     <div class="wow-blob" style="bottom: -100px; right: -100px; background: radial-gradient(circle, rgba(247,148,29,0.15) 0%, transparent 70%);"></div>
     
     <div class="container text-center text-white position-relative">
-        <h6 class="text-primary fw-black tracking-widest mb-2 animate-up" style="font-size: 0.7rem; letter-spacing: 3px;">RECOGNISING TALENT • REWARDING MERIT</h6>
+        <h6 class="text-primary fw-black tracking-widest mb-2 animate-up" style="font-size: clamp(0.55rem, 2.5vw, 0.7rem); letter-spacing: clamp(1px, 1vw, 3px); white-space: nowrap;">RECOGNISING TALENT • REWARDING MERIT</h6>
         <h1 class="fw-black mb-0" style="font-size: clamp(2rem, 9vw, 4.5rem); line-height: 1.1;">SCHOLARSHIP <span class="text-primary d-block d-md-inline">PORTAL 2026</span></h1>
     </div>
 </section>
@@ -47,7 +47,7 @@ include 'includes/header.php';
                             <div class="wow-icon-bg"><i class="fas fa-school"></i></div>
                             <div class="wow-card-info text-center text-lg-start">
                                 <h4 class="fw-black mb-0">SCHOOL</h4>
-                                <p class="small opacity-75 mb-0">Foundation</p>
+                                <p class="small opacity-75 mb-0">Prep</p>
                             </div>
                         </button>
                     </div>
@@ -87,26 +87,26 @@ include 'includes/header.php';
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed fw-black text-dark py-4 px-3 px-md-5 bg-transparent d-flex flex-column flex-md-row align-items-center text-center text-md-start" type="button" data-bs-toggle="collapse" data-bs-target="#esat2">
                                     <span class="wow-icon-wrap me-0 me-md-4 mb-3 mb-md-0" style="width: 50px; height: 50px; border-radius: 15px;"><i class="fas fa-calendar-alt text-primary"></i></span> 
-                                    TEST FORMAT
+                                    TEST DETAILS
                                 </button>
                             </h2>
                             <div id="esat2" class="accordion-collapse collapse" data-bs-parent="#esatAccordion">
                                 <div class="accordion-body px-5 pb-5 pt-0">
-                                    <div class="row g-4">
-                                        <div class="col-md-4">
-                                            <div class="p-3 bg-light rounded-4 text-center">
+                                    <div class="row g-4 text-center">
+                                        <div class="col-6 col-md-4">
+                                            <div class="p-3 bg-light rounded-4">
                                                 <i class="fas fa-clock text-primary mb-2"></i>
                                                 <div class="small fw-bold">90 Minutes</div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="p-3 bg-light rounded-4 text-center">
+                                        <div class="col-6 col-md-4">
+                                            <div class="p-3 bg-light rounded-4">
                                                 <i class="fas fa-list-ol text-primary mb-2"></i>
                                                 <div class="small fw-bold">MCQ Format</div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="p-3 bg-light rounded-4 text-center">
+                                            <div class="p-3 bg-light rounded-4">
                                                 <i class="fas fa-map-marker-alt text-primary mb-2"></i>
                                                 <div class="small fw-bold">Offline Mode</div>
                                             </div>
@@ -116,39 +116,150 @@ include 'includes/header.php';
                             </div>
                         </div>
 
-                        <!-- 3. Scholarship Slabs -->
+                        <!-- 3. Test Syllabus -->
+                        <div class="accordion-item mb-4 border-0 rounded-5 overflow-hidden shadow-sm glass-pill-premium position-relative">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-black text-dark py-4 px-3 px-md-5 bg-transparent d-flex flex-column flex-md-row align-items-center text-center text-md-start" type="button" data-bs-toggle="collapse" data-bs-target="#esat3">
+                                    <span class="wow-icon-wrap me-0 me-md-4 mb-3 mb-md-0" style="width: 50px; height: 50px; border-radius: 15px;"><i class="fas fa-book-open text-primary"></i></span> 
+                                    TEST SYLLABUS
+                                </button>
+                            </h2>
+                            <div id="esat3" class="accordion-collapse collapse" data-bs-parent="#esatAccordion">
+                                <div class="accordion-body px-5 pb-5 pt-0 text-muted">
+                                    The syllabus covers Class-appropriate Physics, Chemistry, Mathematics/Biology, and Mental Ability. Detailed topic-wise syllabus will be sent to your registered email after successful registration.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Benefits of ESAT -->
+                        <div class="accordion-item mb-4 border-0 rounded-5 overflow-hidden shadow-sm glass-pill-premium position-relative">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-black text-dark py-4 px-3 px-md-5 bg-transparent d-flex flex-column flex-md-row align-items-center text-center text-md-start" type="button" data-bs-toggle="collapse" data-bs-target="#esat4">
+                                    <span class="wow-icon-wrap me-0 me-md-4 mb-3 mb-md-0" style="width: 50px; height: 50px; border-radius: 15px;"><i class="fas fa-gift text-primary"></i></span> 
+                                    BENEFITS OF ESAT
+                                </button>
+                            </h2>
+                            <div id="esat4" class="accordion-collapse collapse" data-bs-parent="#esatAccordion">
+                                <div class="accordion-body px-5 pb-5 pt-0 text-muted">
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Up to 100% Scholarship on Tuition Fees.</li>
+                                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> National Benchmarking against thousands of students.</li>
+                                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Detailed Performance Analysis (AI-driven reports).</li>
+                                        <li><i class="fas fa-check-circle text-primary me-2"></i> Priority Admission for upcoming 2026-27 Batches.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. Test Process -->
+                        <div class="accordion-item mb-4 border-0 rounded-5 overflow-hidden shadow-sm glass-pill-premium position-relative">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-black text-dark py-4 px-3 px-md-5 bg-transparent d-flex flex-column flex-md-row align-items-center text-center text-md-start" type="button" data-bs-toggle="collapse" data-bs-target="#esat5">
+                                    <span class="wow-icon-wrap me-0 me-md-4 mb-3 mb-md-0" style="width: 50px; height: 50px; border-radius: 15px;"><i class="fas fa-tasks text-primary"></i></span> 
+                                    TEST PROCESS
+                                </button>
+                            </h2>
+                            <div id="esat5" class="accordion-collapse collapse" data-bs-parent="#esatAccordion">
+                                <div class="accordion-body px-5 pb-5 pt-0 text-muted">
+                                    <div class="vstack gap-3 mt-2">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="badge bg-primary rounded-circle p-2" style="width: 30px; height: 30px;">1</div>
+                                            <span><strong>Register Online:</strong> Fill the registration form on the right.</span>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="badge bg-primary rounded-circle p-2" style="width: 30px; height: 30px;">2</div>
+                                            <span><strong>Admit Card:</strong> Receive details via Email/WhatsApp.</span>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="badge bg-primary rounded-circle p-2" style="width: 30px; height: 30px;">3</div>
+                                            <span><strong>Exam Day:</strong> Appear at the designated Ekalavya Center.</span>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="badge bg-primary rounded-circle p-2" style="width: 30px; height: 30px;">4</div>
+                                            <span><strong>Results:</strong> Declared within 7 days of the test.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 6. FAQ -->
                         <div class="accordion-item mb-4 border-0 rounded-5 overflow-hidden shadow-sm glass-pill-premium position-relative">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed fw-black text-dark py-4 px-3 px-md-5 bg-transparent d-flex flex-column flex-md-row align-items-center text-center text-md-start" type="button" data-bs-toggle="collapse" data-bs-target="#esat6">
-                                    <span class="wow-icon-wrap me-0 me-md-4 mb-3 mb-md-0" style="width: 50px; height: 50px; border-radius: 15px;"><i class="fas fa-trophy text-primary"></i></span> 
-                                    SCHOLARSHIP SLABS
+                                    <span class="wow-icon-wrap me-0 me-md-4 mb-3 mb-md-0" style="width: 50px; height: 50px; border-radius: 15px;"><i class="fas fa-question-circle text-primary"></i></span> 
+                                    FAQ
                                 </button>
                             </h2>
                             <div id="esat6" class="accordion-collapse collapse" data-bs-parent="#esatAccordion">
                                 <div class="accordion-body px-5 pb-5 pt-0">
-                                    <div class="table-responsive rounded-4 border overflow-hidden">
-                                        <table class="table table-hover m-0">
-                                            <thead class="bg-dark text-white">
-                                                <tr>
-                                                    <th class="px-4 py-3 border-0 small text-uppercase">Test Score Range</th>
-                                                    <th class="px-4 py-3 border-0 small text-uppercase text-end">Scholarship Benefit</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="px-4 py-3 border-bottom-0"><span class="badge bg-primary text-white me-2">ELITE</span> 90% – 100%</td>
-                                                    <td class="px-4 py-3 border-bottom-0 text-end fw-black text-primary">100% SCHOLARSHIP</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="px-4 py-3 border-bottom-0"><span class="badge bg-dark text-white me-2">GOLD</span> 80% – 89%</td>
-                                                    <td class="px-4 py-3 border-bottom-0 text-end fw-black text-dark">75% SCHOLARSHIP</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="px-4 py-3 border-bottom-0">60% – 79%</td>
-                                                    <td class="px-4 py-3 border-bottom-0 text-end fw-black text-dark">50% SCHOLARSHIP</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="mb-4 pt-3 border-top">
+                                        <h6 class="fw-black text-dark mb-1">Scholarship through Entrance Test</h6>
+                                        <p class="small text-muted mb-3">(Based on performance in Scholarship Test)</p>
+                                        <div class="table-responsive rounded-4 border overflow-hidden">
+                                            <table class="table table-hover m-0">
+                                                <thead class="bg-dark text-white">
+                                                    <tr>
+                                                        <th class="px-4 py-3 border-0 small text-uppercase">Test Score Range</th>
+                                                        <th class="px-4 py-3 border-0 small text-uppercase text-end">Scholarship Benefit</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="px-4 py-3 border-bottom-0">90% – 100%</td>
+                                                        <td class="px-4 py-3 border-bottom-0 text-end fw-black text-primary">100% SCHOLARSHIP</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="px-4 py-3 border-bottom-0">80% – 89%</td>
+                                                        <td class="px-4 py-3 border-bottom-0 text-end fw-black text-dark">75% SCHOLARSHIP</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="px-4 py-3 border-bottom-0">70% – 79%</td>
+                                                        <td class="px-4 py-3 border-bottom-0 text-end fw-black text-dark">50% SCHOLARSHIP</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="px-4 py-3 border-bottom-0">60% – 69%</td>
+                                                        <td class="px-4 py-3 border-bottom-0 text-end fw-black text-dark">30% SCHOLARSHIP</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="px-4 py-3 border-bottom-0">50% – 59%</td>
+                                                        <td class="px-4 py-3 border-bottom-0 text-end fw-black text-dark">20% SCHOLARSHIP</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="vstack gap-3">
+                                        <div>
+                                            <p class="fw-bold text-dark mb-1 small">Q: Is the test online or offline?</p>
+                                            <p class="small text-muted mb-0">A: ESAT 2026 is conducted in Offline mode at our designated study centers.</p>
+                                        </div>
+                                        <div>
+                                            <p class="fw-bold text-dark mb-1 small">Q: When will the results be announced?</p>
+                                            <p class="small text-muted mb-0">A: Results are typically declared within 7 working days after the test date.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 7. Hear from Scholars -->
+                        <div class="accordion-item mb-4 border-0 rounded-5 overflow-hidden shadow-sm glass-pill-premium position-relative">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-black text-dark py-4 px-3 px-md-5 bg-transparent d-flex flex-column flex-md-row align-items-center text-center text-md-start" type="button" data-bs-toggle="collapse" data-bs-target="#esat7">
+                                    <span class="wow-icon-wrap me-0 me-md-4 mb-3 mb-md-0" style="width: 50px; height: 50px; border-radius: 15px;"><i class="fas fa-user-graduate text-primary"></i></span> 
+                                    HEAR FROM ESAT SCHOLAR
+                                </button>
+                            </h2>
+                            <div id="esat7" class="accordion-collapse collapse" data-bs-parent="#esatAccordion">
+                                <div class="accordion-body px-5 pb-5 pt-0">
+                                    <div class="p-4 bg-light rounded-5 border-start border-primary border-4 mt-3">
+                                        <i class="fas fa-quote-left text-primary opacity-25 fs-1 mb-2"></i>
+                                        <p class="small fst-italic text-muted mb-3">"ESAT was a turning point for me. The test pattern was very similar to competitive exams, and winning a scholarship motivated me to work even harder."</p>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="fw-black text-dark small">Aditya Verma</div>
+                                            <div class="badge bg-primary bg-opacity-10 text-primary small">IIT-JEE 2026 Aspirant</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -160,8 +271,11 @@ include 'includes/header.php';
                 <div id="emrs-content" class="pathway-content d-none">
                     <div class="section-title mb-5">
                         <h2 class="fw-black text-dark h1">EMRS <span class="text-primary">2026</span></h2>
-                        <h5 class="text-primary fw-bold mb-4">Ekalavya Merit Reward Scholarship</h5>
-                        <p class="text-muted lead">A direct merit-based program offering admission and fee benefits based on proven academic records in Boards or Competitive Exams.</p>
+                        <h5 class="text-primary fw-bold mb-4">Ekalavya Merit Reward Scholarship (EMRS)</h5>
+                        <p class="text-muted lead">A merit-based scholarship program offering admission and fee benefits to deserving students. <br>
+                        Avail Scholarship based on Board Results or Competitive Exam Scores<br>
+                        (NEET | JEE | Olympiad | NTSE)<br>
+                        ⚡ Limited Seats | Early Registration Recommended</p>
                     </div>
 
                     <div class="vstack gap-4">
@@ -176,6 +290,12 @@ include 'includes/header.php';
                         <div class="emrs-feature p-4 border rounded-5 hover-bg-light transition-all">
                             <h6 class="fw-black text-dark mb-2"><i class="fas fa-clock text-primary me-2"></i> Priority Access</h6>
                             <p class="small text-muted mb-0">⚡ Limited Seats | Early Registration is recommended for the 2026-27 Academic Session.</p>
+                        </div>
+                        <!-- Added ESAT Info Only -->
+                        <div class="emrs-feature p-4 rounded-5 bg-light border-start border-primary border-4 mt-2">
+                             <h6 class="fw-black text-dark mb-2">Not qualifying via Boards?</h6>
+                             <p class="small text-muted mb-3">Appear for **ESAT 2026** (Scholarship Exam) and secure up to 100% scholarship on our premium courses based on your test performance.</p>
+                             <a href="javascript:void(0)" onclick="switchPathway('esat')" class="btn btn-sm btn-primary rounded-pill px-4">View Exam Details</a>
                         </div>
                     </div>
                 </div>
@@ -240,7 +360,12 @@ include 'includes/header.php';
                                         <select name="program" class="form-select rounded-4 border-0 bg-light px-4" id="regClass" required>
                                             <option value="IIT-JEE">IIT-JEE</option>
                                             <option value="NEET">NEET</option>
-                                            <option value="Foundation">Foundation</option>
+                                            <option value="School Prep (Class 7th)">School Prep (Class 7th)</option>
+                                            <option value="School Prep (Class 8th)">School Prep (Class 8th)</option>
+                                            <option value="School Prep (Class 9th)">School Prep (Class 9th)</option>
+                                            <option value="School Prep (Class 10th)">School Prep (Class 10th)</option>
+                                            <option value="School Prep (Class 11th)">School Prep (Class 11th)</option>
+                                            <option value="School Prep (Class 12th)">School Prep (Class 12th)</option>
                                         </select>
                                         <label for="regClass" class="small text-muted px-4">Program</label>
                                     </div>

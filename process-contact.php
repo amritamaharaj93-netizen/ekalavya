@@ -37,13 +37,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         ";
         
-        sendInstitutionalMail(SMTP_USER, $adminSubject, $adminBody);
+        sendInstitutionalMail(ADMIN_EMAIL, $adminSubject, $adminBody);
 
-        // Success - Redirect
+        // Success - Check for AJAX
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            echo json_encode(['status' => 'success', 'message' => 'Thank you for your enquiry! Our academic counselor will contact you within 24 hours.']);
+            exit();
+        }
+
         header("Location: " . BASE_URL . "contact.php?status=success");
         exit();
 
     } catch (PDOException $e) {
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            echo json_encode(['status' => 'error', 'message' => 'Transmission failure. Please try calling us directly.']);
+            exit();
+        }
         header("Location: " . BASE_URL . "contact.php?error=failed");
         exit();
     }

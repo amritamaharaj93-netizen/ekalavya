@@ -92,7 +92,7 @@
 <section class="faculty-section py-6 bg-white" id="faculty">
     <div class="container-fluid px-lg-5">
         <div class="section-title text-center mb-6">
-            <h2 class="fw-black">CHAMPION <span class="text-primary">MENTORS</span></h2>
+            <h2 class="fw-black">EXPERT <span class="text-primary">MENTORS</span></h2>
             <p class="text-muted mx-auto" style="max-width: 600px;">A handpicked team of senior IITians and medical scholars dedicated to engineering your academic success.</p>
             <div class="title-accent mx-auto mt-3"></div>
         </div>
@@ -165,7 +165,7 @@
             <h2 class="display-4 fw-black text-white mb-4">READY TO START YOUR<br>ACADEMIC <span class="text-primary">JOURNEY?</span></h2>
             <div class="d-flex flex-wrap justify-content-center gap-4">
                 <a href="contact.php" class="btn btn-aurous-gradient btn-lg rounded-pill px-5 py-3 fw-bold shadow-glow">BOOK FREE COUNSELING</a>
-                <a href="tel:9934244522" class="btn btn-outline-light btn-lg rounded-pill px-5 py-3 fw-bold"><i class="fas fa-phone-alt me-2"></i> CALL ADMISSIONS</a>
+                <a href="tel:9934244522" class="btn btn-outline-light btn-lg rounded-pill px-5 py-3 fw-bold"><i class="fas fa-phone-alt fa-flip-horizontal me-2"></i> CALL ADMISSIONS</a>
             </div>
         </div>
     </div>

@@ -88,7 +88,12 @@
                                         <select name="program" class="form-select rounded-4 border-0 bg-light px-4" id="popRegClass" style="height: 58px;" required>
                                             <option value="IIT-JEE">IIT-JEE</option>
                                             <option value="NEET">NEET</option>
-                                            <option value="Foundation">Foundation</option>
+                                            <option value="School Prep (Class 7th)">School Prep (Class 7th)</option>
+                                            <option value="School Prep (Class 8th)">School Prep (Class 8th)</option>
+                                            <option value="School Prep (Class 9th)">School Prep (Class 9th)</option>
+                                            <option value="School Prep (Class 10th)">School Prep (Class 10th)</option>
+                                            <option value="School Prep (Class 11th)">School Prep (Class 11th)</option>
+                                            <option value="School Prep (Class 12th)">School Prep (Class 12th)</option>
                                         </select>
                                         <label for="popRegClass" class="small text-muted px-4">Program</label>
                                     </div>

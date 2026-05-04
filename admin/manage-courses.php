@@ -140,6 +140,9 @@ $courses = $stmt->fetchAll();
                                          data-fee_includes="<?php echo htmlspecialchars($course['fee_includes'] ?? ''); ?>">
                                      <i class="fas fa-edit"></i>
                                  </button>
+                                         <a href="edit-course-detail.php?id=<?php echo $course['id']; ?>" class="btn btn-sm btn-outline-info border-0 rounded-circle me-2" title="Design Course Detail">
+                                             <i class="fas fa-paint-brush"></i>
+                                         </a>
                                          <a href="?delete_id=<?php echo $course['id']; ?>" class="btn btn-sm btn-outline-danger border-0 rounded-circle" onclick="return confirm('Delete this course?')"><i class="fas fa-trash"></i></a>
                                      </td>
                                  </tr>
