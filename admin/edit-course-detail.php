@@ -170,6 +170,9 @@ $curriculum = json_decode($course['curriculum_json'] ?? '[]', true);
                                         <label class="small fw-bold text-muted text-uppercase mb-2">Fees (&#x20B9;)</label>
                                          <?php 
                                          $display_fees = $course['fees'];
+                                         if (!empty($display_fees)) {
+                                             $display_fees = round($display_fees);
+                                         }
                                          if (empty($display_fees)) {
                                              $title_upper = strtoupper($course['title']);
                                              if (strpos($title_upper, 'EMERGE') !== false || strpos($title_upper, 'XII') !== false || strpos($title_upper, '12TH') !== false) $display_fees = 54000;

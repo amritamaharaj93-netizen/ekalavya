@@ -131,6 +131,10 @@ $courses = $stmt->fetchAll();
                                             $display_fees = $course['fees'];
                                             $title_upper = strtoupper($course['title']);
 
+                                            if (!empty($display_fees)) {
+                                                $display_fees = round($display_fees);
+                                            }
+
                                             if (empty($display_fees)) {
                                                 if (strpos($title_upper, 'EMERGE') !== false || strpos($title_upper, 'XII') !== false || strpos($title_upper, '12TH') !== false) $display_fees = 54000;
                                                 elseif (strpos($title_upper, 'NURTURE') !== false || strpos($title_upper, 'XI') !== false || strpos($title_upper, '11TH') !== false) $display_fees = 82000;
