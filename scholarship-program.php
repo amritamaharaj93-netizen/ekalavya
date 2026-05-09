@@ -3,57 +3,88 @@ require_once 'config/database.php';
 include 'includes/header.php'; 
 ?>
 
-<!-- Premium Institutional Hero Section -->
-<section class="scholarship-hero py-6 bg-white overflow-hidden">
+<!-- Premium Institutional Header -->
+<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.7)), url('<?php echo BASE_URL; ?>assets/images/scholarship_header.png') center/cover no-repeat; padding: 40px 0 !important;">
+    <div class="container text-center text-white">
+        <h1 class="h3 fw-black mb-2 text-uppercase">EKALAVYA SCHOLARSHIP <span class="text-primary">Program- 2026</span></h1>
+        <div class="text-primary fw-bold tracking-widest mb-3 animate-up" style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px;">Recognising Talent. Rewarding Merit.</div>
+        <p class="text-white mb-0 opacity-90 fs-5 fw-bold">🎓 Win up to 100% Scholarship on courses for NEET, JEE & Classes 7-10.</p>
+    </div>
+</section>
+
+<!-- Main Scholarship Pathways -->
+<section class="scholarship-pathways py-6 bg-white">
     <div class="container">
-        <div class="row align-items-center">
-            <!-- Left Side: Content -->
-            <div class="col-lg-7 text-center text-lg-start">
-                <div class="badge bg-warning text-dark px-3 py-2 rounded-2 mb-4 fw-bold shadow-sm" style="font-size: 0.75rem;">SESSION 2026-27</div>
-                
-                <h1 class="fw-black mb-1" style="font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -1px;">
-                    EKALAVYA SCHOLARSHIP <span class="text-primary">Program- 2026</span>
-                </h1>
-                
-                <div class="text-muted fw-bold mb-5 tracking-widest" style="font-size: 0.9rem;">
-                    Recognising Talent. Rewarding Merit.
-                </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="pathway-container p-5 rounded-5 shadow-2xl position-relative overflow-hidden" style="background-color: #ffffff; border: 1px solid rgba(0,0,0,0.05);">
+                    <div class="text-center mb-5">
+                        <div class="badge bg-primary bg-opacity-10 text-primary px-4 py-2 rounded-pill mb-3 fw-black tracking-widest shadow-sm">SCHOLARSHIP PATHWAYS</div>
+                        <h2 class="fw-black mb-0 display-6">SECURE YOUR <span class="text-primary">FUTURE</span></h2>
+                    </div>
+                    
+                    <div class="position-relative mt-5">
+                        <div class="row g-4 align-items-stretch">
+                            <!-- Pathway 1: ESAT -->
+                            <div class="col-md-5">
+                                <div class="h-100 p-5 position-relative overflow-hidden group transition-all hover-translate-y text-start" style="background: linear-gradient(145deg, #ffffff, #f8fafc); border: 2px solid #e2e8f0; border-radius: 30px;">
+                                    <div class="position-absolute top-0 end-0 p-4 opacity-10 transition-all group-hover-opacity-20">
+                                        <i class="fas fa-file-signature text-primary" style="font-size: 7rem; transform: rotate(-15deg) translateY(-20px);"></i>
+                                    </div>
+                                    <div class="mb-4 bg-primary text-white d-inline-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 55px; height: 55px; font-size: 1.5rem; font-weight: 800;">
+                                        1
+                                    </div>
+                                    <h4 class="fw-black text-dark mb-3" style="font-size: 1.5rem;">ESAT <span class="text-primary">2026</span></h4>
+                                    <p class="text-muted fw-semibold mb-0" style="line-height: 1.8;">Appear in the Ekalavya Scholarship Admission Test and secure up to 100% scholarship on our premium courses.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- OR Divider -->
+                            <div class="col-md-2 d-flex align-items-center justify-content-center position-relative py-4 py-md-0">
+                                <div class="d-none d-md-block position-absolute h-100 border-start" style="border-color: #cbd5e1 !important; border-style: dashed !important; border-width: 2px !important;"></div>
+                                <div class="bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm position-relative z-1 fw-black text-secondary" style="width: 60px; height: 60px; border: 2px solid #e2e8f0; font-size: 1.2rem;">
+                                    OR
+                                </div>
+                            </div>
+                            
+                            <!-- Pathway 2: Direct Admission -->
+                            <div class="col-md-5">
+                                <div class="h-100 p-5 position-relative overflow-hidden group transition-all hover-translate-y text-start" style="background: linear-gradient(145deg, #ffffff, #f8fafc); border: 2px solid #e2e8f0; border-radius: 30px;">
+                                    <div class="position-absolute top-0 end-0 p-4 opacity-10 transition-all group-hover-opacity-20">
+                                        <i class="fas fa-medal text-dark" style="font-size: 7rem; transform: rotate(15deg) translateY(-20px);"></i>
+                                    </div>
+                                    <div class="mb-4 bg-dark text-white d-inline-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 55px; height: 55px; font-size: 1.5rem; font-weight: 800;">
+                                        2
+                                    </div>
+                                    <h4 class="fw-black text-dark mb-3" style="font-size: 1.5rem;">Direct Scholarship</h4>
+                                    <p class="text-muted fw-semibold mb-4" style="line-height: 1.8;">Avail scholarship directly based on your performance in qualifying board or competitive exams.</p>
+                                    <div class="d-flex gap-2 flex-wrap position-relative z-1">
+                                        <span class="badge bg-white text-secondary border px-3 py-2 fw-bold shadow-sm">NEET</span>
+                                        <span class="badge bg-white text-secondary border px-3 py-2 fw-bold shadow-sm">JEE</span>
+                                        <span class="badge bg-white text-secondary border px-3 py-2 fw-bold shadow-sm">Olympiads</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="scholarship-bullet mb-5">
-                    <p class="fs-5 fw-bold text-dark d-flex align-items-center justify-content-center justify-content-lg-start gap-3">
-                        <i class="fas fa-graduation-cap text-primary"></i> 
-                        Win up to <span class="text-primary">100% Scholarship</span> on NEET, JEE & Classes 7-12.
-                    </p>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3 mt-4">
-                    <a href="scholarship.php?path=esat" class="btn btn-dark rounded-pill px-5 py-3 fw-black text-uppercase shadow-lg hover-translate-y" style="background: #0C1028; font-size: 0.9rem;">ESAT</a>
-                    <a href="scholarship.php?path=emrs" class="btn btn-dark rounded-pill px-5 py-3 fw-black text-uppercase shadow-lg hover-translate-y" style="background: #0C1028; font-size: 0.9rem;">EMRS</a>
-                    <a href="scholarship.php?path=early_bird" class="btn btn-dark rounded-pill px-5 py-3 fw-black text-uppercase shadow-lg hover-translate-y" style="background: #0C1028; font-size: 0.9rem;">EARLY BIRD</a>
-                </div>
-            </div>
-
-            <!-- Right Side: Student Image -->
-            <div class="col-lg-5 mt-5 mt-lg-0 text-center">
-                <div class="position-relative d-inline-block">
-                    <!-- Subtle Background Blob -->
-                    <div class="position-absolute top-50 start-50 translate-middle bg-primary opacity-10" style="width: 120%; height: 120%; border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; filter: blur(50px);"></div>
-                    <img src="<?php echo BASE_URL; ?>assets/images/thumbs_up_student.png" alt="Scholarship Student" class="img-fluid position-relative z-1" style="max-height: 500px;">
+                    <div class="text-center mt-5 pt-4">
+                        <div class="d-inline-flex align-items-center gap-2 mb-4 px-4 py-2 rounded-pill shadow-sm" style="background: #fff7ed; border: 1px solid #fed7aa; color: #ea580c;">
+                            <div class="spinner-grow spinner-grow-sm" role="status" style="width: 0.6rem; height: 0.6rem;"></div>
+                            <span class="fw-bold tracking-wider text-uppercase" style="font-size: 0.8rem;">Limited Seats | Early Registration Recommended</span>
+                        </div>
+                        
+                        <div>
+                            <a href="<?php echo BASE_URL; ?>scholarship.php" class="btn btn-primary btn-lg rounded-pill px-5 py-4 fw-black text-uppercase tracking-wider shadow-glow hover-translate-y transition-all" style="font-size: 1rem;">
+                                Register Now <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<style>
-.hover-translate-y:hover {
-    transform: translateY(-5px);
-}
-.fw-black { font-weight: 900; }
-.text-primary { color: #f7941d !important; }
-.bg-primary { background-color: #f7941d !important; }
-</style>
 
 <!-- Call to Action -->
 <section class="cta-banner py-6 text-white text-center position-relative overflow-hidden" style="background-color: #0C1028;">

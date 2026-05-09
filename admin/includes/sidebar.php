@@ -13,11 +13,9 @@
         <a class="nav-link <?php echo $current_page == 'test_series' ? 'active' : ''; ?>" href="manage-test-series.php">
             <i class="fas fa-clipboard-list"></i> Test Series
         </a>
-        <?php /*
         <a class="nav-link <?php echo $current_page == 'scholarship-tabs' ? 'active' : ''; ?>" href="manage-scholarship-tabs.php">
             <i class="fas fa-layer-group"></i> Scholarship Page
         </a>
-        */ ?>
         <a class="nav-link <?php echo $current_page == 'career_path' ? 'active' : ''; ?>" href="manage-career-path.php">
             <i class="fas fa-route"></i> Career Path
         </a>
