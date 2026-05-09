@@ -59,9 +59,8 @@ include 'includes/header.php';
                         <h3 class="fw-black mb-2 fs-2 course-title">IIT-JEE <small class="d-block text-muted mt-1 fw-normal" style="font-size: 1rem;">Elite Engineering Program</small></h3>
                         <p class="text-muted mb-4 fs-5 course-desc">Strategic physics-mathematics fusion designed for the toughest entrance exam on the planet.</p>
                         <div class="class-buttons d-flex flex-wrap gap-2 mb-4 mt-auto justify-content-center">
+                            <span class="badge badge-premium">Class 9</span>
                             <span class="badge badge-premium">Class 11</span>
-                            <span class="badge badge-premium">Class 12</span>
-                            <span class="badge badge-premium">Repeaters</span>
                         </div>
                         <a href="courses.php?category=IIT-JEE" class="btn btn-aurous-gradient w-100 rounded-pill py-3 fw-bold fs-5">VIEW COURSE <i class="fas fa-arrow-right ms-2"></i></a>
                     </div>
@@ -77,8 +76,9 @@ include 'includes/header.php';
                         <h3 class="fw-black mb-2 fs-2 course-title">NEET-UG <small class="d-block text-muted mt-1 fw-normal" style="font-size: 1rem;">Premier Medical Program</small></h3>
                         <p class="text-muted mb-4 fs-5 course-desc">Visual conceptual biology and reactive chemistry modules for top-tier medical college placements.</p>
                         <div class="class-buttons d-flex flex-wrap gap-2 mb-4 mt-auto justify-content-center">
-                            <span class="badge badge-premium">Class 9</span>
                             <span class="badge badge-premium">Class 11</span>
+                            <span class="badge badge-premium">Class 12</span>
+                            <span class="badge badge-premium">Dropper</span>
                         </div>
                         <a href="courses.php?category=NEET" class="btn btn-aurous-gradient w-100 rounded-pill py-3 fw-bold fs-5">VIEW COURSE <i class="fas fa-arrow-right ms-2"></i></a>
                     </div>
@@ -91,7 +91,7 @@ include 'includes/header.php';
                             <div class="icon-blob position-absolute top-50 start-50 translate-middle" style="background: rgba(0, 206, 201, 0.1); width: 100px; height: 100px; border-radius: 50%;"></div>
                             <i class="fas fa-vial fa-4x text-cyan position-relative"></i>
                         </div>
-                        <h3 class="fw-black mb-2 fs-2 course-title">SCHOOL PREP <small class="d-block text-muted mt-1 fw-normal" style="font-size: 1rem;">Junior Scholars Program</small></h3>
+                        <h3 class="fw-black mb-2 fs-2 course-title">SCHOOL PREP <small class="d-block text-muted mt-1 fw-normal" style="font-size: 1rem;">Scholars Program</small></h3>
                         <p class="text-muted mb-4 fs-5 course-desc">Nurturing curiosity into competency for NTSE, Olympiads, and early competitive edge.</p>
                         <div class="class-buttons d-flex flex-wrap gap-2 mb-4 mt-auto justify-content-center">
                             <span class="badge badge-premium">Class 7</span>
