@@ -70,7 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label class="small fw-bold text-uppercase text-muted mb-2 ms-1" style="letter-spacing: 0.5px;">Password</label>
                 <div class="input-group">
                     <span class="input-group-text bg-light border-end-0 rounded-start-3"><i class="far fa-lock text-muted"></i></span>
-                    <input type="password" class="form-control premium-input border-start-0 rounded-end-3" name="password" placeholder="••••••••" required>
+                    <input type="password" class="form-control premium-input border-start-0 border-end-0" name="password" id="admin_pass" placeholder="••••••••" required>
+                    <span class="input-group-text bg-light border-start-0 rounded-end-3" style="cursor: pointer;" onclick="togglePassword('admin_pass', this)">
+                        <i class="fas fa-eye text-muted"></i>
+                    </span>
                 </div>
             </div>
 
@@ -83,6 +86,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <p class="text-muted" style="font-size: 0.75rem;">&copy; 2026 EKLAVYA ACADEMY. ALL RIGHTS RESERVED.</p>
         </div>
     </div>
+
+    <script>
+    function togglePassword(id, el) {
+        const input = document.getElementById(id);
+        const icon = el.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+    </script>
 
 </body>
 </html>

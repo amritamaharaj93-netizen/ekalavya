@@ -42,14 +42,14 @@
         <div class="row g-5">
             <div class="col-lg-6">
                 <div class="vision-card p-5 rounded-5 shadow-2xl bg-orange-soft border-0 h-100 position-relative overflow-hidden transition-all hover-scale-102">
-                    <i class="fas fa-eye position-absolute top-50 end-0 translate-middle-y opacity-10 me-4" style="font-size: 150px;"></i>
+                    <i class="fas fa-eye position-absolute top-0 end-0 opacity-10 m-4" style="font-size: 150px;"></i>
                     <h3 class="fw-black text-primary mb-4">MISSION</h3>
                     <p class="text-dark opacity-75 lead">To democratize high-end competitive education by bridging the gap between talent and opportunity through scientific pedagogy and unshakeable mentorship.</p>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="vision-card p-5 rounded-5 shadow-2xl bg-secondary border-0 h-100 position-relative overflow-hidden transition-all hover-scale-102 text-white">
-                    <i class="fas fa-bullseye position-absolute top-50 end-0 translate-middle-y opacity-10 me-4" style="font-size: 150px;"></i>
+                    <i class="fas fa-bullseye position-absolute top-0 end-0 opacity-10 m-4" style="font-size: 150px;"></i>
                     <h3 class="fw-black text-white mb-4">VISION</h3>
                     <p class="text-white opacity-75 lead">To become the national benchmark in result-oriented education, where every student's potential is mathematically mapped to their maximum rank achievable.</p>
                 </div>

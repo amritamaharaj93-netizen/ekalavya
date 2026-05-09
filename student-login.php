@@ -33,7 +33,12 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
                         </div>
                         <div class="mb-3">
                             <label class="very-small text-muted uppercase fw-bold mb-1">Password</label>
-                            <input type="password" name="password" class="form-control-minimal border rounded-3 w-100 py-2 px-3" placeholder="••••••••" required>
+                            <div class="position-relative">
+                                <input type="password" name="password" id="password" class="form-control-minimal border rounded-3 w-100 py-2 px-3" placeholder="••••••••" required>
+                                <span class="position-absolute end-0 top-50 translate-middle-y me-3" style="cursor: pointer;" onclick="togglePassword('password', this)">
+                                    <i class="fas fa-eye text-muted"></i>
+                                </span>
+                            </div>
                         </div>
                         
                         <button type="submit" class="btn btn-primary w-100 py-2 rounded-pill fw-black shadow-lg">AUTHORIZE ACCESS <i class="fas fa-sign-in-alt ms-2"></i></button>
@@ -45,5 +50,21 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
         </div>
     </div>
 </main>
+
+<script>
+function togglePassword(id, el) {
+    const input = document.getElementById(id);
+    const icon = el.querySelector('i');
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
+</script>
 
 <?php include 'includes/footer.php'; ?>
