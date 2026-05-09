@@ -126,6 +126,22 @@ $courses = $stmt->fetchAll();
                                     <td><span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-2"><?php echo htmlspecialchars($course['category']); ?></span></td>
                                     <td><i class="far fa-clock me-2 text-muted"></i> <?php echo htmlspecialchars($course['duration']); ?></td>
                                     <td>
+                                         <?php 
+                                            $fee_includes = $course['fee_includes'];
+                                            if (empty($fee_includes)) {
+                                                $title_upper = strtoupper($course['title']);
+                                                $study_material = "Course study material";
+                                                if (strpos($title_upper, 'EMERGE') !== false || strpos($title_upper, 'XII') !== false || strpos($title_upper, '12TH') !== false) $study_material = "Class-12th study material";
+                                                elseif (strpos($title_upper, 'NURTURE') !== false || strpos($title_upper, 'XI') !== false || strpos($title_upper, '11TH') !== false) $study_material = "Class-11th study material";
+                                                elseif (strpos($title_upper, '7TH') !== false) $study_material = "Class-7th study material";
+                                                elseif (strpos($title_upper, '8TH') !== false) $study_material = "Class-8th study material";
+                                                elseif (strpos($title_upper, '10TH') !== false) $study_material = "Class-10th study material";
+                                                elseif (strpos($title_upper, 'IMPULSE') !== false || strpos($title_upper, 'DROPPER') !== false) $study_material = "Dropper study material";
+                                                elseif (strpos($title_upper, 'SEED') !== false || strpos($title_upper, 'IX') !== false || strpos($title_upper, '9TH') !== false) $study_material = "Class-9th study material";
+                                                
+                                                $fee_includes = "$study_material\nUniform for classroom\nNecessary Stationary";
+                                            }
+                                         ?>
                                          <button class="btn btn-sm btn-outline-primary border-0 rounded-circle me-2" 
                                          data-bs-toggle="modal" 
                                          data-bs-target="#editCourseModal" 
@@ -137,7 +153,7 @@ $courses = $stmt->fetchAll();
                                          data-target_year="<?php echo htmlspecialchars($course['target_year'] ?? ''); ?>"
                                          data-fees="<?php echo htmlspecialchars($course['fees'] ?? ''); ?>"
                                          data-admission_eligibility="<?php echo htmlspecialchars($course['admission_eligibility'] ?? ''); ?>"
-                                         data-fee_includes="<?php echo htmlspecialchars($course['fee_includes'] ?? ''); ?>">
+                                         data-fee_includes="<?php echo htmlspecialchars($fee_includes); ?>">
                                      <i class="fas fa-edit"></i>
                                  </button>
                                          <a href="edit-course-detail.php?id=<?php echo $course['id']; ?>" class="btn btn-sm btn-outline-info border-0 rounded-circle me-2" title="Design Course Detail">
