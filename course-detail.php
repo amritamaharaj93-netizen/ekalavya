@@ -457,7 +457,7 @@ include 'includes/header.php';
                     <i class="fas fa-graduation-cap fs-4 text-primary"></i>
                     <div>
                         <h6 class="mb-0 fw-bold text-white">ESAT Scholarship Potential</h6>
-                        <p class="very-small text-white-50 mb-0">Save up to 90% based on scholarship test performance.</p>
+                        <p class="very-small text-white-50 mb-0">Save up to 100% based on scholarship test performance.</p>
                     </div>
                 </div>
                 <a href="<?php echo BASE_URL; ?>scholarship" class="btn btn-outline-primary rounded-pill px-5 py-2 fw-bold text-nowrap">Register for ESAT</a>
