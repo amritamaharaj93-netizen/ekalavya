@@ -128,8 +128,17 @@ $courses = $stmt->fetchAll();
                                     <td>
                                          <?php 
                                             $fee_includes = $course['fee_includes'];
+                                            $display_fees = $course['fees'];
+                                            $title_upper = strtoupper($course['title']);
+
+                                            if (empty($display_fees)) {
+                                                if (strpos($title_upper, 'EMERGE') !== false || strpos($title_upper, 'XII') !== false || strpos($title_upper, '12TH') !== false) $display_fees = 54000;
+                                                elseif (strpos($title_upper, 'NURTURE') !== false || strpos($title_upper, 'XI') !== false || strpos($title_upper, '11TH') !== false) $display_fees = 82000;
+                                                elseif (strpos($title_upper, 'IMPULSE') !== false || strpos($title_upper, 'DROPPER') !== false) $display_fees = 54000;
+                                                elseif (strpos($title_upper, 'SEED') !== false || strpos($title_upper, 'IX') !== false || strpos($title_upper, '9TH') !== false) $display_fees = 42000;
+                                            }
+
                                             if (empty($fee_includes)) {
-                                                $title_upper = strtoupper($course['title']);
                                                 $study_material = "Course study material";
                                                 if (strpos($title_upper, 'EMERGE') !== false || strpos($title_upper, 'XII') !== false || strpos($title_upper, '12TH') !== false) $study_material = "Class-12th study material";
                                                 elseif (strpos($title_upper, 'NURTURE') !== false || strpos($title_upper, 'XI') !== false || strpos($title_upper, '11TH') !== false) $study_material = "Class-11th study material";
@@ -151,7 +160,7 @@ $courses = $stmt->fetchAll();
                                          data-duration="<?php echo htmlspecialchars($course['duration']); ?>"
                                          data-description="<?php echo htmlspecialchars($course['description']); ?>"
                                          data-target_year="<?php echo htmlspecialchars($course['target_year'] ?? ''); ?>"
-                                         data-fees="<?php echo htmlspecialchars($course['fees'] ?? ''); ?>"
+                                         data-fees="<?php echo htmlspecialchars($display_fees ?? ''); ?>"
                                          data-admission_eligibility="<?php echo htmlspecialchars($course['admission_eligibility'] ?? ''); ?>"
                                          data-fee_includes="<?php echo htmlspecialchars($fee_includes); ?>">
                                      <i class="fas fa-edit"></i>

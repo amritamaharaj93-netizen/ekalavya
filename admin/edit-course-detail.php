@@ -168,7 +168,17 @@ $curriculum = json_decode($course['curriculum_json'] ?? '[]', true);
                                     </div>
                                     <div class="col-6">
                                         <label class="small fw-bold text-muted text-uppercase mb-2">Fees (&#x20B9;)</label>
-                                        <input type="number" step="0.01" class="form-control premium-input border" name="fees" value="<?php echo htmlspecialchars($course['fees'] ?? ''); ?>">
+                                         <?php 
+                                         $display_fees = $course['fees'];
+                                         if (empty($display_fees)) {
+                                             $title_upper = strtoupper($course['title']);
+                                             if (strpos($title_upper, 'EMERGE') !== false || strpos($title_upper, 'XII') !== false || strpos($title_upper, '12TH') !== false) $display_fees = 54000;
+                                             elseif (strpos($title_upper, 'NURTURE') !== false || strpos($title_upper, 'XI') !== false || strpos($title_upper, '11TH') !== false) $display_fees = 82000;
+                                             elseif (strpos($title_upper, 'IMPULSE') !== false || strpos($title_upper, 'DROPPER') !== false) $display_fees = 54000;
+                                             elseif (strpos($title_upper, 'SEED') !== false || strpos($title_upper, 'IX') !== false || strpos($title_upper, '9TH') !== false) $display_fees = 42000;
+                                         }
+                                     ?>
+                                     <input type="number" step="0.01" class="form-control premium-input border" name="fees" value="<?php echo htmlspecialchars($display_fees ?? ''); ?>">
                                     </div>
                                 </div>
                                 <div class="mb-3">
