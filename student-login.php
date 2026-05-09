@@ -33,10 +33,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
                         </div>
                         <div class="mb-3">
                             <label class="very-small text-muted uppercase fw-bold mb-1">Password</label>
-                            <div class="position-relative">
-                                <input type="password" name="password" id="student_password" class="form-control-minimal border rounded-3 w-100 py-2 px-3 pe-5" placeholder="••••••••" required>
-                                <i class="far fa-eye position-absolute end-0 top-50 translate-middle-y me-3 text-muted" id="togglePassword" style="cursor: pointer;"></i>
-                            </div>
+                            <input type="password" name="password" class="form-control-minimal border rounded-3 w-100 py-2 px-3" placeholder="••••••••" required>
                         </div>
                         
                         <button type="submit" class="btn btn-primary w-100 py-2 rounded-pill fw-black shadow-lg">AUTHORIZE ACCESS <i class="fas fa-sign-in-alt ms-2"></i></button>
@@ -48,22 +45,5 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
         </div>
     </div>
 </main>
-
-<script>
-    document.getElementById('togglePassword').addEventListener('click', function() {
-        const passwordField = document.getElementById('student_password');
-        const icon = this;
-        
-        if (passwordField.type === 'password') {
-            passwordField.type = 'text';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
-        } else {
-            passwordField.type = 'password';
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye');
-        }
-    });
-</script>
 
 <?php include 'includes/footer.php'; ?>
