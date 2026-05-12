@@ -432,98 +432,71 @@ if ($current_page == 'courses' || $current_page == 'classroom-courses') {
                             <ul class="nav flex-column mobile-sub-nav">
                                 <!-- NEET Nested -->
                                 <li class="pe-3">
-                                    <a href="<?php echo BASE_URL; ?>courses.php?category=NEET" 
-                                        class="d-flex align-items-center justify-content-between py-2 text-decoration-none">
-                                        <span class="text-dark"><i class="fas fa-certificate me-2 opacity-50"></i> NEET
-                                            (Medical)</span>
-                                        <div data-bs-toggle="collapse" data-bs-target="#mobileNeetSub" class="p-2"><i class="fas fa-chevron-right small opacity-50"></i></div>
+                                    <a href="#mobileNeetSub" data-bs-toggle="collapse"
+                                        class="d-flex align-items-center justify-content-between py-2 text-decoration-none collapsed">
+                                        <span class="text-dark"><i class="fas fa-certificate me-2 opacity-50"></i> NEET (Medical)</span>
+                                        <i class="fas-chevron-right fas small opacity-50"></i>
                                     </a>
                                     <div class="collapse" id="mobileNeetSub">
                                         <ul class="nav flex-column mobile-inner-nav">
                                             <?php if (!empty($menu_neet)): ?>
                                                 <?php foreach ($menu_neet as $item): ?>
-                                                    <li><a
-                                                            href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=<?php echo urlencode(explode(' ', trim($item['title']))[0]); ?>"><?php echo htmlspecialchars($item['title']); ?></a>
-                                                    </li>
+                                                    <li><a href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=<?php echo urlencode(explode(' ', trim($item['title']))[0]); ?>"><?php echo htmlspecialchars($item['title']); ?></a></li>
                                                 <?php endforeach; ?>
                                             <?php else: ?>
-                                                <li><a href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=NURTURE">NURTURE
-                                                        (Class XI)</a></li>
-                                                <li><a href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=EMERGE">EMERGE
-                                                        (Class XII)</a></li>
-                                                <li><a href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=IMPULSE">IMPULSE
-                                                        (Dropper)</a></li>
+                                                <li><a href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=NURTURE">NURTURE (Class XI)</a></li>
+                                                <li><a href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=EMERGE">EMERGE (Class XII)</a></li>
+                                                <li><a href="<?php echo BASE_URL; ?>courses.php?category=NEET&type=IMPULSE">IMPULSE (Dropper)</a></li>
                                             <?php endif; ?>
                                         </ul>
                                     </div>
                                 </li>
                                 <!-- IIT-JEE Nested -->
                                 <li class="pe-3">
-                                    <a href="<?php echo BASE_URL; ?>courses.php?category=IIT-JEE" 
-                                        class="d-flex align-items-center justify-content-between py-2 text-decoration-none">
-                                        <span class="text-dark"><i class="fas fa-gear me-2 opacity-50"></i> IIT-JEE
-                                            (Engg.)</span>
-                                        <div data-bs-toggle="collapse" data-bs-target="#mobileJeeSub" class="p-2"><i class="fas fa-chevron-right small opacity-50"></i></div>
+                                    <a href="#mobileJeeSub" data-bs-toggle="collapse"
+                                        class="d-flex align-items-center justify-content-between py-2 text-decoration-none collapsed">
+                                        <span class="text-dark"><i class="fas fa-gear me-2 opacity-50"></i> IIT-JEE (Engg.)</span>
+                                        <i class="fas-chevron-right fas small opacity-50"></i>
                                     </a>
                                     <div class="collapse" id="mobileJeeSub">
                                         <ul class="nav flex-column mobile-inner-nav">
                                             <?php if (!empty($menu_jee)): ?>
                                                 <?php foreach ($menu_jee as $item): ?>
-                                                    <li><a
-                                                            href="<?php echo BASE_URL; ?>courses.php?category=IIT-JEE&type=<?php echo urlencode(explode(' ', trim($item['title']))[0]); ?>"><?php echo htmlspecialchars($item['title']); ?></a>
-                                                    </li>
+                                                    <li><a href="<?php echo BASE_URL; ?>courses.php?category=IIT-JEE&type=<?php echo urlencode(explode(' ', trim($item['title']))[0]); ?>"><?php echo htmlspecialchars($item['title']); ?></a></li>
                                                 <?php endforeach; ?>
                                             <?php else: ?>
-                                                <li><a href="<?php echo BASE_URL; ?>courses.php?category=IIT-JEE&type=SEED">SEED
-                                                        (Class IX)</a></li>
-                                                <li><a
-                                                        href="<?php echo BASE_URL; ?>courses.php?category=IIT-JEE&type=NURTURE">NURTURE
-                                                        (Class XI)</a></li>
+                                                <li><a href="<?php echo BASE_URL; ?>courses.php?category=IIT-JEE&type=SEED">SEED (Class IX)</a></li>
+                                                <li><a href="<?php echo BASE_URL; ?>courses.php?category=IIT-JEE&type=NURTURE">NURTURE (Class XI)</a></li>
                                             <?php endif; ?>
                                         </ul>
                                     </div>
                                 </li>
                                 <!-- School Prep Nested -->
                                 <li class="pe-3">
-                                    <a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)" 
-                                        class="d-flex align-items-center justify-content-between py-2 text-decoration-none">
-                                        <span class="text-dark"><i class="fas fa-school me-2 opacity-50"></i> School
-                                            Prep</span>
-                                        <div data-bs-toggle="collapse" data-bs-target="#mobileSchoolSub" class="p-2"><i class="fas fa-chevron-right small opacity-50"></i></div>
+                                    <a href="#mobileSchoolSub" data-bs-toggle="collapse"
+                                        class="d-flex align-items-center justify-content-between py-2 text-decoration-none collapsed">
+                                        <span class="text-dark"><i class="fas fa-school me-2 opacity-50"></i> School Prep</span>
+                                        <i class="fas-chevron-right fas small opacity-50"></i>
                                     </a>
                                     <div class="collapse" id="mobileSchoolSub">
                                         <ul class="nav flex-column mobile-inner-nav">
                                             <?php if (!empty($menu_school)): ?>
                                                 <?php foreach ($menu_school as $item): ?>
-                                                    <li><a
-                                                            href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&type=<?php echo urlencode($item['title']); ?>"><?php echo htmlspecialchars($item['title']); ?></a>
-                                                    </li>
+                                                    <li><a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&type=<?php echo urlencode($item['title']); ?>"><?php echo htmlspecialchars($item['title']); ?></a></li>
                                                 <?php endforeach; ?>
                                             <?php else: ?>
-                                                <li><a
-                                                        href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=7">Class
-                                                        7th Standard</a></li>
-                                                <li><a
-                                                        href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=8">Class
-                                                        8th Standard</a></li>
-                                                <li><a
-                                                        href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=9">Class
-                                                        9th Standard</a></li>
-                                                <li><a
-                                                        href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=10">Class
-                                                        10th Standard</a></li>
-                                                <li><a
-                                                        href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=11">Class
-                                                        11th Standard</a></li>
-                                                <li><a
-                                                        href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=12">Class
-                                                        12th Standard</a></li>
+                                                <li><a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=7">Class 7th Standard</a></li>
+                                                <li><a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=8">Class 8th Standard</a></li>
+                                                <li><a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=9">Class 9th Standard</a></li>
+                                                <li><a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=10">Class 10th Standard</a></li>
+                                                <li><a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=11">Class 11th Standard</a></li>
+                                                <li><a href="<?php echo BASE_URL; ?>courses.php?category=School Prep (Class 7th-12th)&class=12">Class 12th Standard</a></li>
                                             <?php endif; ?>
                                         </ul>
                                     </div>
                                 </li>
-                                <li><a href="<?php echo BASE_URL; ?>classroom-courses.php"
-                                        class="fw-bold text-primary">All Classroom Programs</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>classroom-courses.php" class="fw-bold text-primary mt-2 d-block">All Classroom Programs</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>courses.php" class="fw-bold text-primary mt-1 d-block">Browse All Courses</a></li>
                             </ul>
                         </div>
                     </li>
