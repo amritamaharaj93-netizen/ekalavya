@@ -101,9 +101,9 @@ include 'includes/header.php';
     <div class="container container-1400">
         <!-- Premium ESAT Scholarship Banner (Dynamic Content) -->
         <!-- Scholarship Banner Image (Full Size) -->
-        <div class="scholarship-dynamic-banner rounded-5 mb-5 position-relative overflow-hidden shadow-heavy border">
-            <img src="<?php echo BASE_URL; ?>assets/images/<?php echo $course['hero_banner'] ?: 'scholar image.png'; ?>"
-                class="img-fluid w-100" alt="Scholarship Program">
+        <div class="scholarship-dynamic-banner rounded-5 mb-5 position-relative overflow-hidden shadow-heavy border scholar-banner-custom">
+            <img src="<?php echo BASE_URL; ?>assets/images/<?php echo $course['hero_banner'] ?: 'scholar image5.png'; ?>"
+                class="img-fluid w-100 h-100" style="object-fit: contain; object-position: center;" alt="Scholarship Program">
         </div>
 
         <div class="row align-items-start g-5">
@@ -509,25 +509,22 @@ include 'includes/header.php';
                             </td>
                             <td class="py-5 pe-5">
                                 <div class="vstack gap-3 border-start ps-4">
-                                    <?php if ($course['fee_includes']): ?>
-                                        <div class="mb-2">
-                                            <span class="text-secondary very-small fw-bold uppercase tracking-wider">What's
-                                                Included</span>
-                                            <p class="small text-muted mb-0 mt-1">
-                                                <?php echo nl2br(htmlspecialchars($course['fee_includes'])); ?>
-                                            </p>
-                                        </div>
-                                    <?php endif; ?>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <span class="text-secondary small fw-bold">1st Installment (At Admission)</span>
                                         <span
                                             class="fw-black text-dark">₹<?php echo number_format($course['fees'] * (($course['inst_1_pct'] ?: 60) / 100), 0); ?></span>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-secondary small fw-bold">2nd Installment (After 45
+                                        <span class="text-secondary small fw-bold">2nd Installment (After 60
                                             Days)</span>
                                         <span
                                             class="fw-black text-dark">₹<?php echo number_format($course['fees'] * (($course['inst_2_pct'] ?: 50) / 100), 0); ?></span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-secondary small fw-bold">3rd Installment (After 60
+                                            Days)</span>
+                                        <span
+                                            class="fw-black text-dark">₹<?php echo number_format($course['fees'] * (($course['inst_3_pct'] ?? 0) / 100), 0); ?></span>
                                     </div>
                                     <div
                                         class="alert bg-light border ps-3 py-2 rounded-3 mb-0 very-small text-muted italic mt-2">
@@ -575,7 +572,7 @@ include 'includes/header.php';
                             <span
                                 class="very-small fw-black text-success text-uppercase tracking-widest mb-2 d-block">Phase
                                 1</span>
-                            <h3 class="fw-black mb-1 text-dark">90%</h3>
+                            <h3 class="fw-black mb-1 text-dark">80%</h3>
                             <p class="small fw-bold text-muted mb-0">BEFORE<br>CLASSES</p>
                         </div>
                     </div>
@@ -614,5 +611,19 @@ include 'includes/header.php';
         </div>
     </div>
 </section>
+
+<style>
+.scholar-banner-custom {
+    max-height: 400px; 
+    padding: 5px; 
+    background-color: #fff;
+}
+@media (max-width: 768px) {
+    .scholar-banner-custom {
+        padding: 5px;
+        max-height: 250px;
+    }
+}
+</style>
 
 <?php include 'includes/footer.php'; ?>

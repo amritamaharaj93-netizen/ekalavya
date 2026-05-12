@@ -7,7 +7,7 @@ $class = isset($_GET['class']) ? trim($_GET['class']) : '';
 $type = isset($_GET['type']) ? trim($_GET['type']) : '';
 
 // Build dynamic query
-$query = "SELECT * FROM courses WHERE 1=1";
+$query = "SELECT * FROM courses WHERE title NOT LIKE '%School Excellence Program%'";
 $params = [];
 
 if ($category) {
@@ -51,7 +51,21 @@ if ($type) {
     }
 }
 
-$query .= " ORDER BY created_at DESC";
+$query .= " ORDER BY 
+    CASE 
+        WHEN title LIKE '%7th%' THEN 1
+        WHEN title LIKE '%8th%' THEN 2
+        WHEN title LIKE '%9th%' THEN 3
+        WHEN title LIKE '%10th%' THEN 4
+        WHEN title LIKE '%11th%' THEN 5
+        WHEN title LIKE '%12th%' THEN 6
+        WHEN title LIKE 'SEED%' THEN 7
+        WHEN title LIKE 'ANKUR%' THEN 8
+        WHEN title LIKE 'NURTURE%' THEN 9
+        WHEN title LIKE 'EMERGE%' THEN 10
+        WHEN title LIKE 'IMPULSE%' THEN 11
+        ELSE 12
+    END ASC, created_at DESC";
 $stmt = $pdo->prepare($query);
 $stmt->execute($params);
 $db_courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -67,7 +81,7 @@ if ($class) {
 ?>
 
 <!-- Premium Institutional Header -->
-<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.6)), url('assets/images/classroom_courses_hero.png') center/cover no-repeat; padding: clamp(40px, 8vh, 100px) 0 !important;">
+<section class="page-header" style="background: url('assets/images/TopFront & side .png') center/100% 100% no-repeat; padding: clamp(40px, 8vh, 100px) 0 !important; padding-left: 5px !important;">
     <div class="container text-center text-white">
         <h1 class="fw-black mb-0" style="font-size: clamp(2.2rem, 10vw, 4.5rem); line-height: 1.1;">
             <?php 
@@ -110,6 +124,37 @@ if ($class) {
     color: #fff;
     box-shadow: 0 5px 15px rgba(249,115,22,0.3);
 }
+
+/* Banner Text Overlay */
+.banner-text-overlay {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 5px 15px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    z-index: 5;
+    border: 2px solid #28a745;
+    text-align: center;
+}
+.banner-text-overlay .main-text {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 900;
+    color: #1a5c2d;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+.banner-text-overlay .sub-text {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #475569;
+    letter-spacing: 1px;
+    margin-top: 2px;
+}
 </style>
 
 <!-- Course Browser (Dynamic Premium Grid) -->
@@ -139,21 +184,21 @@ if ($class) {
                 <div class="col-lg-4 col-md-6">
                     <?php 
                         // Dynamic banner selection
-                        $banner = "banner3.png"; // Default / Foundation
+                        $banner = "clean_classroom_banner.png"; // Premium Clean Banner
                         $cat_lower = strtolower($item['category']);
                         if (strpos($cat_lower, 'neet') !== false) $banner = "banner1.png";
                         elseif (strpos($cat_lower, 'jee') !== false || strpos($cat_lower, 'iit') !== false) $banner = "banner2.png";
                         
                         // Class extraction
-                        $class_display = "7th-10th";
-                        if (stripos($item['title'], 'XI') !== false && stripos($item['title'], 'XII') === false) $class_display = "11th";
-                        elseif (stripos($item['title'], 'XII') !== false) $class_display = "12th";
-                        elseif (preg_match('/(\d+)th/i', $item['title'], $matches)) $class_display = $matches[0];
+                        $class_display = "7-10";
+                        if (stripos($item['title'], 'XI') !== false && stripos($item['title'], 'XII') === false) $class_display = "11";
+                        elseif (stripos($item['title'], 'XII') !== false) $class_display = "12";
+                        elseif (preg_match('/(\d+)/i', $item['title'], $matches)) $class_display = $matches[0];
                         
                         // Icon selection
                         $title_icon = "fa-book-medical";
                         if (strpos($cat_lower, 'jee') !== false) $title_icon = "fa-atom";
-                        elseif (strpos($cat_lower, 'foundation') !== false) $title_icon = "fa-graduation-cap";
+                        elseif (strpos($cat_lower, 'foundation') !== false || strpos($cat_lower, 'school') !== false) $title_icon = "fa-graduation-cap";
                     ?>
                     <?php 
                         // Badge text and card class
@@ -185,8 +230,12 @@ if ($class) {
                         }
                     ?>
                     <div class="course-card-v3 <?php echo $category_class; ?>">
-                        <div class="card-image">
-                            <!-- <div class="course-badge"><?php echo $badge_text; ?></div> -->
+                        <div class="card-image position-relative">
+                            <?php if ($banner == 'clean_classroom_banner.png'): ?>
+                                <div class="banner-text-overlay">
+                                    <span class="main-text">CLASS <?php echo $class_display; ?></span>
+                                </div>
+                            <?php endif; ?>
                             <img src="<?php echo BASE_URL; ?>assets/images/<?php echo $banner; ?>" alt="Course Banner">
                         </div>
                         <div class="card-body">

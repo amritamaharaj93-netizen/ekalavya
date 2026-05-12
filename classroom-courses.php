@@ -3,7 +3,7 @@ include 'includes/header.php';
 ?>
 
 <!-- Premium Institutional Header -->
-<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('assets/images/classroom_courses_hero.png') center/cover no-repeat; padding: clamp(40px, 8vh, 100px) 0 !important;">
+<section class="page-header" style="background: url('assets/images/TopFront & side .png') center/100% 100% no-repeat; padding: clamp(40px, 8vh, 100px) 0 !important; padding-left: 5px !important;">
     <div class="container text-center text-white">
         <h1 class="fw-black mb-0" style="font-size: clamp(2.2rem, 10vw, 4.5rem); line-height: 1.1;">CLASSROOM <span class="text-primary d-block d-md-inline">PROGRAMS</span></h1>
     </div>
@@ -51,8 +51,8 @@ include 'includes/header.php';
                             <i class="fas fa-school"></i>
                         </div>
                         <div class="tab-text-box text-start">
-                            <span class="tab-title">ACADEMIC</span>
-                            <span class="tab-subtitle">FOUNDATION</span>
+                            <span class="tab-title">SCHOOL</span>
+                            <span class="tab-subtitle">PREP</span>
                         </div>
                     </button>
                 </li>
@@ -81,12 +81,16 @@ include 'includes/header.php';
             <div class="tab-pane fade" id="foundation-content" role="tabpanel">
                 <div class="row g-4">
                     <div class="col-12 text-center py-5">
-                       <h4 class="fw-black text-muted opacity-50">FOUNDATION PROGRAMS</h4>
-                       <p class="text-secondary small">Comprehensive foundational preparation for Junior Scientific Olympiads & School Excellence.</p>
-                       <div class="row g-4 mt-4 text-start">
-                           <?php renderProgramCard('SEED', 'Target 2030', 'Class VIII to IX Moving', 'found-seed'); ?>
-                           <?php renderProgramCard('ANKUR', 'Target 2029', 'Class IX to X Moving', 'found-ankur'); ?>
-                       </div>
+                       <h4 class="fw-black text-muted opacity-50">SCHOOL PREP PROGRAMS</h4>
+                       <p class="text-secondary small">Comprehensive preparation for Scientific Olympiads & School Excellence.</p>
+                        <div class="row g-4 mt-4 text-start">
+                            <?php renderProgramCard('CLASS 7th', 'Target 2031', 'School Excellence & Foundation', 'found-7'); ?>
+                            <?php renderProgramCard('CLASS 8th', 'Target 2030', 'School Excellence & Foundation', 'found-8'); ?>
+                            <?php renderProgramCard('CLASS 9th', 'Target 2029', 'School Excellence & Olympiads', 'found-9'); ?>
+                            <?php renderProgramCard('CLASS 10th', 'Target 2028', 'Board Mastery & Foundation', 'found-10'); ?>
+                            <?php renderProgramCard('CLASS 11th', 'Target 2027', 'School + Competitive Prep', 'found-11'); ?>
+                            <?php renderProgramCard('CLASS 12th', 'Target 2026', 'Board + Competitive Prep', 'found-12'); ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -328,9 +332,14 @@ renderProgramModal('neet-impulse', 'IMPULSE (NEET)', 'Class XII Pass', '01 Feb 2
 renderProgramModal('jee-seed', 'SEED (JEE)', 'Class IX', '01 Feb 2025', '30 Apr 2025', '15 Apr 2025', 'Direct Admission', 'Concept learning and expert faculty guidance for early engineering aspirants.', '2030');
 renderProgramModal('jee-nurture', 'NURTURE (JEE)', 'Class XI', '01 Feb 2025', '30 Apr 2025', '15 Apr 2025', 'Through Ekalavya Scholarship Admission Test', $jee_desc, '2028');
 
-// Generate Foundation Modals
-renderProgramModal('found-seed', 'SEED (FOUNDATION)', 'Class IX', '01 Apr 2026', '30 Apr 2026', '16 Apr 2026', 'Direct Admission', 'Building strong fundamentals for school excellence and competitive readiness.', '2030');
-renderProgramModal('found-ankur', 'ANKUR (FOUNDATION)', 'Class X', '25 Mar 2026', '25 Apr 2026', '16 Apr 2026', 'Direct Admission', 'Comprehensive foundation program for Class X Board exams and future competitive pathways.', '2029');
+// Generate School Prep (Foundation) Modals
+$found_desc = "Building strong fundamentals for school excellence and competitive readiness.";
+renderProgramModal('found-7', 'CLASS 7th (School Prep)', 'Class VII', '01 Apr 2026', '30 Apr 2026', '16 Apr 2026', 'Direct Admission', $found_desc, '2031');
+renderProgramModal('found-8', 'CLASS 8th (School Prep)', 'Class VIII', '01 Apr 2026', '30 Apr 2026', '16 Apr 2026', 'Direct Admission', $found_desc, '2030');
+renderProgramModal('found-9', 'CLASS 9th (School Prep)', 'Class IX', '01 Apr 2026', '30 Apr 2026', '16 Apr 2026', 'Direct Admission', $found_desc, '2029');
+renderProgramModal('found-10', 'CLASS 10th (School Prep)', 'Class X', '01 Apr 2026', '30 Apr 2026', '16 Apr 2026', 'Direct Admission', $found_desc, '2028');
+renderProgramModal('found-11', 'CLASS 11th (School Prep)', 'Class XI', '01 Apr 2026', '30 Apr 2026', '16 Apr 2026', 'Direct Admission', $found_desc, '2027');
+renderProgramModal('found-12', 'CLASS 12th (School Prep)', 'Class XII', '01 Apr 2026', '30 Apr 2026', '16 Apr 2026', 'Direct Admission', $found_desc, '2026');
 ?>
 
 <style>

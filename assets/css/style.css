@@ -473,7 +473,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Professional Page Header (Replacing Orange Hero) */
 .page-header {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../images/inner-hero-educate.png') center/cover no-repeat;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('../images/TopFront & side .png') center/100% 100% no-repeat;
     padding: 60px 0 !important;
     text-align: center;
     position: relative;

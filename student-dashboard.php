@@ -72,65 +72,13 @@ $student = $stmt->fetch();
                         </div>
                     </div>
 
-                    <!-- Course Portal -->
-                    <div class="col-12">
-                        <div class="portal-wide-card p-5 rounded-5 bg-white shadow-sm border border-light d-flex align-items-center justify-content-between transition-all hover-translate-y">
-                            <div class="d-flex align-items-center gap-5">
-                                <div class="icon-bubble bg-warning bg-opacity-10 text-warning rounded-circle">
-                                    <i class="fas fa-graduation-cap fs-1"></i>
-                                </div>
-                                <div class="text-start">
-                                    <p class="very-small text-muted uppercase fw-black mb-1">Active Program</p>
-                                    <h3 class="fw-black mb-0"><?php echo htmlspecialchars(isset($student['program']) ? $student['program'] : 'IIT-JEE'); ?></h3>
-                                </div>
-                            </div>
-                            <?php $c_link = (isset($student['course_link']) && $student['course_link'] != '#') ? $student['course_link'] : 'course-detail.php?slug=nurture-jee-11'; ?>
-                            <a href="<?php echo $c_link; ?>" target="_blank" class="btn btn-dark px-5 py-3 rounded-pill fw-black">GO TO COURSE <i class="fas fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Assigned Study Materials -->
-                    <div class="col-12">
-                        <div class="bg-white p-5 rounded-5 shadow-sm border border-light">
-                            <h4 class="fw-black mb-4">ASSIGNED STUDY MODULES</h4>
-                            <div class="row g-3">
-                                <?php 
-                                $stmt = $pdo->prepare("SELECT sm.* FROM study_material sm JOIN student_materials stm ON sm.id = stm.material_id WHERE stm.student_id = ?");
-                                $stmt->execute([$student['id']]);
-                                $assigned_mats = $stmt->fetchAll();
-                                
-                                if($assigned_mats): ?>
-                                    <?php foreach($assigned_mats as $mat): ?>
-                                        <div class="col-md-6">
-                                            <div class="p-3 border rounded-4 d-flex align-items-center justify-content-between">
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="bg-primary bg-opacity-10 text-primary p-2 rounded-3">
-                                                        <i class="fas fa-file-pdf"></i>
-                                                    </div>
-                                                    <div>
-                                                        <b class="small d-block"><?php echo htmlspecialchars($mat['title']); ?></b>
-                                                        <span class="very-small text-muted uppercase"><?php echo htmlspecialchars($mat['category']); ?></span>
-                                                    </div>
-                                                </div>
-                                                <a href="uploads/materials/<?php echo $mat['file_path']; ?>" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-3">View</a>
-                                            </div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <div class="col-12 text-center py-4 bg-light rounded-4">
-                                        <p class="small text-muted mb-0">No study modules assigned to your profile yet.</p>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div>
 
             <!-- Profile / Info Sidebar -->
             <div class="col-lg-4">
                 <div class="sidebar-info p-5 rounded-5 bg-white shadow-sm border border-light vstack gap-4">
-                    <h5 class="fw-black mb-2 text-uppercase" style="letter-spacing: 1px;">Academic Profile</h5>
+                    <h5 class="fw-black mb-2 text-uppercase" style="letter-spacing: 1px;">Eklavya Profile</h5>
                     
                     <div class="profile-item">
                         <p class="very-small text-muted uppercase fw-bold mb-1">Registered Contact</p>
@@ -144,7 +92,7 @@ $student = $stmt->fetch();
 
                     <div class="profile-item">
                         <p class="very-small text-muted uppercase fw-bold mb-1">Joined Date</p>
-                        <p class="fw-bold mb-0"><?php echo date('d M, Y', strtotime($student['created_at'])); ?></p>
+                        <p class="fw-bold mb-0"><?php echo date('d M, Y'); ?></p>
                     </div>
 
                     <div class="divider bg-light my-2" style="height: 1px;"></div>

@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `courses` (
   `target_year` varchar(10) DEFAULT NULL,
   `admission_eligibility` varchar(255) DEFAULT NULL,
   `fee_includes` text DEFAULT NULL,
-  `hero_banner` varchar(255) DEFAULT 'scholar image.png',
+  `hero_banner` varchar(255) DEFAULT 'scholar image5.png',
   `medium` varchar(50) DEFAULT 'English / Hindi',
   `academic_session` varchar(50) DEFAULT '2026-2027',
   `scholarship_note` varchar(255) DEFAULT 'Up to 100%',

@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $scholarship_note = $_POST['scholarship_note'];
     $inst_1_pct = intval($_POST['inst_1_pct']);
     $inst_2_pct = intval($_POST['inst_2_pct']);
+    $inst_3_pct = intval($_POST['inst_3_pct']);
     $fee_includes = $_POST['fee_includes'];
     
     // JSON fields
@@ -69,12 +70,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             scholarship_note = ?, 
             inst_1_pct = ?, 
             inst_2_pct = ?, 
+            inst_3_pct = ?, 
             fee_includes = ?,
             experience_json = ?, 
             roadmap_json = ?, 
             curriculum_json = ? 
             WHERE id = ?");
-        $stmt->execute([$title, $category, $duration, $target_year, $fees, $description, $admission_eligibility, $hero_banner, $medium, $academic_session, $scholarship_note, $inst_1_pct, $inst_2_pct, $fee_includes, $experience_json, $roadmap_json, $curriculum_json, $id]);
+        $stmt->execute([$title, $category, $duration, $target_year, $fees, $description, $admission_eligibility, $hero_banner, $medium, $academic_session, $scholarship_note, $inst_1_pct, $inst_2_pct, $inst_3_pct, $fee_includes, $experience_json, $roadmap_json, $curriculum_json, $id]);
         $success_msg = "All course details updated successfully!";
         // Refresh course data
         $stmt = $pdo->prepare("SELECT * FROM courses WHERE id = ?");
@@ -232,13 +234,17 @@ $curriculum = json_decode($course['curriculum_json'] ?? '[]', true);
                                     <textarea class="form-control premium-input border" name="fee_includes" rows="5" placeholder="e.g. Uniform&#10;Study Material&#10;Bag"><?php echo htmlspecialchars($fee_val); ?></textarea>
                                 </div>
                                 <div class="row g-3">
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <label class="small fw-bold text-muted text-uppercase mb-2">Inst. 1 (%)</label>
                                         <input type="number" class="form-control premium-input border" name="inst_1_pct" value="<?php echo intval($course['inst_1_pct'] ?? 60); ?>">
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <label class="small fw-bold text-muted text-uppercase mb-2">Inst. 2 (%)</label>
                                         <input type="number" class="form-control premium-input border" name="inst_2_pct" value="<?php echo intval($course['inst_2_pct'] ?? 50); ?>">
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="small fw-bold text-muted text-uppercase mb-2">Inst. 3 (%)</label>
+                                        <input type="number" class="form-control premium-input border" name="inst_3_pct" value="<?php echo intval($course['inst_3_pct'] ?? 0); ?>">
                                     </div>
                                 </div>
                             </div>

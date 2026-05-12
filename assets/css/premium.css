@@ -362,7 +362,7 @@
 
 .course-card-v3 .card-title-wrap {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 15px;
     margin-bottom: 25px;
 }
@@ -370,8 +370,8 @@
 .course-card-v3 .title-icon {
     width: 45px;
     height: 45px;
-    background: #f8f9fa;
-    color: var(--primary-orange);
+    background: var(--primary-orange);
+    color: #fff;
     border-radius: 50%;
     /* Circle like mockup */
     display: flex;
@@ -379,7 +379,7 @@
     justify-content: center;
     font-size: 1.2rem;
     flex-shrink: 0;
-    border: 1px solid #eee;
+    box-shadow: 0 4px 10px rgba(249, 115, 22, 0.2);
 }
 
 .course-card-v3 .card-title {

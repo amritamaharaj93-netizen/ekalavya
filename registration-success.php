@@ -10,12 +10,8 @@ $name = isset($_GET['name']) ? $_GET['name'] : 'Candidate';
 <section class="page-header" style="background: #0a1f44; padding: 100px 0 !important;">
     <div class="container text-center text-white">
         <h1 class="display-3 fw-black mb-3">REGISTRATION <span class="text-primary">SUCCESSFUL</span></h1>
-        <p class="text-white-50 max-width-700 mx-auto fs-5 mb-4">Your institutional journey at Eklavya Academy begins now. Keep your credentials safe.</p>
-        <div class="breadcrumb-wrap justify-content-center">
-            <a href="<?php echo BASE_URL; ?>">Home</a>
-            <span class="breadcrumb-separator px-2 opacity-50">/</span>
-            <span>Enrollment Confirmed</span>
-        </div>
+        <p class="text-white-50 max-width-700 mx-auto fs-5 mb-4">Your institutional journey at Eklavya begins now.</p>
+
     </div>
 </section>
 

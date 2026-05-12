@@ -38,7 +38,7 @@ if ($current_page == 'courses' || $current_page == 'classroom-courses') {
     <title><?php echo $seo_title; ?></title>
     <meta name="description" content="<?php echo $seo_desc; ?>">
     <meta name="keywords"
-        content="IIT-JEE, NEET, School Prep (Class 7th-12th), Coaching, Patna, Gaya, Ekalavya Academy, Offline Coaching">
+        content="IIT-JEE, NEET, School Prep (Class 7th-12th), Coaching, Patna, Gaya, Ekalavya, Offline Coaching">
     <link rel="icon" type="image/png" href="<?php echo BASE_URL; ?>assets/images/favicon_new.png">
 
     <!-- Bootstrap 5 CSS -->

@@ -56,11 +56,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // 5. Dispatch Institutional Email to Student (with full form details)
-        $mailSubject = "Welcome to Ekalavya Academy - Registration Successful";
+        $mailSubject = "Welcome to Ekalavya - Registration Successful";
         $mailBody = "
             <div style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>
                 <div style='background: #0a1f44; padding: 25px; text-align: center; border-bottom: 4px solid #fec107;'>
-                    <h2 style='color: #fff; margin: 0;'>Ekalavya Academy Registration</h2>
+                    <h2 style='color: #fff; margin: 0;'>Ekalavya Registration</h2>
                 </div>
                 <div style='padding: 30px; background: #fff;'>
                     <p>Dear <strong>$name</strong>,</p>
@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div style='text-align: center; margin-top: 30px;'>
                         <a href='" . SITE_URL . "student-login.php' style='display: inline-block; background: #0a1f44; color: #fff; padding: 15px 35px; text-decoration: none; border-radius: 50px; font-weight: bold; text-transform: uppercase; font-size: 0.9rem;'>Login to Student Dashboard</a>
                     </div>
-                    <p style='margin-top: 40px; font-size: 0.85rem; color: #888; border-top: 1px solid #eee; padding-top: 20px;'>This is an automated message. Please do not reply directly to this email.<br>Best Regards, <strong>Management Team, Ekalavya Academy</strong></p>
+                    <p style='margin-top: 40px; font-size: 0.85rem; color: #888; border-top: 1px solid #eee; padding-top: 20px;'>This is an automated message. Please do not reply directly to this email.<br>Best Regards, <strong>Management Team, Ekalavya</strong></p>
                 </div>
             </div>
         ";

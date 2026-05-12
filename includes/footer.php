@@ -3,9 +3,9 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <div class="footer-logo-wrapper mb-3">
-                        <img src="<?php echo BASE_URL; ?>assets/images/logo.png" alt="Ekalavya Academy" class="footer-logo bg-white p-2 shadow-sm" style="height: 50px; width: auto; border-radius: 4px;">
+                        <img src="<?php echo BASE_URL; ?>assets/images/logo.png" alt="Ekalavya" class="footer-logo bg-white p-2 shadow-sm" style="height: 50px; width: auto; border-radius: 4px;">
                     </div>
-                    <p class="text-light opacity-75">Ekalavya Academy is a premier offline coaching institute for IIT-JEE, NEET, and School Prep (Class 7th-12th) courses. We are dedicated to providing the best education and result-oriented coaching.</p>
+                    <p class="text-light opacity-75">Ekalavya is a premier offline coaching institute for IIT-JEE, NEET, and School Prep (Class 7th-12th) courses. We are dedicated to providing the best education and result-oriented coaching.</p>
                     <div class="social-links mt-4">
                         <a href="https://www.instagram.com/ekalavya.education/" target="_blank" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
                         <a href="https://wa.me/919934244522" target="_blank" class="social-icon whatsapp"><i class="fab fa-whatsapp"></i></a>
@@ -41,7 +41,7 @@
             <hr class="border-secondary opacity-25">
             <div class="row pt-2">
                 <div class="col-md-12 d-flex flex-wrap justify-content-between align-items-center text-secondary py-2">
-                    <p class="small mb-0">&copy; <?php echo date("Y"); ?> Ekalavya Academy. All Rights Reserved.</p>
+                    <p class="small mb-0">&copy; <?php echo date("Y"); ?> Ekalavya. All Rights Reserved.</p>
                     <p class="small mb-0 opacity-50">Powered by <a href="https://globalwebify.com" target="_blank" class="text-white text-decoration-none fw-bold hover-primary">Global Webify</a></p>
                 </div>
             </div>

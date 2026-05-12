@@ -12,7 +12,7 @@ if (empty($active_tabs)) {
 ?>
 
 <!-- Premium Institutional Header (WOW Treatment) -->
-<section class="page-header wow-container overflow-hidden" style="background: #0a1f44;">
+<section class="page-header wow-container overflow-hidden" style="background: url('assets/images/TopFront & side .png') center/100% 100% no-repeat; padding: 60px 0 !important; padding-left: 5px !important;">
     <div class="wow-blob" style="top: -100px; left: -100px; background: radial-gradient(circle, rgba(247,148,29,0.2) 0%, transparent 70%);"></div>
     <div class="wow-blob" style="bottom: -100px; right: -100px; background: radial-gradient(circle, rgba(247,148,29,0.15) 0%, transparent 70%);"></div>
     

@@ -27,8 +27,8 @@ function sendInstitutionalMail($to, $subject, $body, $altBody = '') {
         $mail->SMTPSecure = SMTP_SECURE;
         $mail->Port       = SMTP_PORT;
 
-        $mail->setFrom(SMTP_USER, 'Ekalavya Academy');
-        $mail->addReplyTo(ADMIN_EMAIL, 'Ekalavya Academy Support');
+        $mail->setFrom(SMTP_USER, 'Ekalavya');
+        $mail->addReplyTo(ADMIN_EMAIL, 'Ekalavya Support');
         $mail->addAddress($to);
 
         // Deliverability Hardening
