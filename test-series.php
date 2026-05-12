@@ -116,7 +116,7 @@ $show_allen_layout = $is_detail_view;
 </section>
 <?php else: ?>
 <!-- Standard Institutional Header (List View) -->
-<section class="page-header" style="background: url('assets/images/TopFront & side .png') center/100% 100% no-repeat; padding: clamp(40px, 8vh, 100px) 0 !important; padding-left: 5px !important;">
+<section class="page-header" style="background: url('assets/images/TopFront & side .png') center/cover no-repeat; padding: clamp(40px, 8vh, 100px) 0 !important; padding-left: 5px !important;">
     <div class="container text-center text-white">
         <h6 class="text-primary fw-black tracking-widest mb-2 text-uppercase">Academic Year 2026-27</h6>
         <h1 class="fw-black mb-0" style="font-size: clamp(2.2rem, 10vw, 4.5rem); line-height: 1.1;">

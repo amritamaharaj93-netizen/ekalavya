@@ -5,7 +5,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 ?>
 
 <!-- Premium Institutional Header -->
-<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('assets/images/TopFront & side .png') center/100% 100% no-repeat; padding: 30px 0 !important;">
+<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('assets/images/TopFront & side .png') center/cover no-repeat; padding: 30px 0 !important;">
     <div class="container text-center text-white">
         <h1 class="display-5 fw-black mb-0">STUDENT <span class="text-primary">PORTAL</span></h1>
     </div>

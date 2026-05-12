@@ -1,7 +1,7 @@
 <?php include 'includes/header.php'; ?>
 
 <!-- Premium Institutional Header -->
-<section class="page-header" style="background: url('assets/images/TopFront & side .png') center/100% 100% no-repeat; padding: clamp(40px, 8vh, 100px) 0 !important; padding-left: 5px !important;">
+<section class="page-header" style="background: url('assets/images/TopFront & side .png') center/cover no-repeat; padding: clamp(40px, 8vh, 100px) 0 !important; padding-left: 5px !important;">
     <div class="container text-center text-white">
         <h1 class="fw-black mb-0" style="font-size: clamp(2.2rem, 10vw, 4.5rem); line-height: 1.1;">OUR <span class="text-primary d-block d-md-inline">LEGACY</span></h1>
         <div class="breadcrumb-wrap justify-content-center mt-3">

@@ -4,7 +4,7 @@ include 'includes/header.php';
 ?>
 
 <!-- Premium Institutional Header -->
-<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<?php echo BASE_URL; ?>assets/images/TopFront & side .png') center/100% 100% no-repeat; padding: 40px 0 !important;">
+<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<?php echo BASE_URL; ?>assets/images/TopFront & side .png') center/cover no-repeat; padding: 40px 0 !important;">
     <div class="container text-center text-white">
         <h1 class="h3 fw-black mb-2 text-uppercase">EKALAVYA SCHOLARSHIP <span class="text-primary">Program- 2026</span></h1>
         <div class="text-primary fw-bold tracking-widest mb-3 animate-up" style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px;">Recognising Talent. Rewarding Merit.</div>

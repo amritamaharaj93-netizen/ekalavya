@@ -22,6 +22,12 @@
         <a class="nav-link <?php echo $current_page == 'study_material' ? 'active' : ''; ?>" href="manage-study-material.php">
             <i class="fas fa-file-alt"></i> Study Material
         </a>
+        <a class="nav-link <?php echo $current_page == 'gallery' ? 'active' : ''; ?>" href="manage-gallery.php?v=1">
+            <i class="fas fa-images"></i> Gallery Images
+        </a>
+        <a class="nav-link <?php echo $current_page == 'campus_images' ? 'active' : ''; ?>" href="manage-campus-images.php?v=1">
+            <i class="fas fa-university"></i> Campus Images
+        </a>
         <?php /*
         <a class="nav-link <?php echo $current_page == 'scholarship_programs' ? 'active' : ''; ?>" href="manage-scholarships.php">
             <i class="fas fa-award"></i> Scholarships

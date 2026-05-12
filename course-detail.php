@@ -103,7 +103,7 @@ include 'includes/header.php';
         <!-- Scholarship Banner Image (Full Size) -->
         <div class="scholarship-dynamic-banner rounded-5 mb-5 position-relative overflow-hidden shadow-heavy border scholar-banner-custom">
             <img src="<?php echo BASE_URL; ?>assets/images/<?php echo $course['hero_banner'] ?: 'scholar image5.png'; ?>"
-                class="img-fluid w-100 h-100" style="object-fit: contain; object-position: center;" alt="Scholarship Program">
+                class="img-fluid w-100 h-100" style="object-fit: fill; width: 100%; height: 100%; object-position: center;" alt="Scholarship Program">
         </div>
 
         <div class="row align-items-start g-5">
@@ -488,9 +488,9 @@ include 'includes/header.php';
                 <table class="table fee-table-premium mb-0">
                     <thead>
                         <tr>
-                            <th class="ps-5">FEE COMPONENT</th>
-                            <th class="text-center">LUMP SUM (ONE TIME)</th>
-                            <th class="text-center pe-5">INSTALLMENT PLAN</th>
+                            <th class="ps-5" style="min-width: 250px;">FEE COMPONENT</th>
+                            <th class="text-center" style="min-width: 220px;">LUMP SUM (ONE TIME)</th>
+                            <th class="text-center pe-5" style="min-width: 350px;">INSTALLMENT PLAN</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -509,22 +509,20 @@ include 'includes/header.php';
                             </td>
                             <td class="py-5 pe-5">
                                 <div class="vstack gap-3 border-start ps-4">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-secondary small fw-bold">1st Installment (At Admission)</span>
+                                    <div class="d-flex justify-content-between align-items-center gap-2">
+                                        <span class="text-secondary small fw-bold text-start">1st Installment <span class="d-block d-md-inline">(At Admission)</span></span>
                                         <span
-                                            class="fw-black text-dark">₹<?php echo number_format($course['fees'] * (($course['inst_1_pct'] ?: 60) / 100), 0); ?></span>
+                                            class="fw-black text-dark text-nowrap">₹<?php echo number_format($course['fees'] * (($course['inst_1_pct'] ?: 60) / 100), 0); ?></span>
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-secondary small fw-bold">2nd Installment (After 60
-                                            Days)</span>
+                                    <div class="d-flex justify-content-between align-items-center gap-2">
+                                        <span class="text-secondary small fw-bold text-start">2nd Installment <span class="d-block d-md-inline">(After 60 Days)</span></span>
                                         <span
-                                            class="fw-black text-dark">₹<?php echo number_format($course['fees'] * (($course['inst_2_pct'] ?: 50) / 100), 0); ?></span>
+                                            class="fw-black text-dark text-nowrap">₹<?php echo number_format($course['fees'] * (($course['inst_2_pct'] ?: 50) / 100), 0); ?></span>
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-secondary small fw-bold">3rd Installment (After 60
-                                            Days)</span>
+                                    <div class="d-flex justify-content-between align-items-center gap-2">
+                                        <span class="text-secondary small fw-bold text-start">3rd Installment <span class="d-block d-md-inline">(After 60 Days)</span></span>
                                         <span
-                                            class="fw-black text-dark">₹<?php echo number_format($course['fees'] * (($course['inst_3_pct'] ?? 0) / 100), 0); ?></span>
+                                            class="fw-black text-dark text-nowrap">₹<?php echo number_format($course['fees'] * (($course['inst_3_pct'] ?? 0) / 100), 0); ?></span>
                                     </div>
                                     <div
                                         class="alert bg-light border ps-3 py-2 rounded-3 mb-0 very-small text-muted italic mt-2">
@@ -615,12 +613,12 @@ include 'includes/header.php';
 <style>
 .scholar-banner-custom {
     max-height: 400px; 
-    padding: 5px; 
+    padding: 0; 
     background-color: #fff;
 }
 @media (max-width: 768px) {
     .scholar-banner-custom {
-        padding: 5px;
+        padding: 0;
         max-height: 250px;
     }
 }

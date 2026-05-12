@@ -324,12 +324,25 @@ include 'includes/header.php';
             <div class="marquee-track">
                 <div class="marquee-scroll-container">
                     <?php 
-                    $gallery_images = ['img.png', 'img1.jpg', 'img3.png', 'bench1.jpeg', 'bench2.jpeg', 'bench3.jpeg'];
-                    // Loop twice for seamless transition
+                    $campus_marquee_imgs = [];
+                    try {
+                        $stmt_cam = $pdo->query("SELECT image, alt_text FROM campus_images WHERE status = 1 ORDER BY sort_order ASC");
+                        $campus_marquee_imgs = $stmt_cam->fetchAll();
+                    } catch (Exception $e) {}
+
+                    // Seamless static fallback if database query is empty
+                    if (empty($campus_marquee_imgs)) {
+                        $default_imgs = ['img.png', 'img1.jpg', 'img3.png', 'bench1.jpeg', 'bench2.jpeg', 'bench3.jpeg'];
+                        foreach ($default_imgs as $d_img) {
+                            $campus_marquee_imgs[] = ['image' => $d_img, 'alt_text' => 'Ekalavya Campus Gallery'];
+                        }
+                    }
+
+                    // Loop twice for seamless marquee animation transition
                     for($i=0; $i<2; $i++):
-                        foreach($gallery_images as $img): ?>
+                        foreach($campus_marquee_imgs as $c_item): ?>
                         <div class="gallery-card">
-                            <img src="<?php echo BASE_URL; ?>assets/images/<?php echo $img; ?>" alt="Ekalavya Gallery">
+                            <img src="<?php echo BASE_URL; ?>assets/images/<?php echo htmlspecialchars($c_item['image']); ?>" alt="<?php echo htmlspecialchars($c_item['alt_text']); ?>">
                         </div>
                     <?php endforeach; endfor; ?>
                 </div>

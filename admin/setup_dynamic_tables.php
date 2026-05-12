@@ -31,6 +31,39 @@ try {
         PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
 
+    // Create gallery_images table
+    $pdo->exec("CREATE TABLE IF NOT EXISTS `gallery_images` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `title` varchar(255) NOT NULL,
+        `image` varchar(255) NOT NULL,
+        `sort_order` int(11) DEFAULT 0,
+        `status` tinyint(1) DEFAULT 1,
+        `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+
+    // Create breadcrumbs table
+    $pdo->exec("CREATE TABLE IF NOT EXISTS `breadcrumbs` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `page_identifier` varchar(100) NOT NULL,
+        `label` varchar(255) NOT NULL,
+        `url` varchar(255) NOT NULL,
+        `sort_order` int(11) DEFAULT 0,
+        `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+
+    // Create campus_images table
+    $pdo->exec("CREATE TABLE IF NOT EXISTS `campus_images` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `image` varchar(255) NOT NULL,
+        `alt_text` varchar(255) DEFAULT 'Campus Gallery',
+        `sort_order` int(11) DEFAULT 0,
+        `status` tinyint(1) DEFAULT 1,
+        `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+
     echo "Tables created successfully!\n";
 
     // Insert default data if empty
@@ -50,6 +83,40 @@ try {
             ('fas fa-dna', 'text-pink', 'rgba(253, 121, 168, 0.1)', 'NEET-UG', 'Premier Medical Program', 'Visual conceptual biology and reactive chemistry modules for top-tier medical college placements.', 'Class 11, Class 12, Dropper', 'courses.php?category=NEET'),
             ('fas fa-vial', 'text-cyan', 'rgba(0, 206, 201, 0.1)', 'SCHOOL PREP', 'Junior Scholars Program', 'Nurturing curiosity into competency for NTSE, Olympiads, and early competitive edge.', 'Class 7, Class 8, Class 9, Class 10', 'courses.php?category=School Prep (Class 7th-12th)')");
         echo "Default about cards inserted.\n";
+    }
+
+    $count = $pdo->query("SELECT COUNT(*) FROM gallery_images")->fetchColumn();
+    if ($count == 0) {
+        $pdo->exec("INSERT INTO gallery_images (title, image, sort_order) VALUES 
+            ('Campus Overview', 'scholar image1.png', 10),
+            ('Advanced Classrooms', 'scholar image2.png', 20),
+            ('Student Interaction', 'scholar image3.png', 30),
+            ('Success Celebration', 'scholar image5.png', 40)");
+        echo "Default gallery images inserted.\n";
+    }
+
+    $count = $pdo->query("SELECT COUNT(*) FROM breadcrumbs")->fetchColumn();
+    if ($count == 0) {
+        $pdo->exec("INSERT INTO breadcrumbs (page_identifier, label, url, sort_order) VALUES 
+            ('courses', 'Home', '', 10),
+            ('courses', 'Classroom Courses', 'courses', 20),
+            ('scholarship', 'Home', '', 10),
+            ('scholarship', 'Scholarship Programs', 'scholarship', 20),
+            ('test_series', 'Home', '', 10),
+            ('test_series', 'Test Series Ecosystem', 'test-series', 20)");
+        echo "Default breadcrumbs inserted.\n";
+    }
+
+    $count = $pdo->query("SELECT COUNT(*) FROM campus_images")->fetchColumn();
+    if ($count == 0) {
+        $pdo->exec("INSERT INTO campus_images (image, alt_text, sort_order) VALUES 
+            ('img.png', 'Life at Ekalavya Campus', 10),
+            ('img1.jpg', 'Ekalavya Advanced Architecture', 20),
+            ('img3.png', 'Interactive Student Campus', 30),
+            ('bench1.jpeg', 'Modern Study Infrastructure 1', 40),
+            ('bench2.jpeg', 'Modern Study Infrastructure 2', 50),
+            ('bench3.jpeg', 'Modern Study Infrastructure 3', 60)");
+        echo "Default campus marquee images inserted.\n";
     }
 
 } catch (PDOException $e) {

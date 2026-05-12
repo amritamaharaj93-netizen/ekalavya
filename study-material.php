@@ -33,7 +33,7 @@ if ($category || $subject) {
 ?>
 
 <!-- Premium Institutional Header -->
-<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('assets/images/TopFront & side .png') center/100% 100% no-repeat; padding: 50px 0 !important;">
+<section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('assets/images/TopFront & side .png') center/cover no-repeat; padding: 50px 0 !important;">
     <div class="container text-center text-white">
         <h1 class="display-3 fw-black mb-0"><?php echo $header_title; ?></h1>
     </div>
