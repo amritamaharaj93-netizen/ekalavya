@@ -30,14 +30,18 @@ $name = isset($_GET['name']) ? $_GET['name'] : 'Candidate';
                     <div class="credential-box p-4 rounded-4 bg-white shadow-sm border border-dashed-primary mb-5 position-relative overflow-hidden">
                         <div class="watermark-ek position-absolute" style="font-size: 8rem; top: -20px; right: -20px; font-weight: 900; opacity: 0.03; color: var(--primary-color); pointer-events: none;">EK</div>
                         
-                        <div class="row g-0">
-                            <div class="col-6 border-end">
+                        <div class="row g-3">
+                            <div class="col-12 col-sm-6">
                                 <p class="very-small text-muted mb-1 uppercase fw-bold">Student ID</p>
-                                <h3 class="text-primary fw-black mb-0"><?php echo htmlspecialchars($sid); ?></h3>
+                                <div class="p-2 bg-light rounded-3 border">
+                                    <h3 class="text-primary fw-black mb-0 fs-4 fs-sm-3" style="word-break: break-word;"><?php echo htmlspecialchars($sid); ?></h3>
+                                </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-sm-6">
                                 <p class="very-small text-muted mb-1 uppercase fw-bold">Access Password</p>
-                                <h3 class="text-dark fw-black mb-0"><?php echo htmlspecialchars($pass); ?></h3>
+                                <div class="p-2 bg-light rounded-3 border">
+                                    <h3 class="text-dark fw-black mb-0 fs-4 fs-sm-3" style="word-break: break-word;"><?php echo htmlspecialchars($pass); ?></h3>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -87,9 +87,13 @@ $journey = $pdo->query("SELECT * FROM career_journey ORDER BY step_number ASC")-
             <h4 class="text-warning fw-bold mb-3 small tracking-widest text-uppercase">Affordable Investment in your Future!</h4>
             <h2 class="fw-black mb-3 text-white">JUST ₹9999/- <small class="fs-6 opacity-50">only!</small></h2>
             <p class="lead mb-4">Get this exclusive plan valid for <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">1 to 2 Years</span></p>
-            <div class="d-flex flex-wrap justify-content-center gap-3">
-                <a href="https://forms.gle/sk9u8trC6YiQ5Jwy6" target="_blank" class="btn btn-primary px-4 px-md-5 py-3 rounded-pill fw-black">REGISTER NOW</a>
-                <a href="https://wa.me/919934244522" class="btn btn-outline-light px-4 px-md-5 py-3 rounded-pill fw-bold"><i class="fab fa-whatsapp me-2"></i> WHATSAPP US</a>
+            <div class="row g-2 justify-content-center" style="max-width: 500px; margin: 0 auto;">
+                <div class="col-6">
+                    <a href="https://forms.gle/sk9u8trC6YiQ5Jwy6" target="_blank" class="btn btn-primary w-100 py-2 py-md-3 rounded-pill fw-black d-inline-flex align-items-center justify-content-center text-center px-1 px-md-4" style="font-size: 0.8rem;">REGISTER NOW</a>
+                </div>
+                <div class="col-6">
+                    <a href="https://wa.me/919934244522" class="btn btn-outline-light w-100 py-2 py-md-3 rounded-pill fw-bold d-inline-flex align-items-center justify-content-center text-center px-1 px-md-4" style="font-size: 0.8rem;"><i class="fab fa-whatsapp me-1 fs-5"></i> WHATSAPP US</a>
+                </div>
             </div>
             <p class="mt-4 very-small opacity-50">Invest today. Achieve tomorrow. Your Dream Career, Our Mission!</p>
         </div>

@@ -316,7 +316,7 @@ $show_allen_layout = $is_detail_view;
             <!-- Right Side: Fast Portal (Sticky) - Thinner Profile -->
             <div class="col-lg-4">
                 <div class="sticky-top" style="top: 140px; z-index: 5;">
-                    <div class="enroll-card compact-form-container shadow-2xl bg-white border border-light p-4 rounded-5" style="max-width: 360px; margin-left: auto;">
+                    <div class="enroll-card compact-form-container shadow-2xl bg-white border border-light p-4 rounded-5 mx-auto ms-lg-auto" style="max-width: 360px;">
                         <div class="mb-4">
                             <h4 class="fw-black text-dark mb-1" style="font-size: 1.2rem; line-height: 1.2;"><?php echo htmlspecialchars($active_test['title'] ?? 'Test Series'); ?></h4>
                             <p class="very-small text-muted text-uppercase fw-bold tracking-widest mb-3"><?php echo htmlspecialchars($badge_label); ?></p>

@@ -588,7 +588,6 @@ if ($current_page == 'courses' || $current_page == 'classroom-courses') {
                         </a>
                         <div class="collapse" id="mobileScholarship">
                             <ul class="nav flex-column mobile-sub-nav">
-                                <li><a href="<?php echo BASE_URL; ?>scholarship.php">Scholarship Program</a></li>
                                 <?php foreach ($nav_scholarships as $nav_s): ?>
                                     <?php if ($nav_s['tab_slug'] === 'early-bird')
                                         continue; ?>

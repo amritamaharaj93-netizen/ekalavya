@@ -3,7 +3,9 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <div class="footer-logo-wrapper mb-3">
-                        <img src="<?php echo BASE_URL; ?>assets/images/logo.png" alt="Ekalavya" class="footer-logo bg-white p-2 shadow-sm" style="height: 50px; width: auto; border-radius: 4px;">
+                        <a href="<?php echo BASE_URL; ?>" class="d-inline-block">
+                            <img src="<?php echo BASE_URL; ?>assets/images/logo.png" alt="Ekalavya" class="footer-logo bg-white p-2 shadow-sm" style="height: 50px; width: auto; border-radius: 4px;">
+                        </a>
                     </div>
                     <p class="text-light opacity-75">Ekalavya is a premier offline coaching institute for IIT-JEE, NEET, and School Prep (Class 7th-12th) courses. We are dedicated to providing the best education and result-oriented coaching.</p>
                     <div class="social-links mt-4">
@@ -50,7 +52,7 @@
 
     <!-- Automatic Registration Popup Modal -->
     <div class="modal fade" id="registrationPopupModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 420px;">
+        <div class="modal-dialog modal-dialog-centered mx-auto" style="max-width: 420px;">
             <div class="modal-content border-0 rounded-5 shadow-2xl overflow-hidden">
                 <div class="modal-body p-0">
                     <div class="registration-form-card p-4 p-md-5 position-relative overflow-hidden bg-white">
@@ -127,7 +129,7 @@
 
     <!-- High-Density Admission Enquiry Modal -->
     <div class="modal fade studio-modal" id="enquiryModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+        <div class="modal-dialog modal-dialog-centered mx-auto" style="max-width: 400px;">
             <div class="modal-content border-0 rounded-4 shadow-2xl overflow-hidden">
                 <div class="modal-body p-0">
                     <div class="p-4">
