@@ -6,8 +6,8 @@ require_once __DIR__ . '/../libs/PHPMailer-6.8.0/src/SMTP.php';
 
 // Global Mail Configuration
 define('SMTP_HOST', 'smtp.hostinger.com');
-define('SMTP_USER', 'info@globalwebify.com');
-define('SMTP_PASS', 'Aasminpass@435989856');
+define('SMTP_USER', 'infopatna@ekalavyaeducation.com');
+define('SMTP_PASS', 'TuENJ?=2');
 define('SMTP_PORT', 465); // SSL
 define('SMTP_SECURE', 'ssl'); // Direct SSL for 465
 define('ADMIN_EMAIL', 'info.ekalavyaeducation@gmail.com'); 

@@ -12,6 +12,7 @@
                         loop: true,
                         speed: 1000,
                         effect: 'slide',
+                        autoHeight: true, // Fixes white space below images of varying heights
                         autoplay: {
                             delay: 5000,
                             disableOnInteraction: false,

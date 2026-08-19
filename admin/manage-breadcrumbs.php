@@ -10,62 +10,55 @@ if (!isset($_SESSION['admin_logged_in'])) {
 $success_msg = "";
 $error_msg = "";
 
-// ADD BREADCRUMB LOGIC
-if (isset($_POST['add_breadcrumb'])) {
-    $page_identifier = trim($_POST['page_identifier']);
-    $label = trim($_POST['label']);
-    $url = trim($_POST['url']);
-    $sort_order = !empty($_POST['sort_order']) ? intval($_POST['sort_order']) : 0;
-
-    if (!empty($page_identifier) && !empty($label)) {
-        try {
-            $stmt = $pdo->prepare("INSERT INTO breadcrumbs (page_identifier, label, url, sort_order) VALUES (?, ?, ?, ?)");
-            $stmt->execute([$page_identifier, $label, $url, $sort_order]);
-            $success_msg = "Breadcrumb navigation item added successfully!";
-        } catch (PDOException $e) {
-            $error_msg = "Database Error: " . $e->getMessage();
+// UPDATE BREADCRUMB BACKGROUND LOGIC
+if (isset($_POST['update_breadcrumb_bg'])) {
+    if (isset($_FILES['breadcrumb_bg']) && $_FILES['breadcrumb_bg']['error'] == 0) {
+        $allowed = ['jpg', 'jpeg', 'png', 'webp'];
+        $filename = $_FILES['breadcrumb_bg']['name'];
+        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        
+        if (in_array($ext, $allowed)) {
+            $new_filename = 'breadcrumb_bg_' . time() . '.' . $ext;
+            $upload_path = '../assets/images/' . $new_filename;
+            
+            if (move_uploaded_file($_FILES['breadcrumb_bg']['tmp_name'], $upload_path)) {
+                try {
+                    // Try update first
+                    $stmt = $pdo->prepare("UPDATE site_settings SET setting_value = ? WHERE setting_key = 'breadcrumb_bg_image'");
+                    $stmt->execute([$new_filename]);
+                    if($stmt->rowCount() == 0) {
+                        // Insert if not exists
+                        $stmt = $pdo->prepare("INSERT INTO site_settings (setting_key, setting_value) VALUES ('breadcrumb_bg_image', ?)");
+                        $stmt->execute([$new_filename]);
+                    }
+                    $success_msg = "Global Breadcrumb Background updated successfully!";
+                } catch (PDOException $e) {
+                    $error_msg = "Database Error: " . $e->getMessage();
+                }
+            } else {
+                $error_msg = "Failed to upload image.";
+            }
+        } else {
+            $error_msg = "Invalid file type. Only JPG, PNG, and WebP are allowed.";
         }
     } else {
-        $error_msg = "Page Identifier and Label are required fields.";
+        $error_msg = "Please select a valid image.";
     }
 }
 
-// EDIT BREADCRUMB LOGIC
-if (isset($_POST['edit_breadcrumb'])) {
-    $id = intval($_POST['breadcrumb_id']);
-    $page_identifier = trim($_POST['page_identifier']);
-    $label = trim($_POST['label']);
-    $url = trim($_POST['url']);
-    $sort_order = !empty($_POST['sort_order']) ? intval($_POST['sort_order']) : 0;
 
-    if (!empty($page_identifier) && !empty($label)) {
-        try {
-            $stmt = $pdo->prepare("UPDATE breadcrumbs SET page_identifier=?, label=?, url=?, sort_order=? WHERE id=?");
-            $stmt->execute([$page_identifier, $label, $url, $sort_order, $id]);
-            $success_msg = "Breadcrumb updated successfully!";
-        } catch (PDOException $e) {
-            $error_msg = "Database Error: " . $e->getMessage();
-        }
-    } else {
-        $error_msg = "Page Identifier and Label are required fields.";
+
+// FETCH CURRENT BREADCRUMB BG
+try {
+    $stmt = $pdo->prepare("SELECT setting_value FROM site_settings WHERE setting_key = 'breadcrumb_bg_image'");
+    $stmt->execute();
+    $breadcrumb_bg = $stmt->fetchColumn();
+    if (!$breadcrumb_bg) {
+        $breadcrumb_bg = 'TopFront & side .png';
     }
+} catch (PDOException $e) {
+    $breadcrumb_bg = 'TopFront & side .png';
 }
-
-// DELETE BREADCRUMB LOGIC
-if (isset($_GET['delete_id'])) {
-    $id = intval($_GET['delete_id']);
-    try {
-        $pdo->prepare("DELETE FROM breadcrumbs WHERE id = ?")->execute([$id]);
-        header("Location: manage-breadcrumbs.php?deleted=1");
-        exit();
-    } catch (PDOException $e) {
-        $error_msg = "Database Error: " . $e->getMessage();
-    }
-}
-
-// FETCH BREADCRUMBS
-$stmt = $pdo->query("SELECT * FROM breadcrumbs ORDER BY page_identifier ASC, sort_order ASC");
-$breadcrumbs = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -76,6 +69,7 @@ $breadcrumbs = $stmt->fetchAll();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/admin-premium.css">
+    <link rel="icon" type="image/png" href="../assets/images/favicon_new.png">
 </head>
 <body>
 
@@ -90,9 +84,6 @@ $breadcrumbs = $stmt->fetchAll();
         <div class="col admin-main">
             <header class="admin-header">
                 <h4>BREADCRUMB PATHS ECOSYSTEM</h4>
-                <button class="btn btn-premium" data-bs-toggle="modal" data-bs-target="#addBreadcrumbModal">
-                    <i class="fas fa-plus me-2"></i> ADD BREADCRUMB
-                </button>
             </header>
             
             <div class="p-2">
@@ -107,156 +98,46 @@ $breadcrumbs = $stmt->fetchAll();
                         <i class="fas fa-exclamation-circle me-2"></i> <?php echo htmlspecialchars($error_msg); ?>
                     </div>
                 <?php endif; ?>
-                
-                <div class="table-container">
-                    <table class="table table-premium table-hover m-0">
-                        <thead>
-                            <tr>
-                                <th>Section / Page ID</th>
-                                <th>Display Label</th>
-                                <th>Target Route Link</th>
-                                <th>Sort Priority</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if($breadcrumbs): ?>
-                                <?php foreach($breadcrumbs as $bc): ?>
-                                <tr>
-                                    <td>
-                                        <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-2 text-uppercase">
-                                            <?php echo htmlspecialchars($bc['page_identifier']); ?>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <b class="text-dark"><?php echo htmlspecialchars($bc['label']); ?></b>
-                                        <span class="text-secondary small d-block">ID: #<?php echo $bc['id']; ?></span>
-                                    </td>
-                                    <td>
-                                        <?php if(empty($bc['url'])): ?>
-                                            <span class="text-muted small"><i>Root / Base URL</i></span>
-                                        <?php else: ?>
-                                            <code class="text-info"><?php echo htmlspecialchars($bc['url']); ?></code>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-secondary bg-opacity-10 text-secondary border px-3 py-1"><?php echo intval($bc['sort_order']); ?></span>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm btn-outline-primary border-0 rounded-circle me-2" 
-                                            data-bs-toggle="modal" 
-                                            data-bs-target="#editBreadcrumbModal" 
-                                            data-id="<?php echo $bc['id']; ?>"
-                                            data-page="<?php echo htmlspecialchars($bc['page_identifier']); ?>"
-                                            data-label="<?php echo htmlspecialchars($bc['label']); ?>"
-                                            data-url="<?php echo htmlspecialchars($bc['url']); ?>"
-                                            data-sort="<?php echo htmlspecialchars($bc['sort_order']); ?>"
-                                            title="Edit Item">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <a href="?delete_id=<?php echo $bc['id']; ?>" class="btn btn-sm btn-outline-danger border-0 rounded-circle" onclick="return confirm('Permanently delete this breadcrumb path?')" title="Delete Item">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr><td colspan="5" class="text-center py-5 text-muted">No custom breadcrumb configurations defined. Click add above to start.</td></tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+
+                <!-- Breadcrumb Image Management -->
+                <div class="card border-0 rounded-4 shadow-sm mb-5 overflow-hidden">
+                    <div class="card-header bg-white border-0 pt-4 pb-0 px-4">
+                        <h5 class="fw-bold text-dark mb-0"><i class="fas fa-image text-primary me-2"></i> Global Breadcrumb Background</h5>
+                        <p class="text-muted small mt-1 mb-0">This image appears behind the page title on Courses, Scholarships, Portals, and Dashboards.</p>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-6 mb-4 mb-md-0">
+                                <label class="small fw-bold text-muted text-uppercase tracking-widest d-block mb-3">Current Background</label>
+                                <div class="rounded-3 overflow-hidden border position-relative" style="height: 120px; background: url('../assets/images/<?php echo htmlspecialchars($breadcrumb_bg); ?>') center/cover no-repeat;">
+                                    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.4);"></div>
+                                    <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
+                                        <h3 class="text-white fw-black mb-0" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">SAMPLE TITLE</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <form action="manage-breadcrumbs.php" method="POST" enctype="multipart/form-data" class="bg-light p-3 rounded-4 border">
+                                    <label class="form-label small fw-bold">Upload New Background Image</label>
+                                    <div class="input-group mb-3">
+                                        <input type="file" class="form-control" name="breadcrumb_bg" accept="image/jpeg, image/png, image/webp" required>
+                                    </div>
+                                    <button type="submit" name="update_breadcrumb_bg" class="btn btn-primary w-100 rounded-pill fw-bold">
+                                        <i class="fas fa-cloud-upload-alt me-2"></i> UPDATE IMAGE
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
+
             </div>
             
             <footer class="admin-footer">&copy; 2026 Ekalavya ACADEMY ADMINISTRATIVE PORTAL.</footer>
         </div>
     </div>
 
-    <!-- Add Breadcrumb Modal -->
-    <div class="modal fade" id="addBreadcrumbModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-white border-0 rounded-4 shadow-lg overflow-hidden">
-                <form action="manage-breadcrumbs.php" method="POST">
-                    <div class="modal-header border-0 p-4">
-                        <h5 class="modal-title fw-bold">ADD BREADCRUMB ITEM</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body p-4 pt-0">
-                        <div class="mb-3">
-                            <label class="small text-muted fw-bold mb-2 ms-2 text-uppercase">Page / Identifier Hub</label>
-                            <input type="text" class="form-control premium-input border" name="page_identifier" required placeholder="e.g. courses">
-                            <small class="text-muted d-block mt-1 ms-2" style="font-size: 0.7rem;">Grouping ID for dynamic section resolution.</small>
-                        </div>
-                        <div class="mb-3">
-                            <label class="small text-muted fw-bold mb-2 ms-2 text-uppercase">Display Label</label>
-                            <input type="text" class="form-control premium-input border" name="label" required placeholder="e.g. Classroom Courses">
-                        </div>
-                        <div class="mb-3">
-                            <label class="small text-muted fw-bold mb-2 ms-2 text-uppercase">Target Route / URL (Leave blank for Home)</label>
-                            <input type="text" class="form-control premium-input border" name="url" placeholder="e.g. courses.php">
-                        </div>
-                        <div class="mb-3">
-                            <label class="small text-muted fw-bold mb-2 ms-2 text-uppercase">Sort Order Priority</label>
-                            <input type="number" class="form-control premium-input border" name="sort_order" value="10" placeholder="e.g. 10">
-                        </div>
-                    </div>
-                    <div class="modal-footer border-0 p-4 pt-0">
-                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">CANCEL</button>
-                        <button type="submit" name="add_breadcrumb" class="btn btn-premium text-white px-4">PUBLISH BREADCRUMB</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Edit Breadcrumb Modal -->
-    <div class="modal fade" id="editBreadcrumbModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-white border-0 rounded-4 shadow-lg overflow-hidden">
-                <form action="manage-breadcrumbs.php" method="POST">
-                    <input type="hidden" name="breadcrumb_id" id="edit_breadcrumb_id">
-                    <div class="modal-header border-0 p-4">
-                        <h5 class="modal-title fw-bold">UPDATE BREADCRUMB ITEM</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body p-4 pt-0">
-                        <div class="mb-3">
-                            <label class="small text-muted fw-bold mb-2 ms-2 text-uppercase">Page / Identifier Hub</label>
-                            <input type="text" class="form-control premium-input border" name="page_identifier" id="edit_page_identifier" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="small text-muted fw-bold mb-2 ms-2 text-uppercase">Display Label</label>
-                            <input type="text" class="form-control premium-input border" name="label" id="edit_label" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="small text-muted fw-bold mb-2 ms-2 text-uppercase">Target Route / URL</label>
-                            <input type="text" class="form-control premium-input border" name="url" id="edit_url">
-                        </div>
-                        <div class="mb-3">
-                            <label class="small text-muted fw-bold mb-2 ms-2 text-uppercase">Sort Order Priority</label>
-                            <input type="number" class="form-control premium-input border" name="sort_order" id="edit_sort_order">
-                        </div>
-                    </div>
-                    <div class="modal-footer border-0 p-4 pt-0">
-                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">CANCEL</button>
-                        <button type="submit" name="edit_breadcrumb" class="btn btn-premium text-white px-4">SAVE CHANGES</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const editModal = document.getElementById('editBreadcrumbModal');
-        editModal.addEventListener('show.bs.modal', event => {
-            const button = event.relatedTarget;
-            document.getElementById('edit_breadcrumb_id').value = button.getAttribute('data-id');
-            document.getElementById('edit_page_identifier').value = button.getAttribute('data-page');
-            document.getElementById('edit_label').value = button.getAttribute('data-label');
-            document.getElementById('edit_url').value = button.getAttribute('data-url');
-            document.getElementById('edit_sort_order').value = button.getAttribute('data-sort');
-        });
-    </script>
 </body>
 </html>

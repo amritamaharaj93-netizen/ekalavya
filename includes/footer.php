@@ -28,8 +28,9 @@
                     <h5 class="text-white mb-4 position-relative d-inline-block">Our Head Office</h5>
                     <p class="text-light opacity-75 mb-1">H.O: Boring Canal Road, Patna</p>
                     <p class="text-light opacity-75 mb-1">Gaya: Bisar Talab, Nutan Nagar, Gaya</p>
-                    <p class="text-light opacity-75 mb-1"><i class="fas fa-phone-alt me-2 text-primary"></i> 9934244522</p>
+                    <p class="text-light opacity-75 mb-1"><i class="fas fa-phone-alt fa-flip-horizontal me-2 text-primary"></i> 9934244522</p>
                     <p class="text-light opacity-75 small"><i class="fas fa-envelope me-2 text-primary"></i> info.ekalavyaeducation@gmail.com</p>
+                    <p class="text-light opacity-75 small mb-1"><i class="fas fa-envelope me-2 text-primary"></i> infopatna@ekalavyaeducation.com</p>
                 </div>
                 <div class="col-md-3 mb-4">
                     <h5 class="text-white mb-4 position-relative d-inline-block">Newsletter</h5>

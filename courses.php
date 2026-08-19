@@ -7,12 +7,12 @@ $class = isset($_GET['class']) ? trim($_GET['class']) : '';
 $type = isset($_GET['type']) ? trim($_GET['type']) : '';
 
 // Build dynamic query
-$query = "SELECT * FROM courses WHERE title NOT LIKE '%School Excellence Program%'";
+$query = "SELECT * FROM courses WHERE 1=1";
 $params = [];
 
 if ($category) {
-    if ($category === 'Foundation') {
-        $query .= " AND (category = 'Foundation' OR category = 'Junior Foundation')";
+    if ($category === 'Foundation' || $category === 'School Prep (Class 7th-12th)' || $category === 'School Prep') {
+        $query .= " AND (category = 'Foundation' OR category = 'Junior Foundation' OR category = 'School Prep (Class 7th-12th)')";
     } else {
         $query .= " AND category = ?";
         $params[] = $category;
@@ -81,7 +81,7 @@ if ($class) {
 ?>
 
 <!-- Premium Institutional Header -->
-<section class="page-header" style="background: url('assets/images/TopFront & side .png') center/cover no-repeat; padding: clamp(40px, 8vh, 100px) 0 !important; padding-left: 5px !important;">
+<section class="page-header" style="background: url('assets/images/<?php echo htmlspecialchars($global_breadcrumb_bg); ?>') center/cover no-repeat; padding: clamp(40px, 8vh, 100px) 0 !important; padding-left: 5px !important;">
     <div class="container text-center text-white">
         <h1 class="fw-black mb-0" style="font-size: clamp(2.2rem, 10vw, 4.5rem); line-height: 1.1;">
             <?php 
@@ -183,12 +183,17 @@ if ($class) {
                 ?>
                 <div class="col-lg-4 col-md-6">
                     <?php 
-                        // Dynamic banner selection
-                        $banner = "clean_classroom_banner.png"; // Premium Clean Banner
                         $cat_lower = strtolower($item['category']);
-                        if (strpos($cat_lower, 'neet') !== false) $banner = "banner1.png";
-                        elseif (strpos($cat_lower, 'jee') !== false || strpos($cat_lower, 'iit') !== false) $banner = "banner2.png";
                         
+                        // Dynamic banner selection
+                        $banner = "clean_classroom_banner.png";
+                        if (!empty($item['card_image'])) {
+                            $banner = $item['card_image'];
+                        } elseif (strpos($cat_lower, 'neet') !== false || strpos($cat_lower, 'medical') !== false) {
+                            $banner = "neet-banner-nologo.png";
+                        } elseif (strpos($cat_lower, 'jee') !== false || strpos($cat_lower, 'iit') !== false) {
+                            $banner = "banner_jee.png";
+                        }
                         // Class extraction
                         $class_display = "7-10";
                         if (stripos($item['title'], 'XI') !== false && stripos($item['title'], 'XII') === false) $class_display = "11";
@@ -214,20 +219,11 @@ if ($class) {
                         
                         // Dynamic Subtitle Mapping
                         $prog_name = strtoupper(explode(' ', trim($item['title']))[0]);
-                        $target_year = $item['target_year'] ?: '2026';
-                        $eligibility_text = "For Class " . $class_display . " Students.";
-                        
-                        if (stripos($item['title'], 'SEED') !== false) {
-                            $prog_name = "SEED"; $target_year = "2030"; $eligibility_text = "Class VIII to IX Moving Students.";
-                        } elseif (stripos($item['title'], 'ANKUR') !== false) {
-                            $prog_name = "ANKUR"; $target_year = "2029"; $eligibility_text = "Class IX to X Moving Students.";
-                        } elseif (stripos($item['title'], 'NURTURE') !== false) {
-                            $prog_name = "NURTURE"; $target_year = "2028"; $eligibility_text = "Class X TO XI Moving Students.";
-                        } elseif (stripos($item['title'], 'EMERGE') !== false) {
-                            $prog_name = "EMERGE"; $target_year = "2029"; $eligibility_text = "Class XI to XII Moving Students.";
-                        } elseif (stripos($item['title'], 'IMPULSE') !== false) {
-                            $prog_name = "IMPULSE"; $target_year = "2029"; $eligibility_text = "DROPPER";
-                        }
+                        if (stripos($item['title'], 'School Excellence Program') !== false) $prog_name = "SCHOOL EXCELLENCE PROGRAM";
+                        elseif (stripos($item['title'], 'School Support') !== false) $prog_name = "SCHOOL SUPPORT PROGRAM";
+
+                        $target_year = !empty($item['target_year']) ? $item['target_year'] : '2026';
+                        $eligibility_text = !empty($item['admission_eligibility']) ? $item['admission_eligibility'] : "For Class " . $class_display . " Students.";
                     ?>
                     <div class="course-card-v3 <?php echo $category_class; ?>">
                         <div class="card-image position-relative">
@@ -250,12 +246,27 @@ if ($class) {
                             </div>
                             
                             <ul class="course-feature-list list-unstyled mt-2 mb-3">
-                                <li class="mb-2 d-flex"><i class="fas fa-circle-check mt-1 me-2"></i> <span>Classroom learning with highly qualified faculty.</span></li>
-                                <li class="mb-2 d-flex"><i class="fas fa-circle-check mt-1 me-2"></i> <span>Printed study material, DPPs, and test series.</span></li>
-                                <li class="mb-2 d-flex"><i class="fas fa-circle-check mt-1 me-2"></i> <span>Personalized mentoring.</span></li>
-                                <li class="mb-2 d-flex"><i class="fas fa-circle-check mt-1 me-2"></i> <span>Healthy academic environment with motivated peers.</span></li>
+                                <?php 
+                                    $features = [];
+                                    if (!empty($item['card_features'])) {
+                                        $features = array_filter(array_map('trim', explode("\n", $item['card_features'])));
+                                    }
+                                    
+                                    if (empty($features)) {
+                                        // Fallback default features if empty
+                                        $features = [
+                                            "Classroom learning with highly qualified faculty.",
+                                            "Printed study material, DPPs, and test series.",
+                                            "Personalized mentoring.",
+                                            "Healthy academic environment with motivated peers."
+                                        ];
+                                    }
+                                    
+                                    foreach($features as $feature):
+                                ?>
+                                <li class="mb-2 d-flex"><i class="fas fa-circle-check mt-1 me-2"></i> <span><?php echo htmlspecialchars($feature); ?></span></li>
+                                <?php endforeach; ?>
                             </ul>
-                            
                             <div class="mt-auto">
                                 <a href="<?php echo BASE_URL; ?>course-detail.php?slug=<?php echo $item['slug']; ?>" class="btn-pro-outline w-100 text-center d-block text-decoration-none">
                                     Check Course Details <i class="fas fa-arrow-right ms-2"></i>

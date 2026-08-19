@@ -7,6 +7,15 @@
         <a class="nav-link <?php echo $current_page == 'dashboard' ? 'active' : ''; ?>" href="dashboard.php">
             <i class="fas fa-th-large"></i> Dashboard
         </a>
+        <a class="nav-link <?php echo $current_page == 'home_settings' ? 'active' : ''; ?>" href="manage-home-banners.php">
+            <i class="fas fa-home"></i> Home Settings
+        </a>
+        <a class="nav-link <?php echo $current_page == 'breadcrumbs' ? 'active' : ''; ?>" href="manage-breadcrumbs.php">
+            <i class="fas fa-sitemap"></i> Breadcrumb Settings
+        </a>
+        <a class="nav-link <?php echo $current_page == 'banners' ? 'active' : ''; ?>" href="manage-banners.php">
+            <i class="fas fa-image"></i> Course Banners
+        </a>
         <a class="nav-link <?php echo $current_page == 'courses' ? 'active' : ''; ?>" href="manage-courses.php">
             <i class="fas fa-book-open"></i> Courses
         </a>
@@ -16,18 +25,14 @@
         <a class="nav-link <?php echo $current_page == 'scholarship-tabs' ? 'active' : ''; ?>" href="manage-scholarship-tabs.php">
             <i class="fas fa-layer-group"></i> Scholarship Page
         </a>
+
         <a class="nav-link <?php echo $current_page == 'career_path' ? 'active' : ''; ?>" href="manage-career-path.php">
             <i class="fas fa-route"></i> Career Path
         </a>
         <a class="nav-link <?php echo $current_page == 'study_material' ? 'active' : ''; ?>" href="manage-study-material.php">
             <i class="fas fa-file-alt"></i> Study Material
         </a>
-        <a class="nav-link <?php echo $current_page == 'gallery' ? 'active' : ''; ?>" href="manage-gallery.php?v=1">
-            <i class="fas fa-images"></i> Gallery Images
-        </a>
-        <a class="nav-link <?php echo $current_page == 'campus_images' ? 'active' : ''; ?>" href="manage-campus-images.php?v=1">
-            <i class="fas fa-university"></i> Campus Images
-        </a>
+
         <?php /*
         <a class="nav-link <?php echo $current_page == 'scholarship_programs' ? 'active' : ''; ?>" href="manage-scholarships.php">
             <i class="fas fa-award"></i> Scholarships

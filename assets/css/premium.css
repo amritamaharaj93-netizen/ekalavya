@@ -63,8 +63,7 @@
 
 .banner-img {
     width: 100%;
-    height: auto;
-    max-height: 550px;
+    aspect-ratio: 3.1 / 1;
     object-fit: cover;
     display: block;
     transition: transform 0.5s ease;
@@ -95,6 +94,21 @@
     background: var(--primary-orange);
 }
 
+.home-banner-slider .swiper {
+    padding-bottom: 0 !important;
+}
+
+.home-banner-slider .swiper-pagination {
+    position: absolute !important;
+    bottom: 20px !important;
+    z-index: 10;
+}
+
+.home-banner-slider a {
+    display: block;
+    line-height: 0;
+}
+
 @media (max-width: 991px) {
     .home-banner-slider {
         margin: 40px 15px;
@@ -102,8 +116,7 @@
     }
 
     .banner-img {
-        height: auto !important;
-        max-height: 550px;
+        aspect-ratio: 3.1 / 1;
     }
 }
 
@@ -119,7 +132,7 @@
     }
 
     .banner-img {
-        height: auto !important;
+        aspect-ratio: 3.1 / 1;
     }
 }
 
@@ -1149,7 +1162,6 @@
     }
     .choose-icon-refined,
     .pf-icon,
-    .title-icon,
     .icon-wrap {
         margin-left: 0 !important;
         margin-right: auto !important;

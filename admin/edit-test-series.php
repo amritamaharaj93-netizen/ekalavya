@@ -104,6 +104,7 @@ $about_cards = $details['about_cards'] ?? [];
     <!-- Jodit Editor -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jodit/3.24.2/jodit.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jodit/3.24.2/jodit.min.js"></script>
+    <link rel="icon" type="image/png" href="../assets/images/favicon_new.png">
 </head>
 <body>
     <div class="row g-0 overflow-hidden" style="min-height: 100vh;">
@@ -322,7 +323,7 @@ $about_cards = $details['about_cards'] ?? [];
                 { icon: "fas fa-microscope", label: "Research" }
             ],
             "Features": [
-                { icon: "fas fa-laptop-code", label: "Online/Mock Test" },
+                { icon: "fas fa-file-alt", label: "Online/Mock Test" },
                 { icon: "fas fa-clock", label: "Duration/Timing" },
                 { icon: "fas fa-calendar-check", label: "Schedule" },
                 { icon: "fas fa-chalkboard-teacher", label: "Expert Faculty" },
@@ -385,7 +386,7 @@ $about_cards = $details['about_cards'] ?? [];
             const val = title.toLowerCase();
             let icon = "";
             
-            if (val.includes('test') || val.includes('mock') || val.includes('computer')) icon = "fas fa-laptop-code";
+            if (val.includes('test') || val.includes('mock') || val.includes('computer')) icon = "fas fa-file-alt";
             else if (val.includes('report') || val.includes('analysis') || val.includes('result')) icon = "fas fa-file-invoice";
             else if (val.includes('teacher') || val.includes('faculty') || val.includes('expert')) icon = "fas fa-chalkboard-teacher";
             else if (val.includes('mentor') || val.includes('guide') || val.includes('counsel')) icon = "fas fa-user-tie";

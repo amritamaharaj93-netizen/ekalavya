@@ -14,17 +14,29 @@ include 'includes/header.php';
 $stmt = $pdo->prepare("SELECT * FROM students WHERE id = :id");
 $stmt->execute(['id' => $_SESSION['student_db_id']]);
 $student = $stmt->fetch();
+
+if (!$student) {
+    session_destroy();
+    header("Location: student-login.php");
+    exit();
+}
 ?>
 
-<section class="page-header" style="padding: 40px 0;">
-    <div class="container d-flex align-items-center justify-content-between">
-        <div>
-            <p class="very-small uppercase fw-black text-primary tracking-widest mb-1" style="opacity: 0.8;">Institutional Portal</p>
-            <h1 class="mb-0 h2"><?php echo strtoupper(htmlspecialchars($student['name'])); ?></h1>
+<section class="page-header position-relative" style="background: url('assets/images/<?php echo htmlspecialchars($global_breadcrumb_bg); ?>') center/cover no-repeat; padding: clamp(40px, 8vh, 100px) 0 !important; padding-left: 5px !important;">
+    <!-- Invisible spacer exactly matching courses.php structure to force identical container height & background crop -->
+    <div class="container text-center" style="visibility: hidden;">
+        <h1 class="fw-black mb-0" style="font-size: clamp(2.2rem, 10vw, 4.5rem); line-height: 1.1;">DUMMY <span class="d-block d-md-inline">TEXT</span></h1>
+    </div>
+
+    <!-- Real content perfectly centered vertically within the exact same space -->
+    <div class="container d-flex align-items-center justify-content-between position-absolute w-100" style="top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; padding-left: calc(var(--bs-gutter-x) * 0.5); padding-right: calc(var(--bs-gutter-x) * 0.5);">
+        <div class="text-white">
+            <p class="very-small uppercase fw-black text-primary tracking-widest mb-1" style="opacity: 0.9;">Institutional Portal</p>
+            <h1 class="fw-black mb-0" style="font-size: clamp(1.8rem, 5vw, 3rem); line-height: 1.1;"><?php echo strtoupper(htmlspecialchars($student['name'])); ?></h1>
         </div>
-        <div class="text-end">
+        <div class="text-end text-white">
              <span class="badge bg-white text-primary border rounded-pill px-3 py-2 fw-black small shadow-sm"><?php echo htmlspecialchars($student['student_id']); ?></span>
-             <a href="logout.php" class="text-danger small fw-bold text-decoration-none ms-3"><i class="fas fa-sign-out-alt"></i> Logout</a>
+             <a href="logout.php" class="text-white small fw-bold text-decoration-none ms-3 opacity-75 hover-opacity-100"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
     </div>
 </section>

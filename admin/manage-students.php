@@ -217,6 +217,7 @@ function getAssigned($pdo, $sid) {
         }
         .upload-zone:hover { border-color: #ff5722; background: rgba(255,87,34,0.03); }
     </style>
+    <link rel="icon" type="image/png" href="../assets/images/favicon_new.png">
 </head>
 <body>
 
@@ -330,7 +331,7 @@ function getAssigned($pdo, $sid) {
                             <td>
                                 <div class="d-flex align-items-center gap-2">
                                     <a href="tel:<?php echo $s['phone']; ?>" class="text-dark small text-decoration-none">
-                                        <i class="fas fa-phone-alt text-muted me-1" style="font-size:0.7rem;"></i><?php echo htmlspecialchars($s['phone']); ?>
+                                        <i class="fas fa-phone-alt fa-flip-horizontal text-muted me-1" style="font-size:0.7rem;"></i><?php echo htmlspecialchars($s['phone']); ?>
                                     </a>
                                     <a href="https://wa.me/91<?php echo preg_replace('/\D/','',$s['phone']); ?>" target="_blank" class="action-btn text-success" style="width:28px;height:28px;font-size:0.7rem;" title="WhatsApp">
                                         <i class="fab fa-whatsapp"></i>

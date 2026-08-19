@@ -1,5 +1,13 @@
 <?php 
 require_once 'config/database.php';
+
+$hero_banners = [];
+$form_banners = [];
+try {
+    $hero_banners = $pdo->query("SELECT * FROM home_banners WHERE section='hero' AND status=1 ORDER BY display_order ASC")->fetchAll();
+    $form_banners = $pdo->query("SELECT * FROM home_banners WHERE section='form' AND status=1 ORDER BY display_order ASC")->fetchAll();
+} catch (PDOException $e) {}
+
 include 'includes/header.php'; 
 ?>
 
@@ -8,24 +16,21 @@ include 'includes/header.php';
     <section class="home-banner-slider">
         <div class="swiper mainHomeSwiper">
             <div class="swiper-wrapper">
-                <!-- Slide 1 -->
-                <div class="swiper-slide">
-                    <a href="<?php echo BASE_URL; ?>scholarship">
-                        <img src="<?php echo BASE_URL; ?>assets/images/home banner1.png" alt="Ekalavya Home Banner 1" class="banner-img">
-                    </a>
-                </div>
-                <!-- Slide 2 -->
-                <div class="swiper-slide">
-                    <a href="<?php echo BASE_URL; ?>course-detail.php?slug=nurture-jee-11">
-                        <img src="<?php echo BASE_URL; ?>assets/images/home banner4.png" alt="Ekalavya Home Banner 2" class="banner-img">
-                    </a>
-                </div>
-                <!-- Slide 3 -->
-                <div class="swiper-slide">
-                    <a href="<?php echo BASE_URL; ?>course-detail.php?slug=seed-jee-9">
-                        <img src="<?php echo BASE_URL; ?>assets/images/home banner3.png" alt="Ekalavya Home Banner 3" class="banner-img">
-                    </a>
-                </div>
+                <?php if(!empty($hero_banners)): ?>
+                    <?php foreach($hero_banners as $hb): ?>
+                        <div class="swiper-slide">
+                            <a href="<?php echo !empty($hb['link']) ? BASE_URL . $hb['link'] : 'javascript:void(0)'; ?>">
+                                <img src="<?php echo BASE_URL; ?>assets/images/<?php echo htmlspecialchars($hb['image']); ?>" alt="Hero Banner" class="banner-img">
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="swiper-slide">
+                        <a href="<?php echo BASE_URL; ?>scholarship">
+                            <img src="<?php echo BASE_URL; ?>assets/images/home banner1.png" alt="Ekalavya Home Banner 1" class="banner-img">
+                        </a>
+                    </div>
+                <?php endif; ?>
             </div>
             <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
@@ -119,23 +124,17 @@ include 'includes/header.php';
                     <div class="col-lg-8 position-relative border-end border-light d-flex flex-column">
                         <div class="swiper enquirySlider w-100 flex-grow-1">
                             <div class="swiper-wrapper">
-                                
-                                <!-- Slide 1 -->
-                                <div class="swiper-slide">
-                                    <img src="<?php echo BASE_URL; ?>assets/images/form image1.png" alt="Ekalavya Form 1" class="w-100">
-                                </div>
-
-                                <!-- Slide 2 -->
-                                <div class="swiper-slide">
-                                    <img src="<?php echo BASE_URL; ?>assets/images/form image2.png" alt="Ekalavya Form 2" class="w-100">
-                                </div>
-
-                                <!-- Slide 3 -->
-                                <div class="swiper-slide">
-                                    <img src="<?php echo BASE_URL; ?>assets/images/form image3.png" alt="Ekalavya Form 3" class="w-100">
-                                </div>
-
-
+                                <?php if(!empty($form_banners)): ?>
+                                    <?php foreach($form_banners as $fb): ?>
+                                        <div class="swiper-slide">
+                                            <img src="<?php echo BASE_URL; ?>assets/images/<?php echo htmlspecialchars($fb['image']); ?>" alt="Form Banner" class="w-100">
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <div class="swiper-slide">
+                                        <img src="<?php echo BASE_URL; ?>assets/images/form image1.png" alt="Ekalavya Form 1" class="w-100">
+                                    </div>
+                                <?php endif; ?>
                             </div>
                             <div class="swiper-pagination enquiry-pagination"></div>
                         </div>

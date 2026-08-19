@@ -102,7 +102,13 @@ include 'includes/header.php';
         <!-- Premium ESAT Scholarship Banner (Dynamic Content) -->
         <!-- Scholarship Banner Image (Full Size) -->
         <div class="scholarship-dynamic-banner rounded-5 mb-5 position-relative overflow-hidden shadow-heavy border scholar-banner-custom">
-            <img src="<?php echo BASE_URL; ?>assets/images/<?php echo $course['hero_banner'] ?: 'scholar image5.png'; ?>"
+            <?php 
+            $banner_img = !empty($course['hero_banner']) ? $course['hero_banner'] : 'scholar-image3.png';
+            if (!file_exists(__DIR__ . '/assets/images/' . $banner_img)) {
+                $banner_img = 'scholar-image3.png';
+            }
+            ?>
+            <img src="<?php echo BASE_URL; ?>assets/images/<?php echo htmlspecialchars($banner_img); ?>"
                 class="img-fluid w-100 h-100" style="object-fit: fill; width: 100%; height: 100%; object-position: center;" alt="Scholarship Program">
         </div>
 
@@ -145,7 +151,7 @@ include 'includes/header.php';
                             </div>
                             <div>
                                 <small class="text-muted text-uppercase fw-black d-block"
-                                    style="font-size: 0.6rem; letter-spacing: 1px;">Admission Status</small>
+                                    style="font-size: 0.6rem; letter-spacing: 1px;">Admission Eligibility</small>
                                 <span class="fw-black text-dark"
                                     style="font-size: 0.9rem;"><?php echo htmlspecialchars($course['admission_eligibility']); ?></span>
                             </div>

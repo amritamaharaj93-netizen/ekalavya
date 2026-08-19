@@ -26,14 +26,15 @@ if (isset($_POST['add_course'])) {
     $category = trim($_POST['category']);
     $duration = trim($_POST['duration']);
     $description = trim($_POST['description']);
+    $card_features = trim($_POST['card_features'] ?? '');
     $target_year = trim($_POST['target_year'] ?? '');
     $fees = !empty($_POST['fees']) ? floatval($_POST['fees']) : null;
     $slug = slugify($title);
 
     if (!empty($title) && !empty($category) && !empty($duration) && !empty($description)) {
         try {
-            $stmt = $pdo->prepare("INSERT INTO courses (title, slug, category, duration, description, admission_eligibility, fee_includes, target_year, fees) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$title, $slug, $category, $duration, $description, $_POST['admission_eligibility'], $_POST['fee_includes'], $target_year, $fees]);
+            $stmt = $pdo->prepare("INSERT INTO courses (title, slug, category, duration, description, card_features, admission_eligibility, fee_includes, target_year, fees) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$title, $slug, $category, $duration, $description, $card_features, $_POST['admission_eligibility'], $_POST['fee_includes'], $target_year, $fees]);
             $success_msg = "Course published successfully!";
         } catch (PDOException $e) { $error_msg = "Error: " . $e->getMessage(); }
     } else { $error_msg = "All required fields must be filled."; }
@@ -46,13 +47,14 @@ if (isset($_POST['edit_course'])) {
     $category = trim($_POST['category']);
     $duration = trim($_POST['duration']);
     $description = trim($_POST['description']);
+    $card_features = trim($_POST['card_features'] ?? '');
     $target_year = trim($_POST['target_year'] ?? '');
     $fees = !empty($_POST['fees']) ? floatval($_POST['fees']) : null;
     $slug = slugify($title);
 
     try {
-        $stmt = $pdo->prepare("UPDATE courses SET title=?, slug=?, category=?, duration=?, description=?, admission_eligibility=?, fee_includes=?, target_year=?, fees=? WHERE id=?");
-        $stmt->execute([$title, $slug, $category, $duration, $description, $_POST['admission_eligibility'], $_POST['fee_includes'], $target_year, $fees, $id]);
+        $stmt = $pdo->prepare("UPDATE courses SET title=?, slug=?, category=?, duration=?, description=?, card_features=?, admission_eligibility=?, fee_includes=?, target_year=?, fees=? WHERE id=?");
+        $stmt->execute([$title, $slug, $category, $duration, $description, $card_features, $_POST['admission_eligibility'], $_POST['fee_includes'], $target_year, $fees, $id]);
         $success_msg = "Course updated successfully!";
     } catch (PDOException $e) { $error_msg = $e->getMessage(); }
 }
@@ -80,6 +82,7 @@ $courses = $stmt->fetchAll();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/admin-premium.css">
+    <link rel="icon" type="image/png" href="../assets/images/favicon_new.png">
 </head>
 <body>
 
@@ -166,6 +169,7 @@ $courses = $stmt->fetchAll();
                                          data-target_year="<?php echo htmlspecialchars($course['target_year'] ?? ''); ?>"
                                          data-fees="<?php echo htmlspecialchars($display_fees ?? ''); ?>"
                                          data-admission_eligibility="<?php echo htmlspecialchars($course['admission_eligibility'] ?? ''); ?>"
+                                         data-card_features="<?php echo htmlspecialchars($course['card_features'] ?? ''); ?>"
                                          data-fee_includes="<?php echo htmlspecialchars($fee_includes); ?>">
                                      <i class="fas fa-edit"></i>
                                  </button>
@@ -235,6 +239,10 @@ $courses = $stmt->fetchAll();
                             <input type="text" class="form-control premium-input border" name="admission_eligibility" placeholder="e.g. Through Admission Test">
                         </div>
                         <div class="mt-3">
+                            <label class="small text-muted fw-bold mb-2 ms-2 text-uppercase">Card Bullet Points (One per line)</label>
+                            <textarea class="form-control premium-input border" name="card_features" rows="4" placeholder="e.g. Classroom learning with highly qualified faculty.&#10;Printed study material..."></textarea>
+                        </div>
+                        <div class="mt-3">
                             <label class="small text-muted fw-bold mb-2 ms-2 text-uppercase">THINGS INCLUDED IN FEE (ONE PER LINE)</label>
                             <textarea class="form-control premium-input border" name="fee_includes" rows="5" placeholder="e.g. Study Material&#10;Test Series&#10;ID Card"></textarea>
                         </div>
@@ -296,6 +304,10 @@ $courses = $stmt->fetchAll();
                             <input type="text" class="form-control premium-input border" name="admission_eligibility" id="edit_admission_eligibility">
                         </div>
                         <div class="mt-3">
+                            <label class="small text-muted fw-bold mb-2 ms-2 text-uppercase">Card Bullet Points (One per line)</label>
+                            <textarea class="form-control premium-input border" name="card_features" id="edit_card_features" rows="4"></textarea>
+                        </div>
+                        <div class="mt-3">
                             <label class="small text-muted fw-bold mb-2 ms-2 text-uppercase">THINGS INCLUDED IN FEE (ONE PER LINE)</label>
                             <textarea class="form-control premium-input border" name="fee_includes" id="edit_fee_includes" rows="5"></textarea>
                         </div>
@@ -322,6 +334,7 @@ $courses = $stmt->fetchAll();
             document.getElementById('edit_target_year').value = button.getAttribute('data-target_year') || '';
             document.getElementById('edit_fees').value = button.getAttribute('data-fees') || '';
             document.getElementById('edit_admission_eligibility').value = button.getAttribute('data-admission_eligibility') || '';
+            document.getElementById('edit_card_features').value = button.getAttribute('data-card_features') || '';
             let feeIncludes = button.getAttribute('data-fee_includes') || '';
             // If it's comma separated but not yet line-separated, convert it for the user
             if (feeIncludes.includes(',') && !feeIncludes.includes('\n')) {

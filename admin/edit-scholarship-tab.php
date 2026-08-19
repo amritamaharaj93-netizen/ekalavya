@@ -140,10 +140,12 @@ $content_data = json_decode($tab['content_json'] ?? '[]', true);
         .remove-btn { position: absolute; top: 10px; right: 10px; color: #ef4444; cursor: pointer; z-index: 10; }
         .template-btn { font-size: 0.7rem; padding: 2px 8px; margin-top: 5px; }
         .jodit-container { border-radius: 12px !important; border: 1px solid #e2e8f0 !important; overflow: hidden; }
+        .jodit-wysiwyg .text-primary { color: #f7941d !important; }
     </style>
     <!-- Jodit Editor -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jodit/3.24.2/jodit.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jodit/3.24.2/jodit.min.js"></script>
+    <link rel="icon" type="image/png" href="../assets/images/favicon_new.png">
 </head>
 <body>
     <div class="row g-0 overflow-hidden" style="min-height: 100vh;">
@@ -224,8 +226,8 @@ $content_data = json_decode($tab['content_json'] ?? '[]', true);
                             <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
                                 <h5 class="fw-bold mb-4">Main Content</h5>
                                 <div class="mb-3">
-                                    <label class="small fw-bold text-muted text-uppercase mb-2">Main Title (HTML OK)</label>
-                                    <input type="text" class="form-control premium-input border" name="title" value="<?php echo htmlspecialchars($tab['title'] ?? ''); ?>" placeholder="e.g. ESAT <span class='text-primary'>2026</span>">
+                                    <label class="small fw-bold text-muted text-uppercase mb-2">Main Title</label>
+                                    <textarea id="main_title" class="form-control premium-input border" name="title" rows="2" placeholder="e.g. ESAT 2026"><?php echo htmlspecialchars($tab['title'] ?? ''); ?></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label class="small fw-bold text-muted text-uppercase mb-2">Subtitle</label>
@@ -233,7 +235,7 @@ $content_data = json_decode($tab['content_json'] ?? '[]', true);
                                 </div>
                                 <div class="mb-0">
                                     <label class="small fw-bold text-muted text-uppercase mb-2">Main Description</label>
-                                    <textarea class="form-control premium-input border" name="description" rows="3"><?php echo htmlspecialchars($tab['description'] ?? ''); ?></textarea>
+                                    <textarea id="main_desc" class="form-control premium-input border" name="description" rows="3"><?php echo htmlspecialchars($tab['description'] ?? ''); ?></textarea>
                                 </div>
                             </div>
 
@@ -270,7 +272,7 @@ $content_data = json_decode($tab['content_json'] ?? '[]', true);
                 "Syllabus": "fas fa-list-check"
             },
             "Features": {
-                "Online/Mock Test": "fas fa-laptop-code",
+                "Online/Mock Test": "fas fa-file-alt",
                 "Duration/Timing": "fas fa-clock",
                 "Schedule": "fas fa-calendar-alt",
                 "Batch/Class": "fas fa-users-rectangle",
@@ -319,6 +321,17 @@ $content_data = json_decode($tab['content_json'] ?? '[]', true);
         }
 
         const editors = {};
+
+        function initBasicEditor(id, height = 200, enterMode = "P") {
+            if (editors[id]) return;
+            editors[id] = new Jodit('#' + id, {
+                height: height,
+                theme: 'default',
+                toolbarButtonSize: 'middle',
+                buttons: 'undo,redo,|,bold,italic,underline,strikethrough,|,font,fontsize,brush,paragraph,|,align,ul,ol,|,link,table,image,video,|,source',
+                enter: enterMode
+            });
+        }
 
         function initEditor(id) {
             if (editors[id]) return;
@@ -507,10 +520,14 @@ $content_data = json_decode($tab['content_json'] ?? '[]', true);
                     block.content = editors[id].value;
                 }
             });
+            if (editors['main_title']) document.getElementById('main_title').value = editors['main_title'].value;
+            if (editors['main_desc']) document.getElementById('main_desc').value = editors['main_desc'].value;
             document.getElementById('content_json').value = JSON.stringify(blocks);
         });
 
         renderBlocks();
+        initBasicEditor('main_title', 150, "BR");
+        initBasicEditor('main_desc', 250, "P");
     </script>
 </body>
 </html>

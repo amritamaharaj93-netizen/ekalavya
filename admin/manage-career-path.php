@@ -10,6 +10,34 @@ if (!isset($_SESSION['admin_logged_in'])) {
 $success_msg = "";
 $error_msg = "";
 
+// --- POSTER LOGIC ---
+if (isset($_POST['update_poster'])) {
+    if (isset($_FILES['poster_image']) && $_FILES['poster_image']['error'] == 0) {
+        $file_name = basename($_FILES['poster_image']['name']);
+        $safe_file_name = preg_replace("/[^a-zA-Z0-9\._-]/", "", $file_name);
+        $target_file = "../assets/images/" . $safe_file_name;
+        
+        if (move_uploaded_file($_FILES['poster_image']['tmp_name'], $target_file)) {
+            try {
+                // Check if setting exists
+                $stmt = $pdo->query("SELECT COUNT(*) FROM career_settings WHERE setting_key = 'main_poster'");
+                if ($stmt->fetchColumn() > 0) {
+                    $pdo->prepare("UPDATE career_settings SET setting_value=? WHERE setting_key='main_poster'")->execute([$safe_file_name]);
+                } else {
+                    $pdo->prepare("INSERT INTO career_settings (setting_key, setting_value) VALUES ('main_poster', ?)")->execute([$safe_file_name]);
+                }
+                $success_msg = "Career Path poster updated successfully!";
+            } catch (PDOException $e) {
+                $error_msg = "Database Error: " . $e->getMessage();
+            }
+        } else {
+            $error_msg = "Failed to upload image file.";
+        }
+    } else {
+        $error_msg = "Please select a valid image file.";
+    }
+}
+
 // --- FEATURE LOGIC ---
 if (isset($_POST['add_feature'])) {
     $title = trim($_POST['title']);
@@ -87,6 +115,12 @@ if (isset($_GET['delete_journey'])) {
 // FETCH DATA
 $features = $pdo->query("SELECT * FROM career_features ORDER BY created_at ASC")->fetchAll();
 $journey = $pdo->query("SELECT * FROM career_journey ORDER BY step_number ASC")->fetchAll();
+
+$poster_stmt = $pdo->query("SELECT setting_value FROM career_settings WHERE setting_key = 'main_poster'");
+$main_poster = $poster_stmt->fetchColumn();
+if (!$main_poster) {
+    $main_poster = 'careerpath.png';
+}
 ?>
 
 <!DOCTYPE html>
@@ -97,6 +131,7 @@ $journey = $pdo->query("SELECT * FROM career_journey ORDER BY step_number ASC")-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/admin-premium.css">
+    <link rel="icon" type="image/png" href="../assets/images/favicon_new.png">
 </head>
 <body>
 
@@ -119,6 +154,30 @@ $journey = $pdo->query("SELECT * FROM career_journey ORDER BY step_number ASC")-
                         <i class="fas fa-check-circle me-2"></i> <?php echo $success_msg ? $success_msg : "Item deleted successfully!"; ?>
                     </div>
                 <?php endif; ?>
+
+                <!-- Poster Section -->
+                <div class="card border-0 shadow-sm rounded-4 mb-5 overflow-hidden">
+                    <div class="card-header bg-white border-0 pt-4 pb-0 px-4">
+                        <h5 class="fw-bold m-0"><i class="fas fa-image text-primary me-2"></i> MAIN POSTER (Left Side)</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <form action="manage-career-path.php" method="POST" enctype="multipart/form-data" class="bg-light p-4 rounded-4 border">
+                            <label class="small text-muted fw-bold mb-3 ms-2 text-uppercase">Current Image & Replace</label>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="bg-white border rounded-3 d-flex align-items-center justify-content-center p-1 shadow-sm" style="width: 100px; height: 100px; flex-shrink: 0;">
+                                    <img src="../assets/images/<?php echo htmlspecialchars($main_poster); ?>" alt="Preview" class="img-fluid rounded-2" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <input type="file" class="form-control premium-input border p-2 mb-2" name="poster_image" accept="image/*" required>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <input type="text" class="form-control bg-white border text-muted" readonly style="font-size: 0.85rem;" value="/assets/images/<?php echo htmlspecialchars($main_poster); ?>">
+                                        <button type="submit" name="update_poster" class="btn btn-premium text-white px-4 text-nowrap">UPDATE POSTER</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
                 <!-- Features Section -->
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -227,7 +286,7 @@ $journey = $pdo->query("SELECT * FROM career_journey ORDER BY step_number ASC")-
                                     <option value="fas fa-microscope">Research</option>
                                 </optgroup>
                                 <optgroup label="Features">
-                                    <option value="fas fa-laptop-code">Online/Mock Test</option>
+                                    <option value="fas fa-file-alt">Online/Mock Test</option>
                                     <option value="fas fa-clock">Duration/Timing</option>
                                     <option value="fas fa-calendar-alt">Schedule</option>
                                     <option value="fas fa-user-tie">Expert Faculty</option>
@@ -283,7 +342,7 @@ $journey = $pdo->query("SELECT * FROM career_journey ORDER BY step_number ASC")-
                                     <option value="fas fa-microscope">Research</option>
                                 </optgroup>
                                 <optgroup label="Features">
-                                    <option value="fas fa-laptop-code">Online/Mock Test</option>
+                                    <option value="fas fa-file-alt">Online/Mock Test</option>
                                     <option value="fas fa-clock">Duration/Timing</option>
                                     <option value="fas fa-calendar-alt">Schedule</option>
                                     <option value="fas fa-user-tie">Expert Faculty</option>

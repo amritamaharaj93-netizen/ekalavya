@@ -52,7 +52,7 @@ elseif (strpos($cat, 'biol') !== false) { $icon = 'fa-dna'; }
 ?>
 
 <!-- Professional Page Header -->
-<section class="page-header study-vault-header" style="padding: 40px 0 !important;">
+<section class="page-header study-vault-header" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('assets/images/<?php echo htmlspecialchars($global_breadcrumb_bg); ?>') center/cover no-repeat !important; padding: 40px 0 !important;">
     <div class="container text-center">
         <h1 class="mb-0"><?php echo htmlspecialchars($material['title']); ?></h1>
     </div>

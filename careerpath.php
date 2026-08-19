@@ -5,6 +5,13 @@ include 'includes/header.php';
 // Fetch Career Path Data
 $features = $pdo->query("SELECT * FROM career_features ORDER BY created_at ASC")->fetchAll();
 $journey = $pdo->query("SELECT * FROM career_journey ORDER BY step_number ASC")->fetchAll();
+
+// Fetch Main Poster
+$poster_stmt = $pdo->query("SELECT setting_value FROM career_settings WHERE setting_key = 'main_poster'");
+$main_poster = $poster_stmt->fetchColumn();
+if (!$main_poster) {
+    $main_poster = 'careerpath.png'; // Fallback
+}
 ?>
 
 <!-- Premium Institutional Header -->
@@ -48,7 +55,7 @@ $journey = $pdo->query("SELECT * FROM career_journey ORDER BY step_number ASC")-
             <div class="col-lg-6">
                 <!-- Image Box -->
                 <div class="career-image-wrap p-3 bg-light rounded-5 shadow-sm">
-                    <img src="assets/images/careerpath.png" alt="CareerPath Poster" class="img-fluid rounded-4 shadow">
+                    <img src="assets/images/<?php echo htmlspecialchars($main_poster); ?>" alt="CareerPath Poster" class="img-fluid rounded-4 shadow">
                     <!-- Note: If the image above doesn't load, please upload the provided poster as assets/images/careerpath.png -->
                 </div>
             </div>

@@ -70,6 +70,7 @@ $centers = $stmt->fetchAll();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/admin-premium.css">
+    <link rel="icon" type="image/png" href="../assets/images/favicon_new.png">
 </head>
 <body>
 
@@ -119,7 +120,7 @@ $centers = $stmt->fetchAll();
                                         <?php endif; ?>
                                     </td>
                                     <td><small class="text-muted"><?php echo htmlspecialchars(substr($center['address'], 0, 50)) . '...'; ?></small></td>
-                                    <td><i class="fas fa-phone-alt me-2 text-muted"></i> <?php echo htmlspecialchars($center['phone']); ?></td>
+                                    <td><i class="fas fa-phone-alt fa-flip-horizontal me-2 text-muted"></i> <?php echo htmlspecialchars($center['phone']); ?></td>
                                     <td>
                                          <button class="btn btn-sm btn-outline-primary border-0 rounded-circle me-2" 
                                          data-bs-toggle="modal" 

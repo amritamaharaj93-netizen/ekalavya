@@ -19,8 +19,9 @@ if (!$course) {
 $success_msg = "";
 $error_msg = "";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isset($_POST['update_course'])) {
     $hero_banner = $course['hero_banner']; // Default to current
+    $card_image = $course['card_image'] ?? ''; // Default to current
     
     // Handle File Upload for Hero Banner
     if (isset($_FILES['hero_banner_upload']) && $_FILES['hero_banner_upload']['error'] === 0) {
@@ -35,9 +36,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $hero_banner = $_POST['hero_banner_text'];
     }
 
+    // Handle File Upload for Card Image
+    if (isset($_FILES['card_image_upload']) && $_FILES['card_image_upload']['error'] === 0) {
+        $upload_dir = "../assets/images/";
+        $file_ext = strtolower(pathinfo($_FILES['card_image_upload']['name'], PATHINFO_EXTENSION));
+        $new_filename = "card_" . time() . "_" . uniqid() . "." . $file_ext;
+        
+        if (move_uploaded_file($_FILES['card_image_upload']['tmp_name'], $upload_dir . $new_filename)) {
+            $card_image = $new_filename;
+        }
+    } elseif (!empty($_POST['card_image_text'])) {
+        $card_image = $_POST['card_image_text'];
+    }
+
     $title = trim($_POST['title']);
     $category = $_POST['category'];
     $duration = $_POST['duration'];
+    $card_features = trim($_POST['card_features'] ?? '');
     $target_year = $_POST['target_year'];
     $fees = !empty($_POST['fees']) ? floatval($_POST['fees']) : 0;
     $description = $_POST['description'];
@@ -60,11 +75,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             title = ?,
             category = ?,
             duration = ?,
+            card_features = ?,
             target_year = ?,
             fees = ?,
             description = ?,
             admission_eligibility = ?,
             hero_banner = ?, 
+            card_image = ?,
             medium = ?, 
             academic_session = ?, 
             scholarship_note = ?, 
@@ -76,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             roadmap_json = ?, 
             curriculum_json = ? 
             WHERE id = ?");
-        $stmt->execute([$title, $category, $duration, $target_year, $fees, $description, $admission_eligibility, $hero_banner, $medium, $academic_session, $scholarship_note, $inst_1_pct, $inst_2_pct, $inst_3_pct, $fee_includes, $experience_json, $roadmap_json, $curriculum_json, $id]);
+        $stmt->execute([$title, $category, $duration, $card_features, $target_year, $fees, $description, $admission_eligibility, $hero_banner, $card_image, $medium, $academic_session, $scholarship_note, $inst_1_pct, $inst_2_pct, $inst_3_pct, $fee_includes, $experience_json, $roadmap_json, $curriculum_json, $id]);
         $success_msg = "All course details updated successfully!";
         // Refresh course data
         $stmt = $pdo->prepare("SELECT * FROM courses WHERE id = ?");
@@ -88,9 +105,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Default values for JSON if empty
-$experience = json_decode($course['experience_json'] ?? '[]', true);
+$experience = json_decode($course['experience_json'] ?? '', true);
+if (empty($experience)) {
+    $experience = [
+        ['icon' => 'fas fa-chalkboard-teacher', 'title' => 'Concept Learning', 'desc' => '<b>Expert Faculty Guidance:</b> Classes conducted by experienced and dedicated teachers with a strong focus on concept clarity and exam-oriented preparation.<br><b>Advanced Classroom Environment:</b> Well-equipped, comfortable classrooms designed to create a focused and effective learning atmosphere.'],
+        ['icon' => 'fas fa-copy', 'title' => 'Well-Designed Study Material', 'desc' => '<b>Concept Practice Sheets:</b> Specially designed worksheets to strengthen concepts and improve problem-solving speed and accuracy.<br><b>Topic-Based Modules:</b> Structured study modules containing Level wise exercises, Important questions, and previous year questions for deeper understanding.<br><b>Revision Practice Material:</b> Revision Practice sheets post-course completion.'],
+        ['icon' => 'fas fa-chart-line', 'title' => 'Systematic Test', 'desc' => '<b>Regular Tests:</b> Regular Test based on recently completed chapters to monitor progress. Full-length tests designed to strengthen preparation and build confidence for competitive exams.<br><b>Performance Analysis:</b> Detailed feedback and analysis to help students identify strengths and improve weak areas.'],
+        ['icon' => 'fas fa-user-graduate', 'title' => 'Additional Academic Support', 'desc' => '<b>Doubt-Solving Sessions:</b> Special sessions to clarify concepts and ensure complete understanding.<br><b>Personalized Mentorship:</b> Regular guidance from mentors to support academic growth and keep students motivated.'],
+        ['icon' => 'fas fa-comments', 'title' => 'Student & Parent Interaction', 'desc' => '<b>Career Guidance Programs:</b> Expert sessions providing information about competitive exams, career options, and future opportunities.<br><b>Regular PTM:</b> Frequent interaction between parents and teachers keeps one informed about the child\'s academic progress and ensures academic success.']
+    ];
+}
+
 $roadmap = json_decode($course['roadmap_json'] ?? '[]', true);
+if (empty($roadmap)) {
+    $roadmap = [
+        ['title' => 'Concept Building', 'desc' => 'Initiating with basic fundamentals to bridge any academic gaps.'],
+        ['title' => 'Exhaustive Module Coverage', 'desc' => 'Deep dive into physics, chemistry, and biology/maths modules.'],
+        ['title' => 'Periodic Benchmarking', 'desc' => 'Bi-weekly tests and monthly rank-analysis exams.'],
+        ['title' => 'Doubt & Revision Sprints', 'desc' => 'Intensive doubt-clearing sessions and formula-recall workshops.'],
+        ['title' => 'All India Mock Tests', 'desc' => 'Final touch-ups with national-level benchmarking and predicted AIR analysis.']
+    ];
+}
+
 $curriculum = json_decode($course['curriculum_json'] ?? '[]', true);
+if (empty($curriculum)) {
+    $curriculum = [
+        ['title' => 'Phase 1: Comprehensive Fundamentals', 'badge' => 'FOUNDATION', 'desc' => 'Initiation into core concepts with focus on higher-level problem solving.', 'topics' => 'Unit & Dimensions, Atomic Structure, Maths for Science', 'outcome_icon' => 'fas fa-bullseye', 'outcome_text' => 'Concept Clarity'],
+        ['title' => 'Phase 2: Intermediate Application', 'badge' => 'PRACTICE', 'desc' => 'Applying fundamental concepts to Level 1 and Level 2 problems.', 'topics' => 'Kinematics, Thermodynamics, Periodic Table', 'outcome_icon' => 'fas fa-bolt', 'outcome_text' => 'Problem Solving'],
+        ['title' => 'Phase 3: Rank Booster Mastery', 'badge' => 'RANKING', 'desc' => 'Mastering previous year questions and Level 3 problems.', 'topics' => 'Organic Chemistry, Calculus, Optics', 'outcome_icon' => 'fas fa-trophy', 'outcome_text' => 'Exam Readiness']
+    ];
+}
 ?>
 
 <!DOCTYPE html>
@@ -106,7 +150,11 @@ $curriculum = json_decode($course['curriculum_json'] ?? '[]', true);
         .repeater-item { background: white; border-radius: 10px; padding: 15px; margin-bottom: 10px; border: 1px solid #eee; position: relative; }
         .remove-btn { position: absolute; top: 10px; right: 10px; color: #dc3545; cursor: pointer; }
         .text-institutional-orange { color: #f7941d !important; }
+        /* Hide TinyMCE API Key Warning */
+        .tox-notifications-container { display: none !important; }
     </style>
+    <link rel="icon" type="image/png" href="../assets/images/favicon_new.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 <body>
 
@@ -164,11 +212,7 @@ $curriculum = json_decode($course['curriculum_json'] ?? '[]', true);
                                     </div>
                                 </div>
                                 <div class="row g-3 mb-3">
-                                    <div class="col-6">
-                                        <label class="small fw-bold text-muted text-uppercase mb-2">Target Year</label>
-                                        <input type="text" class="form-control premium-input border" name="target_year" value="<?php echo htmlspecialchars($course['target_year'] ?? ''); ?>">
-                                    </div>
-                                    <div class="col-6">
+                                    <div class="col-12">
                                         <label class="small fw-bold text-muted text-uppercase mb-2">Fees (&#x20B9;)</label>
                                          <?php 
                                          $display_fees = $course['fees'];
@@ -190,10 +234,6 @@ $curriculum = json_decode($course['curriculum_json'] ?? '[]', true);
                                     <label class="small fw-bold text-muted text-uppercase mb-2">Short Description</label>
                                     <textarea class="form-control premium-input border" name="description" rows="3" required><?php echo htmlspecialchars($course['description']); ?></textarea>
                                 </div>
-                                <div class="mb-3">
-                                    <label class="small fw-bold text-muted text-uppercase mb-2">Admission Eligibility</label>
-                                    <input type="text" class="form-control premium-input border" name="admission_eligibility" value="<?php echo htmlspecialchars($course['admission_eligibility'] ?? ''); ?>">
-                                </div>
                             </div>
 
                             <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
@@ -209,6 +249,32 @@ $curriculum = json_decode($course['curriculum_json'] ?? '[]', true);
                                 <div class="mb-3">
                                     <label class="small fw-bold text-muted text-uppercase mb-2">Medium</label>
                                     <input type="text" class="form-control premium-input border" name="medium" value="<?php echo htmlspecialchars($course['medium'] ?? 'English / Hindi'); ?>">
+                                </div>
+                            </div>
+
+                            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+                                <h5 class="fw-bold mb-4">Course Card Settings</h5>
+                                <div class="mb-4">
+                                    <label class="small fw-bold text-muted text-uppercase mb-2 d-block">Card Image</label>
+                                    <div class="p-3 bg-light rounded-3 border mb-2">
+                                        <small class="text-muted d-block mb-2">Current Image: <b><?php echo htmlspecialchars($course['card_image'] ?? 'None (Will use default fallback)'); ?></b></small>
+                                        <input type="file" class="form-control form-control-sm border-0 bg-white" name="card_image_upload">
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm premium-input border mt-2" name="card_image_text" placeholder="Or enter filename manually" value="<?php echo htmlspecialchars($course['card_image'] ?? ''); ?>">
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-6">
+                                        <label class="small fw-bold text-muted text-uppercase mb-2">Target Year</label>
+                                        <input type="text" class="form-control premium-input border" name="target_year" value="<?php echo htmlspecialchars($course['target_year'] ?? ''); ?>">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="small fw-bold text-muted text-uppercase mb-2">Admission Eligibility</label>
+                                        <input type="text" class="form-control premium-input border" name="admission_eligibility" value="<?php echo htmlspecialchars($course['admission_eligibility'] ?? ''); ?>">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="small fw-bold text-muted text-uppercase mb-2">Card Bullet Points (One per line)</label>
+                                    <textarea class="form-control premium-input border" name="card_features" rows="4" placeholder="e.g. Classroom learning with highly qualified faculty.&#10;Printed study material..."><?php echo htmlspecialchars($course['card_features'] ?? ''); ?></textarea>
                                 </div>
                             </div>
 
@@ -249,7 +315,7 @@ $curriculum = json_decode($course['curriculum_json'] ?? '[]', true);
                                 </div>
                             </div>
                             
-                            <button type="submit" class="btn btn-premium w-100 py-3 rounded-4 shadow-lg">
+                            <button type="submit" name="update_course" class="btn btn-premium w-100 py-3 rounded-4 shadow-lg">
                                 <i class="fas fa-save me-2"></i> SAVE ALL CHANGES
                             </button>
                         </div>
@@ -296,6 +362,9 @@ $curriculum = json_decode($course['curriculum_json'] ?? '[]', true);
         let curriculumData = <?php echo json_encode($curriculum); ?>;
 
         function renderExperience() {
+            if (typeof tinymce !== 'undefined') {
+                tinymce.remove('.rich-editor-experience');
+            }
             const container = document.getElementById('experience_container');
             container.innerHTML = '';
             experienceData.forEach((item, index) => {
@@ -325,12 +394,32 @@ $curriculum = json_decode($course['curriculum_json'] ?? '[]', true);
                                 <input type="text" class="form-control border-0 bg-light fw-bold" placeholder="Feature Title" value="${item.title}" onchange="handleTitleChange('experience', ${index}, this.value)">
                             </div>
                             <div class="col-12">
-                                <textarea class="form-control border-0 bg-light small" rows="2" placeholder="Description / Points (HTML supported)" onchange="updateItem('experience', ${index}, 'desc', this.value)">${item.desc}</textarea>
+                                <textarea id="exp_desc_${index}" class="form-control border-0 bg-light small rich-editor-experience" rows="2" placeholder="Description / Points">${item.desc}</textarea>
                             </div>
                         </div>
                     </div>
                 `;
             });
+            
+            if (typeof tinymce !== 'undefined') {
+                tinymce.init({
+                    selector: '.rich-editor-experience',
+                    menubar: true,
+                    plugins: 'lists link image media table code charmap',
+                    toolbar: 'code | bold italic underline strikethrough | bullist numlist | alignleft aligncenter alignright alignjustify | forecolor backcolor | link image media table charmap | removeformat',
+                    forced_root_block: false,
+                    setup: function (editor) {
+                        editor.on('change', function () {
+                            const index = editor.id.split('_')[2];
+                            updateItem('experience', parseInt(index), 'desc', editor.getContent());
+                        });
+                        editor.on('keyup', function () {
+                            const index = editor.id.split('_')[2];
+                            updateItem('experience', parseInt(index), 'desc', editor.getContent());
+                        });
+                    }
+                });
+            }
         }
 
         function renderRoadmap() {

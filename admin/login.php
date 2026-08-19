@@ -10,8 +10,8 @@ if (isset($_SESSION['admin_logged_in'])) {
 $error_msg = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
+    $username = trim($_POST['username'] ?? '');
+    $password = trim($_POST['password'] ?? '');
 
     if (!empty($username) && !empty($password)) {
         $stmt = $pdo->prepare("SELECT * FROM admin_users WHERE username = ?");
@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/admin-premium.css">
+    <link rel="icon" type="image/png" href="../assets/images/favicon_new.png">
 </head>
 <body class="login-screen">
 

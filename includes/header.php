@@ -6,6 +6,18 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // SEO Logic
 $current_page = basename($_SERVER['PHP_SELF'], ".php");
+
+// Fetch Global Settings
+try {
+    $stmt = $pdo->prepare("SELECT setting_value FROM site_settings WHERE setting_key = 'breadcrumb_bg_image'");
+    $stmt->execute();
+    $global_breadcrumb_bg = $stmt->fetchColumn();
+    if (!$global_breadcrumb_bg) {
+        $global_breadcrumb_bg = 'TopFront & side .png'; // Fallback
+    }
+} catch (PDOException $e) {
+    $global_breadcrumb_bg = 'TopFront & side .png'; // Fallback
+}
 $seo_title = "Ekalavya | Proven Results in IIT-JEE & NEET";
 $seo_desc = "Ekalavya is a premier offline coaching institute for IIT-JEE, NEET, and School Prep in Patna and Gaya. Achieve your dreams with our expert faculty and result-oriented approach.";
 
@@ -69,7 +81,8 @@ if ($current_page == 'courses' || $current_page == 'classroom-courses') {
             <div class="container d-flex justify-content-between align-items-center">
                 <div class="top-info small text-white">
                     <span class="me-4"><i class="fas fa-phone-alt fa-flip-horizontal me-2"></i> 9934244522</span>
-                    <span><i class="fas fa-envelope me-2"></i> info.ekalavyaeducation@gmail.com</span>
+                    <span class="me-4"><i class="fas fa-envelope me-2"></i> info.ekalavyaeducation@gmail.com</span>
+                    <span><i class="fas fa-envelope me-2"></i> infopatna@ekalavyaeducation.com</span>
                 </div>
                 <div class="top-socials small">
                     <a href="https://www.instagram.com/ekalavya.education/" target="_blank"
@@ -660,9 +673,14 @@ if ($current_page == 'courses' || $current_page == 'classroom-courses') {
                             <i class="fas fa-phone-alt fa-flip-horizontal me-3 text-orange"></i> 9934244522
                         </a>
                         <a href="mailto:info.ekalavyaeducation@gmail.com"
-                            class="btn btn-outline-dark rounded-pill d-flex align-items-center fw-bold shadow-sm py-2"
+                            class="btn btn-outline-dark rounded-pill d-flex align-items-center fw-bold shadow-sm py-2 mb-2"
                             style="font-size: 0.85rem;">
                             <i class="fas fa-envelope me-3 text-orange"></i> info.ekalavyaeducation@gmail.com
+                        </a>
+                        <a href="mailto:infopatna@ekalavyaeducation.com"
+                            class="btn btn-outline-dark rounded-pill d-flex align-items-center fw-bold shadow-sm py-2"
+                            style="font-size: 0.85rem;">
+                            <i class="fas fa-envelope me-3 text-orange"></i> infopatna@ekalavyaeducation.com
                         </a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center pt-4 px-4">

@@ -12,16 +12,34 @@ if (empty($active_tabs)) {
 ?>
 
 <!-- Premium Institutional Header (WOW Treatment) -->
-<section class="page-header wow-container overflow-hidden" style="background: url('assets/images/TopFront & side .png') center/100% 100% no-repeat; padding: 60px 0 !important; padding-left: 5px !important;">
+<section class="page-header wow-container overflow-hidden position-relative" style="background: url('assets/images/<?php echo htmlspecialchars($global_breadcrumb_bg); ?>') center/cover no-repeat; padding: clamp(40px, 8vh, 100px) 0 !important; padding-left: 5px !important;">
     <div class="wow-blob" style="top: -100px; left: -100px; background: radial-gradient(circle, rgba(247,148,29,0.2) 0%, transparent 70%);"></div>
     <div class="wow-blob" style="bottom: -100px; right: -100px; background: radial-gradient(circle, rgba(247,148,29,0.15) 0%, transparent 70%);"></div>
     
-    <div class="container text-center text-white position-relative">
-        <h6 class="text-primary fw-black tracking-widest mb-2 animate-up" style="font-size: clamp(0.55rem, 2.5vw, 0.7rem); letter-spacing: clamp(1px, 1vw, 3px); white-space: nowrap;">RECOGNISING TALENT • REWARDING MERIT</h6>
-        <h1 class="fw-black mb-0" style="font-size: clamp(2rem, 9vw, 4.5rem); line-height: 1.1;">SCHOLARSHIP <span class="text-primary d-block d-md-inline">PORTAL 2026</span></h1>
+    <!-- Invisible spacer exactly matching courses.php structure to force identical container height & background crop -->
+    <div class="container text-center" style="visibility: hidden;">
+        <h1 class="fw-black mb-0" style="font-size: clamp(2.2rem, 10vw, 4.5rem); line-height: 1.1;">SCHOLARSHIP <span class="d-block d-md-inline">PORTAL</span></h1>
+    </div>
+
+    <!-- Real content perfectly centered vertically within the exact same space -->
+    <div class="container text-center text-white position-absolute w-100" style="top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;">
+        <h6 class="text-primary fw-black tracking-widest mb-2" style="font-size: clamp(0.55rem, 2.5vw, 0.7rem); letter-spacing: clamp(1px, 1vw, 3px); white-space: nowrap;">RECOGNISING TALENT • REWARDING MERIT</h6>
+        <h1 class="fw-black mb-0" style="font-size: clamp(2.2rem, 10vw, 4.5rem); line-height: 1.1;">SCHOLARSHIP <span class="text-primary d-block d-md-inline">PORTAL 2026</span></h1>
     </div>
 </section>
 
+<?php 
+$requested_path = isset($_GET['path']) ? $_GET['path'] : '';
+$active_tab_index = 0;
+if ($requested_path) {
+    foreach($active_tabs as $idx => $t) {
+        if ($t['tab_slug'] === $requested_path) {
+            $active_tab_index = $idx;
+            break;
+        }
+    }
+}
+?>
 <!-- Main Portal Layout -->
 <main class="scholarship-portal py-6 bg-white">
     <div class="container">
@@ -33,7 +51,7 @@ if (empty($active_tabs)) {
                     <?php foreach($active_tabs as $index => $t): ?>
                     <!-- <?php echo $t['tab_name']; ?> Option -->
                     <div class="pathway-card-wrapper">
-                        <button class="pathway-wow-card <?php echo $index === 0 ? 'active' : ''; ?>" 
+                        <button class="pathway-wow-card <?php echo $index === $active_tab_index ? 'active' : ''; ?>" 
                                 id="btn-<?php echo $t['tab_slug']; ?>" 
                                 onclick="switchPathway('<?php echo $t['tab_slug']; ?>')" 
                                 data-theme="<?php echo $t['tab_theme']; ?>">
@@ -129,7 +147,7 @@ if (empty($active_tabs)) {
                     $is_esat_style = ($t['layout_type'] === 'accordion'); 
                 ?>
                 <!-- <?php echo $t['tab_name']; ?> Section -->
-                <div id="<?php echo $t['tab_slug']; ?>-content" class="pathway-content <?php echo $index === 0 ? '' : 'd-none'; ?>">
+                <div id="<?php echo $t['tab_slug']; ?>-content" class="pathway-content <?php echo $index === $active_tab_index ? '' : 'd-none'; ?>">
                     <div class="section-title mb-5 text-center text-lg-start">
                         <h2 class="fw-black text-dark h1"><?php echo $t['title']; ?></h2>
                         <?php if(!empty($t['subtitle'])): ?>
@@ -331,6 +349,23 @@ if (empty($active_tabs)) {
 </style>
 
 <script>
+// Prevent automatic scroll up on refresh
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
+// Restore scroll position
+document.addEventListener("DOMContentLoaded", function(event) { 
+    var scrollpos = sessionStorage.getItem('scrollpos_scholarship');
+    if (scrollpos) {
+        window.scrollTo(0, scrollpos);
+    }
+});
+
+window.addEventListener("beforeunload", function (e) {
+    sessionStorage.setItem('scrollpos_scholarship', window.scrollY);
+});
+
 function switchPathway(id) {
     // Buttons
     document.querySelectorAll('.pathway-wow-card').forEach(btn => btn.classList.remove('active'));
@@ -349,10 +384,17 @@ function switchPathway(id) {
 }
 
 window.onload = function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const path = urlParams.get('path');
-    if (path) {
-        switchPathway(path);
+    const activeBtn = document.querySelector('.pathway-wow-card.active');
+    if (activeBtn) {
+        const id = activeBtn.id.replace('btn-', '');
+        const regType = document.getElementById('regType');
+        if(regType) regType.value = id.toUpperCase();
+    }
+    
+    // Fallback for restoring scroll after load
+    var scrollpos = sessionStorage.getItem('scrollpos_scholarship');
+    if (scrollpos) {
+        window.scrollTo(0, scrollpos);
     }
 }
 </script>
